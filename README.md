@@ -9,7 +9,6 @@ This template extends the upstream Payload starter with everything a digital age
 - **Next.js 16 + Turbopack** — Uses the latest App Router features including `use cache` directives, on-demand revalidation, and React Server Components for fast, production-grade rendering.
 - **Optimized for Vercel** — Pre-configured for Vercel Postgres (`@payloadcms/db-vercel-postgres`), Vercel Blob Storage, and cron-based scheduled publishing. Deploys with zero additional infrastructure.
 - **Modern styling stack** — TailwindCSS v4, shadcn/ui components, and a centralized font config. All visual styling is intentionally minimal so you can adapt it to your own brand.
-- **MCP integration** — Ships with Model Context Protocol (MCP) servers pre-configured (shadcn, Neon, Figma, Next.js Devtools), so AI-assisted workflows work out of the box.
 - **Agency-ready collections** — Adds Customers, Technologies, Team Members, Testimonials, Services, Case Studies, Awards, Legal Pages, Demos, and Portfolio on top of the stock Pages, Posts, Media, and Categories.
 - **New layout blocks** — Testimonial, Logo Banner (customers or technologies), Stats, and Awards List blocks are ready to drop into any page via the Layout Builder.
 - **Expanded globals** — Header with configurable CTA buttons, Footer with link columns and social links, and a Site Settings global for contact info and branding.
