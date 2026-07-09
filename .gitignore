@@ -1,30 +1,73 @@
-build
-dist / media
-node_modules
-.DS_Store
-.env
-.next
-.vercel
+# ───────────────────────────────────────────────
+# Dependencies
+# ───────────────────────────────────────────────
+node_modules/
 
-# Payload default media upload directory
+# ───────────────────────────────────────────────
+# Next.js
+# ───────────────────────────────────────────────
+.next/
+dist/
+build/
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# ───────────────────────────────────────────────
+# Payload CMS
+# ───────────────────────────────────────────────
+src/app/(payload)/admin/importMap.js
 public/media/
 
-public/robots.txt
-public/sitemap*.xml
+# ───────────────────────────────────────────────
+# Environment & Secrets
+# ───────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+test.env
 
+# ───────────────────────────────────────────────
+# AI & Agentic Tooling (keep local-only)
+# ───────────────────────────────────────────────
+.cline/
+.clinerules
+memory-bank/
+.cursor/
+.cursorrules
+AGENTS.md
+prompt-logs/
+repomix-output.xml
+repomix.config.json
+.repomixignore
 
-# Playwright
-node_modules/
+# ───────────────────────────────────────────────
+# Internal Documentation
+# ───────────────────────────────────────────────
+docs/
+*.todo
+*.scratch.md
+
+# ───────────────────────────────────────────────
+# Vercel
+# ───────────────────────────────────────────────
+.vercel
+
+# ───────────────────────────────────────────────
+# OS
+# ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ───────────────────────────────────────────────
+# Testing / Playwright
+# ───────────────────────────────────────────────
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 
-# tsbuildinfo
-tsconfig.tsbuildinfo
-
-# https://nextjs.org/docs/app/api-reference/config/typescript#next-envdts
-next-env.d.ts
-
-
-src/app/(payload)/admin/importMap.js
+# ───────────────────────────────────────────────
+# Generated sitemaps & robots (built at deploy)
+# ───────────────────────────────────────────────
+public/robots.txt
+public/sitemap*.xml
