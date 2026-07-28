@@ -10,16 +10,16 @@ import {
 import { revalidateTag } from 'next/cache'
 
 import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { hasRole } from '@/access/hasRole'
 import { slugField } from 'payload'
 
 export const LegalPages: CollectionConfig = {
   slug: 'legal-pages',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
     read: anyone,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   admin: {
     defaultColumns: ['title', 'slug', 'lastUpdated'],

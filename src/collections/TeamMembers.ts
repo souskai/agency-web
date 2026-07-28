@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { revalidateTag } from 'next/cache'
 
 import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { hasRole } from '@/access/hasRole'
 
 const socialPlatforms = [
   { label: 'LinkedIn', value: 'linkedin' },
@@ -16,10 +16,10 @@ const socialPlatforms = [
 export const TeamMembers: CollectionConfig = {
   slug: 'team-members',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
     read: anyone,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   admin: {
     defaultColumns: ['name', 'role', 'sortOrder'],

@@ -9,7 +9,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
-import { authenticated } from '@/access/authenticated'
+import { hasRole } from '@/access/hasRole'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { Banner } from '@/blocks/Banner/config'
 import { Code } from '@/blocks/Code/config'
@@ -42,10 +42,10 @@ const serviceIconOptions = [
 export const Services: CollectionConfig<'services'> = {
   slug: 'services',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
     read: authenticatedOrPublished,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],

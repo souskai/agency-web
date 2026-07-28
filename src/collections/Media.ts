@@ -7,16 +7,17 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { anyone } from '../access/anyone'
-import { authenticated } from '../access/authenticated'
+import { hasRole } from '../access/hasRole'
 
 export const Media: CollectionConfig = {
   slug: 'media',
   folders: true,
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
+    // Public images must remain readable by anyone (used on the live site).
     read: anyone,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   fields: [
     {

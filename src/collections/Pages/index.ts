@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '../../access/authenticated'
+import { hasRole } from '../../access/hasRole'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { AwardsList } from '../../blocks/AwardsList/config'
@@ -28,10 +28,13 @@ import {
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
+    // `authenticatedOrPublished` returns everything to any logged-in user
+    // (including the `viewer` role used for client demos) and only published
+    // docs to anonymous visitors — exactly what we want.
     read: authenticatedOrPublished,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   // This config controls what's populated by default when a page is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property

@@ -3,15 +3,15 @@ import type { CollectionConfig } from 'payload'
 import { revalidateTag } from 'next/cache'
 
 import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { hasRole } from '@/access/hasRole'
 
 export const Customers: CollectionConfig = {
   slug: 'customers',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
     read: anyone,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   admin: {
     defaultColumns: ['name', 'featured', 'sortOrder'],

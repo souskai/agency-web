@@ -10,7 +10,7 @@ import {
 import { revalidateTag } from 'next/cache'
 
 import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { hasRole } from '@/access/hasRole'
 import { slugField } from 'payload'
 
 const demoTypeOptions = [
@@ -29,10 +29,10 @@ const statusOptions = [
 export const Demos: CollectionConfig = {
   slug: 'demos',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
     read: anyone,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   admin: {
     defaultColumns: ['title', 'demoType', 'status', 'sortOrder'],

@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { revalidateTag } from 'next/cache'
 
 import { anyone } from '@/access/anyone'
-import { authenticated } from '@/access/authenticated'
+import { hasRole } from '@/access/hasRole'
 import { slugField } from 'payload'
 
 const mediaTypeOptions = [
@@ -15,10 +15,10 @@ const mediaTypeOptions = [
 export const Portfolio: CollectionConfig = {
   slug: 'portfolio',
   access: {
-    create: authenticated,
-    delete: authenticated,
+    create: hasRole(['admin', 'editor']),
+    delete: hasRole(['admin', 'editor']),
     read: anyone,
-    update: authenticated,
+    update: hasRole(['admin', 'editor']),
   },
   admin: {
     defaultColumns: ['title', 'mediaType', 'featured', 'publishedAt'],
