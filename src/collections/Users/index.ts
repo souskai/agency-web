@@ -69,7 +69,7 @@ export const Users: CollectionConfig = {
     tokenExpiration: 60 * 60 * 24 * 7, // 7 days
     cookies: {
       sameSite: 'Lax',
-      secure: false, // Set to true in production (HTTPS)
+      secure: process.env.NODE_ENV === 'production',
     },
     forgotPassword: {
       // Branded HTML for the password-reset email. The default Payload
