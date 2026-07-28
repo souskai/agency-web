@@ -1,11 +1,6 @@
 import type { Metadata } from 'next'
 
-import {
-  fontMono,
-  fontMonoVariable,
-  fontSans,
-  fontSansVariable,
-} from '@/config/fonts'
+import { fontDisplay, fontMono, fontSans } from '@/config/fonts'
 import { cn } from '@/utilities/ui'
 import React, { Suspense } from 'react'
 
@@ -20,13 +15,7 @@ import { getServerSideURL } from '@/utilities/getURL'
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={cn(fontSans.variable, fontMono.variable)}
-      style={
-        {
-          '--font-sans': `var(${fontSansVariable})`,
-          '--font-mono': `var(${fontMonoVariable})`,
-        } as React.CSSProperties
-      }
+      className={cn(fontSans.variable, fontDisplay.variable, fontMono.variable)}
       lang="en"
       suppressHydrationWarning
     >
