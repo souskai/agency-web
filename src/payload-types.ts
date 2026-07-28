@@ -464,6 +464,10 @@ export interface Category {
 export interface User {
   id: number;
   name?: string | null;
+  /**
+   * Admin = full access. Editor = manage content. Viewer = read-only (client demo accounts).
+   */
+  roles?: ('admin' | 'editor' | 'viewer')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -2189,6 +2193,7 @@ export interface PortfolioSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

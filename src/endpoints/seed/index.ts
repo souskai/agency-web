@@ -150,7 +150,9 @@ export const seed = async ({
         name: 'Demo Author',
         email: 'demo-author@example.com',
         password: 'password',
+        roles: ['admin'],
       },
+      draft: false,
     }),
     payload.create({
       collection: 'media',
@@ -213,15 +215,14 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding technologies...`)
 
-  const techEntries: { name: string; category: 'framework' | 'platform' | 'tool' | 'partner' }[] =
-    [
-      { name: 'Next.js', category: 'framework' },
-      { name: 'React', category: 'framework' },
-      { name: 'Payload CMS', category: 'platform' },
-      { name: 'Vercel', category: 'platform' },
-      { name: 'Figma', category: 'tool' },
-      { name: 'TypeScript', category: 'tool' },
-    ]
+  const techEntries: { name: string; category: 'framework' | 'platform' | 'tool' | 'partner' }[] = [
+    { name: 'Next.js', category: 'framework' },
+    { name: 'React', category: 'framework' },
+    { name: 'Payload CMS', category: 'platform' },
+    { name: 'Vercel', category: 'platform' },
+    { name: 'Figma', category: 'tool' },
+    { name: 'TypeScript', category: 'tool' },
+  ]
 
   await Promise.all(
     techEntries.map((t, i) =>
@@ -341,11 +342,31 @@ export const seed = async ({
   payload.logger.info(`— Seeding team members...`)
 
   const teamData = [
-    { name: 'Alex Morgan', role: 'Creative Director', bio: 'Leads the design vision with 12 years of brand and digital experience.' },
-    { name: 'Jordan Lee', role: 'Lead Engineer', bio: 'Full-stack engineer specialising in React, Node.js, and cloud infrastructure.' },
-    { name: 'Priya Sharma', role: 'UX Researcher', bio: 'Turns user insights into actionable design decisions through qualitative and quantitative research.' },
-    { name: 'Sam Torres', role: 'Project Manager', bio: 'Keeps projects on track, on budget, and aligned with client goals.' },
-    { name: 'Taylor Kim', role: 'Motion Designer', bio: 'Creates compelling animations and interactive experiences for web and mobile.' },
+    {
+      name: 'Alex Morgan',
+      role: 'Creative Director',
+      bio: 'Leads the design vision with 12 years of brand and digital experience.',
+    },
+    {
+      name: 'Jordan Lee',
+      role: 'Lead Engineer',
+      bio: 'Full-stack engineer specialising in React, Node.js, and cloud infrastructure.',
+    },
+    {
+      name: 'Priya Sharma',
+      role: 'UX Researcher',
+      bio: 'Turns user insights into actionable design decisions through qualitative and quantitative research.',
+    },
+    {
+      name: 'Sam Torres',
+      role: 'Project Manager',
+      bio: 'Keeps projects on track, on budget, and aligned with client goals.',
+    },
+    {
+      name: 'Taylor Kim',
+      role: 'Motion Designer',
+      bio: 'Creates compelling animations and interactive experiences for web and mobile.',
+    },
   ]
 
   await Promise.all(
@@ -369,23 +390,47 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding services...`)
 
-  type ServiceIcon = 'brain' | 'code' | 'palette' | 'layout' | 'megaphone' | 'rocket' | 'shield' | 'zap' | 'globe' | 'smartphone'
+  type ServiceIcon =
+    | 'brain'
+    | 'code'
+    | 'palette'
+    | 'layout'
+    | 'megaphone'
+    | 'rocket'
+    | 'shield'
+    | 'zap'
+    | 'globe'
+    | 'smartphone'
 
-  const servicesData: { title: string; slug: string; summary: string; icon: ServiceIcon; features: { title: string; description: string }[] }[] = [
+  const servicesData: {
+    title: string
+    slug: string
+    summary: string
+    icon: ServiceIcon
+    features: { title: string; description: string }[]
+  }[] = [
     {
       title: 'Digital Strategy',
       slug: 'digital-strategy',
-      summary: 'Data-driven strategies that align business goals with user needs and market opportunities.',
+      summary:
+        'Data-driven strategies that align business goals with user needs and market opportunities.',
       icon: 'brain',
       features: [
-        { title: 'Market Research', description: 'Competitive analysis and user persona development.' },
-        { title: 'Roadmap Planning', description: 'Phased delivery plans tied to measurable KPIs.' },
+        {
+          title: 'Market Research',
+          description: 'Competitive analysis and user persona development.',
+        },
+        {
+          title: 'Roadmap Planning',
+          description: 'Phased delivery plans tied to measurable KPIs.',
+        },
       ],
     },
     {
       title: 'UX/UI Design',
       slug: 'ux-ui-design',
-      summary: 'Human-centred design systems and interfaces that delight users and drive engagement.',
+      summary:
+        'Human-centred design systems and interfaces that delight users and drive engagement.',
       icon: 'palette',
       features: [
         { title: 'Design Systems', description: 'Scalable component libraries and design tokens.' },
@@ -421,7 +466,9 @@ export const seed = async ({
         content: lexRichText([
           lexHeading(s.title),
           lexParagraph(s.summary),
-          lexParagraph('Our team brings deep expertise and a proven track record to every engagement. We work collaboratively with your stakeholders to ensure the solution meets real-world needs.'),
+          lexParagraph(
+            'Our team brings deep expertise and a proven track record to every engagement. We work collaboratively with your stakeholders to ensure the solution meets real-world needs.',
+          ),
         ]),
         sortOrder: servicesData.indexOf(s) + 1,
       },
@@ -446,7 +493,8 @@ export const seed = async ({
         { metric: 'User Satisfaction', value: '94%' },
       ],
       testimonial: {
-        quote: 'The new platform exceeded all our expectations and paid for itself within three months.',
+        quote:
+          'The new platform exceeded all our expectations and paid for itself within three months.',
         authorName: 'Sarah Chen',
         authorRole: 'VP of Product',
       },
@@ -485,9 +533,13 @@ export const seed = async ({
           lexHeading(cs.title),
           lexParagraph(cs.summary),
           lexHeading('The Challenge', 'h3'),
-          lexParagraph('The client needed a modern, scalable solution that could serve millions of users while maintaining brand consistency across every touchpoint.'),
+          lexParagraph(
+            'The client needed a modern, scalable solution that could serve millions of users while maintaining brand consistency across every touchpoint.',
+          ),
           lexHeading('Our Approach', 'h3'),
-          lexParagraph('We combined research-driven strategy with iterative design and agile development to deliver measurable results within a tight timeline.'),
+          lexParagraph(
+            'We combined research-driven strategy with iterative design and agile development to deliver measurable results within a tight timeline.',
+          ),
         ]),
       },
     })
@@ -505,11 +557,17 @@ export const seed = async ({
       slug: 'privacy-policy',
       content: lexRichText([
         lexHeading('Privacy Policy'),
-        lexParagraph('This is a placeholder privacy policy. Replace this content with your actual privacy policy before going live.'),
+        lexParagraph(
+          'This is a placeholder privacy policy. Replace this content with your actual privacy policy before going live.',
+        ),
         lexHeading('Data We Collect', 'h3'),
-        lexParagraph('We collect only the data necessary to provide our services, including contact information submitted through forms.'),
+        lexParagraph(
+          'We collect only the data necessary to provide our services, including contact information submitted through forms.',
+        ),
         lexHeading('How We Use Your Data', 'h3'),
-        lexParagraph('Your data is used solely for the purpose for which it was collected and is never sold to third parties.'),
+        lexParagraph(
+          'Your data is used solely for the purpose for which it was collected and is never sold to third parties.',
+        ),
       ]),
     },
     {
@@ -517,9 +575,13 @@ export const seed = async ({
       slug: 'terms-of-service',
       content: lexRichText([
         lexHeading('Terms of Service'),
-        lexParagraph('This is a placeholder terms of service. Replace this content with your actual terms before going live.'),
+        lexParagraph(
+          'This is a placeholder terms of service. Replace this content with your actual terms before going live.',
+        ),
         lexHeading('Acceptable Use', 'h3'),
-        lexParagraph('By using this website, you agree to use it in a lawful manner and in accordance with these terms.'),
+        lexParagraph(
+          'By using this website, you agree to use it in a lawful manner and in accordance with these terms.',
+        ),
       ]),
     },
     {
@@ -527,7 +589,9 @@ export const seed = async ({
       slug: 'cookie-policy',
       content: lexRichText([
         lexHeading('Cookie Policy'),
-        lexParagraph('This site uses only strictly necessary cookies for admin authentication. No tracking or analytics cookies are set for public visitors.'),
+        lexParagraph(
+          'This site uses only strictly necessary cookies for admin authentication. No tracking or analytics cookies are set for public visitors.',
+        ),
       ]),
     },
   ]
@@ -555,7 +619,8 @@ export const seed = async ({
     {
       title: 'AI Chatbot Assistant',
       slug: 'ai-chatbot-assistant',
-      summary: 'An intelligent chatbot that answers product questions and guides users through the sales funnel.',
+      summary:
+        'An intelligent chatbot that answers product questions and guides users through the sales funnel.',
       demoType: 'chatbot' as const,
       status: 'active' as const,
     },
@@ -569,7 +634,8 @@ export const seed = async ({
     {
       title: 'Automated Onboarding Workflow',
       slug: 'automated-onboarding-workflow',
-      summary: 'An N8N-powered workflow that automates client onboarding from form submission to project kickoff.',
+      summary:
+        'An N8N-powered workflow that automates client onboarding from form submission to project kickoff.',
       demoType: 'workflow' as const,
       status: 'coming-soon' as const,
     },
@@ -588,10 +654,7 @@ export const seed = async ({
           status: demo.status,
           coverImage: image2Doc.id,
           sortOrder: i + 1,
-          content: lexRichText([
-            lexHeading(demo.title),
-            lexParagraph(demo.summary),
-          ]),
+          content: lexRichText([lexHeading(demo.title), lexParagraph(demo.summary)]),
         },
       }),
     ),
@@ -608,28 +671,32 @@ export const seed = async ({
       title: 'Globex Annual Report 2024',
       slug: 'globex-annual-report-2024',
       mediaType: 'editorial' as const,
-      description: 'A digital-first annual report combining data visualisation with immersive storytelling.',
+      description:
+        'A digital-first annual report combining data visualisation with immersive storytelling.',
       featured: true,
     },
     {
       title: 'Umbrella Dashboard UI',
       slug: 'umbrella-dashboard-ui',
       mediaType: 'image' as const,
-      description: 'A real-time analytics dashboard designed for pharmaceutical supply chain monitoring.',
+      description:
+        'A real-time analytics dashboard designed for pharmaceutical supply chain monitoring.',
       featured: true,
     },
     {
       title: 'Stark Brand Film',
       slug: 'stark-brand-film',
       mediaType: 'video' as const,
-      description: 'A 90-second brand film showcasing innovation across the Stark product ecosystem.',
+      description:
+        'A 90-second brand film showcasing innovation across the Stark product ecosystem.',
       featured: false,
     },
     {
       title: 'Wayne Analytics Platform',
       slug: 'wayne-analytics-platform',
       mediaType: 'image' as const,
-      description: 'End-to-end redesign of a financial analytics platform serving 50K+ daily active users.',
+      description:
+        'End-to-end redesign of a financial analytics platform serving 50K+ daily active users.',
       featured: true,
     },
   ]
@@ -748,7 +815,9 @@ export const seed = async ({
           },
         ],
         ctaButtons: [
-          { link: { type: 'custom', appearance: 'default', label: 'Get a Quote', url: '/contact' } },
+          {
+            link: { type: 'custom', appearance: 'default', label: 'Get a Quote', url: '/contact' },
+          },
         ],
       },
     }),
@@ -777,9 +846,23 @@ export const seed = async ({
           {
             heading: 'Legal',
             links: [
-              { link: { type: 'custom', label: 'Privacy Policy', url: '/legal-pages/privacy-policy' } },
-              { link: { type: 'custom', label: 'Terms of Service', url: '/legal-pages/terms-of-service' } },
-              { link: { type: 'custom', label: 'Cookie Policy', url: '/legal-pages/cookie-policy' } },
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Privacy Policy',
+                  url: '/legal-pages/privacy-policy',
+                },
+              },
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Terms of Service',
+                  url: '/legal-pages/terms-of-service',
+                },
+              },
+              {
+                link: { type: 'custom', label: 'Cookie Policy', url: '/legal-pages/cookie-policy' },
+              },
             ],
           },
           {
@@ -810,7 +893,8 @@ export const seed = async ({
     slug: 'site-settings',
     data: {
       siteName: 'Agency Name',
-      siteDescription: 'A full-service digital agency delivering strategy, design, and engineering.',
+      siteDescription:
+        'A full-service digital agency delivering strategy, design, and engineering.',
       contactEmail: 'hello@agency.example',
       contactPhone: '+1 (555) 123-4567',
       address: '123 Innovation Drive\nSan Francisco, CA 94105',

@@ -1,4 +1,5 @@
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -110,6 +111,14 @@ export default buildConfig({
     Users,
   ],
   cors: [getServerSideURL()].filter(Boolean),
+  email: resendAdapter({
+    // Resend's testing domain works out-of-the-box for development.
+    // Once you verify your production domain in the Resend dashboard, swap
+    // this to e.g. 'noreply@yourdomain.com'.
+    defaultFromAddress: process.env.RESEND_FROM_ADDRESS || 'onboarding@resend.dev',
+    defaultFromName: process.env.RESEND_FROM_NAME || 'Agency Admin',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   globals: [Header, Footer, SiteSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
