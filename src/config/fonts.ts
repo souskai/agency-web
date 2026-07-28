@@ -1,19 +1,29 @@
 // src/config/fonts.ts
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
+import { Geist_Mono, Inter, Space_Grotesk } from 'next/font/google'
 
 /**
- * Sans font — used as font-sans across the app (html applies font-sans).
- * Swap this per client to change the primary UI font.
+ * Sans font — Inter, used for body text, UI elements, paragraphs, nav.
  */
-export const fontSans = GeistSans
+export const fontSans = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 /**
- * Mono font — used as font-mono.
- * Rarely changes.
+ * Display font — Space Grotesk, used for headings, hero text, section titles, stats.
  */
-export const fontMono = GeistMono
+export const fontDisplay = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  display: 'swap',
+})
 
-/** CSS variable names injected by the font loaders. Used to map Tailwind font-sans/font-mono. */
-export const fontSansVariable = '--font-geist-sans'
-export const fontMonoVariable = '--font-geist-mono'
+/**
+ * Mono font — Geist Mono, used for code blocks, technical labels, metadata.
+ */
+export const fontMono = Geist_Mono({
+  subsets: ['latin'],
+  variable: '--font-geist-mono',
+  display: 'swap',
+})
