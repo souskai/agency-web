@@ -5,31 +5,27 @@ import React from 'react'
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
-import { ThemeToggle } from '@/components/ThemeToggle'
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from '@/components/ui/navigation-menu'
+import Link from 'next/link'
+import { SearchIcon } from 'lucide-react'
 
-export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
+import { prefixWithLocale } from '@/i18n/locale'
+import type { Locale } from '@/i18n/config'
+
+export const HeaderNav: React.FC<{ data: HeaderType; locale?: Locale }> = ({
+  data,
+  locale = 'en',
+}) => {
   const navItems = data?.navItems || []
 
   return (
-    <NavigationMenu>
-      <NavigationMenuList className="gap-1">
-        {navItems.map(({ link }, i) => (
-          <NavigationMenuItem key={i}>
-            <NavigationMenuLink asChild>
-              <CMSLink {...link} appearance="link" />
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        ))}
-        <NavigationMenuItem>
-          <ThemeToggle />
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <nav className="flex gap-3 items-center">
+      {navItems.map(({ link }, i) => {
+        return <CMSLink key={i} {...link} appearance="link" />
+      })}
+      <Link href={prefixWithLocale('/search', locale)}>
+        <span className="sr-only">Search</span>
+        <SearchIcon className="w-5 text-primary" />
+      </Link>
+    </nav>
   )
 }
