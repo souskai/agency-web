@@ -33,6 +33,7 @@ export const plugins: Plugin[] = [
     token: process.env.BLOB_READ_WRITE_TOKEN,
     // Client uploads bypass Vercel's 4.5MB server upload limit (recommended for Vercel)
     clientUploads: true,
+    addRandomSuffix: true,
   }),
   redirectsPlugin({
     collections: ['pages', 'posts', 'services', 'case-studies'],
