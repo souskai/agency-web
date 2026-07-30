@@ -24,12 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body className="pt-20">
+      <body>
         <Providers>
           <Suspense fallback={null}>
             <AdminBarWrapper />
           </Suspense>
-          {children}
+          <div className="pt-20">{children}</div>
         </Providers>
       </body>
     </html>

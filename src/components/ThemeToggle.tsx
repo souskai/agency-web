@@ -1,10 +1,15 @@
 'use client'
 
 import { useTheme } from '@/providers/Theme'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const ThemeToggle: React.FC = () => {
   const { setTheme, theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark')
@@ -18,9 +23,9 @@ export const ThemeToggle: React.FC = () => {
       type="button"
     >
       <span
-        className={`inline-block h-5 w-5 transform rounded-full bg-background shadow-lg ring-0 transition-transform ${theme === 'dark' ? 'translate-x-5' : 'translate-x-0'}`}
+        className={`inline-block h-5 w-5 transform rounded-full bg-background shadow-lg ring-0 transition-transform ${mounted && theme === 'dark' ? 'translate-x-5' : 'translate-x-0'}`}
       >
-        {theme === 'dark' ? (
+        {mounted && theme === 'dark' ? (
           <svg
             className="h-full w-full p-0.5 text-foreground"
             fill="none"
