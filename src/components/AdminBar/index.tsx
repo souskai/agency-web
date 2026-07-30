@@ -8,8 +8,6 @@ import { PayloadAdminBar } from '@payloadcms/admin-bar'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-import './index.scss'
-
 import { getClientSideURL } from '@/utilities/getURL'
 
 const baseClass = 'admin-bar'
@@ -48,7 +46,7 @@ export const AdminBar: React.FC<{
 
   return (
     <div
-      className={cn(baseClass, 'sticky top-0 z-50 py-2 bg-black text-white', {
+      className={cn(baseClass, 'sticky top-0 z-50 py-2 bg-black text-white hidden sm:block', {
         block: show,
         hidden: !show,
       })}
