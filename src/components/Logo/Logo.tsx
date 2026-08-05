@@ -8,10 +8,7 @@ interface Props {
 }
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
-
-  const loading = loadingFromProps || 'lazy'
-  const priority = priorityFromProps || 'low'
+  const { className } = props
 
   return (
     <div className={clsx('flex items-center gap-2 max-w-56.25 w-full h-12.75', className)}>
