@@ -24,18 +24,14 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
       <div className="container py-8 flex flex-col gap-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-8">
           <Link className="flex items-center shrink-0" href={homeHref}>
-            <Logo />
+            <Logo className="invert" />
           </Link>
 
           {columns.length > 0 && (
             <nav className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
               {columns.map((column, colIndex) => (
                 <div key={colIndex} className="flex flex-col gap-3">
-                  {column.heading && (
-                    <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                      {column.heading}
-                    </span>
-                  )}
+                  {column.heading && <span className="label">{column.heading}</span>}
                   <ul className="flex flex-col gap-2">
                     {column.links?.map((item, i) => (
                       <li key={i}>
@@ -71,9 +67,7 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
         </div>
 
         {legalLine && (
-          <p className="text-sm text-muted-foreground border-t border-border pt-6">
-            {legalLine}
-          </p>
+          <p className="text-sm text-muted-foreground border-t border-border pt-6">{legalLine}</p>
         )}
       </div>
     </footer>
