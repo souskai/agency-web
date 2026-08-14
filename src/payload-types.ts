@@ -181,7 +181,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'heroGrid' | 'mediumImpact' | 'lowImpact';
     richText?: {
       root: {
         type: string;
@@ -233,6 +233,14 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
+    /**
+     * Small label above the headline (Hero Grid only).
+     */
+    eyebrow?: string | null;
+    /**
+     * Short paragraph in the right column (Hero Grid only).
+     */
+    description?: string | null;
     media?: (number | null) | Media;
   };
   layout: (
@@ -1685,6 +1693,8 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        eyebrow?: T;
+        description?: T;
         media?: T;
       };
   layout?:

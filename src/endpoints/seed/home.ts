@@ -87,17 +87,26 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
         { richText: richRoot([heading('What We Do')]), size: 'full' },
         {
           enableLink: false,
-          richText: richRoot([heading('Strategy', 'h3'), paragraph('Research-driven strategies that align business goals with user needs.')]),
+          richText: richRoot([
+            heading('Strategy', 'h3'),
+            paragraph('Research-driven strategies that align business goals with user needs.'),
+          ]),
           size: 'oneThird',
         },
         {
           enableLink: false,
-          richText: richRoot([heading('Design', 'h3'), paragraph('Human-centred design systems and interfaces that delight users.')]),
+          richText: richRoot([
+            heading('Design', 'h3'),
+            paragraph('Human-centred design systems and interfaces that delight users.'),
+          ]),
           size: 'oneThird',
         },
         {
           enableLink: false,
-          richText: richRoot([heading('Engineering', 'h3'), paragraph('Robust, scalable code built with modern frameworks and best practices.')]),
+          richText: richRoot([
+            heading('Engineering', 'h3'),
+            paragraph('Robust, scalable code built with modern frameworks and best practices.'),
+          ]),
           size: 'oneThird',
         },
       ],
@@ -142,7 +151,14 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       blockName: 'CTA',
       blockType: 'cta',
       links: [
-        { link: { type: 'custom', appearance: 'default', label: 'Start a Project', url: '/contact' } },
+        {
+          link: {
+            type: 'custom',
+            appearance: 'default',
+            label: 'Start a Project',
+            url: '/contact',
+          },
+        },
       ],
       richText: richRoot([
         heading('Ready to Work Together?', 'h3'),
@@ -155,17 +171,23 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
     slug: 'home',
     _status: 'published',
     hero: {
-      type: 'highImpact',
+      type: 'heroGrid',
       links: [
-        { link: { type: 'custom', appearance: 'default', label: 'Our Work', url: '/posts' } },
-        { link: { type: 'custom', appearance: 'outline', label: 'Contact Us', url: '/contact' } },
+        { link: { type: 'custom', appearance: 'default', label: 'See Portfolio', url: '/posts' } },
+        {
+          link: {
+            type: 'custom',
+            appearance: 'outline',
+            label: 'Get a free consultation',
+            url: '/contact',
+          },
+        },
       ],
-      media: heroImage.id,
+      eyebrow: 'Leading Digital Agency',
+      description:
+        'Souskai Digital helps ambitious brands design, build, and scale digital experiences that drive real results \u2014 from web and SEO to AI-powered marketing.',
       richText: richRoot([
-        heading('We Build Digital Experiences', 'h1'),
-        paragraph(
-          'A full-service digital agency delivering strategy, design, and engineering. This site is powered by Payload CMS and Next.js.',
-        ),
+        heading('Turning strategy, creativity, and data into measurable business growth', 'h1'),
       ]),
     },
     layout,
