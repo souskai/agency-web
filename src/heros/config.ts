@@ -28,6 +28,10 @@ export const hero: Field = {
           value: 'highImpact',
         },
         {
+          label: 'Hero Grid',
+          value: 'heroGrid',
+        },
+        {
           label: 'Medium Impact',
           value: 'mediumImpact',
         },
@@ -58,6 +62,24 @@ export const hero: Field = {
         maxRows: 2,
       },
     }),
+    {
+      name: 'eyebrow',
+      type: 'text',
+      admin: {
+        condition: (_, { type } = {}) => type === 'heroGrid',
+        description: 'Small label above the headline (Hero Grid only).',
+      },
+      label: 'Eyebrow',
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      admin: {
+        condition: (_, { type } = {}) => type === 'heroGrid',
+        description: 'Short paragraph in the right column (Hero Grid only).',
+      },
+      label: 'Description',
+    },
     {
       name: 'media',
       type: 'upload',
