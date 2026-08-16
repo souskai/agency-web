@@ -4,6 +4,7 @@ import { hasRole } from '../../access/hasRole'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { AwardsList } from '../../blocks/AwardsList/config'
+import { ContentColumns } from '../../blocks/ContentColumns/config'
 import { FaqAccordion } from '../../blocks/FaqAccordion/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { LogoBanner } from '../../blocks/LogoBanner/config'
@@ -81,6 +82,7 @@ export const Pages: CollectionConfig<'pages'> = {
               blocks: [
                 Archive,
                 AwardsList,
+                ContentColumns,
                 FaqAccordion,
                 FormBlock,
                 LogoBanner,
