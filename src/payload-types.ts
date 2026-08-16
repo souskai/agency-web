@@ -249,6 +249,7 @@ export interface Page {
     | CallToActionCenteredBlock
     | ContentColumnsBlock
     | FaqAccordionBlock
+    | FeatureBentoBlock
     | FeatureGridBasicBlock
     | FeatureStepsBlock
     | FormBlock
@@ -259,7 +260,7 @@ export interface Page {
     | StatsGridBlock
     | TeamGridBlock
     | TestimonialBlock
-    | FeatureBentoBlock
+    | ComparatorGridBlock
   )[];
   meta?: {
     title?: string | null;
@@ -961,6 +962,62 @@ export interface FaqAccordionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureBentoBlock".
+ */
+export interface FeatureBentoBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  /**
+   * The first item leads the grid as the featured cell.
+   */
+  items: {
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureBento';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FeatureGridBasicBlock".
  */
 export interface FeatureGridBasicBlock {
@@ -1489,59 +1546,81 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureBentoBlock".
+ * via the `definition` "ComparatorGridBlock".
  */
-export interface FeatureBentoBlock {
-  eyebrow?: string | null;
-  title: string;
+export interface ComparatorGridBlock {
+  title?: string | null;
   description?: string | null;
-  /**
-   * The first item leads the grid as the featured cell.
-   */
-  items: {
-    title: string;
-    description: string;
+  plans: {
+    name: string;
+    price?: string | null;
+    /**
+     * Shown next to the price, e.g. "/month".
+     */
+    period?: string | null;
+    /**
+     * Optional pill above the plan name, e.g. "Most popular".
+     */
+    badge?: string | null;
+    /**
+     * Tints this column to draw the eye to the recommended plan.
+     */
+    highlighted?: boolean | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'services';
+                  value: number | Service;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: number | CaseStudy;
+                } | null)
+              | ({
+                  relationTo: 'legal-pages';
+                  value: number | LegalPage;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     id?: string | null;
   }[];
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'services';
-                value: number | Service;
-              } | null)
-            | ({
-                relationTo: 'case-studies';
-                value: number | CaseStudy;
-              } | null)
-            | ({
-                relationTo: 'legal-pages';
-                value: number | LegalPage;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  features: {
+    feature: string;
+    /**
+     * One cell per plan, in the same order as Plans. Tick "included" for a checkmark, or set a label for a text value.
+     */
+    values?:
+      | {
+          included?: boolean | null;
+          label?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'featureBento';
+  blockType: 'comparatorGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2038,6 +2117,7 @@ export interface PagesSelect<T extends boolean = true> {
         callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
         contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
+        featureBento?: T | FeatureBentoBlockSelect<T>;
         featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
         featureSteps?: T | FeatureStepsBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
@@ -2048,7 +2128,7 @@ export interface PagesSelect<T extends boolean = true> {
         statsGrid?: T | StatsGridBlockSelect<T>;
         teamGrid?: T | TeamGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        featureBento?: T | FeatureBentoBlockSelect<T>;
+        comparatorGrid?: T | ComparatorGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -2157,6 +2237,39 @@ export interface FaqAccordionBlockSelect<T extends boolean = true> {
     | {
         question?: T;
         answer?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureBentoBlock_select".
+ */
+export interface FeatureBentoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
         id?: T;
       };
   links?:
@@ -2397,31 +2510,46 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureBentoBlock_select".
+ * via the `definition` "ComparatorGridBlock_select".
  */
-export interface FeatureBentoBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
+export interface ComparatorGridBlockSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  items?:
+  plans?:
     | T
     | {
-        title?: T;
-        description?: T;
-        id?: T;
-      };
-  links?:
-    | T
-    | {
-        link?:
+        name?: T;
+        price?: T;
+        period?: T;
+        badge?: T;
+        highlighted?: T;
+        links?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        values?:
+          | T
+          | {
+              included?: T;
               label?: T;
-              appearance?: T;
+              id?: T;
             };
         id?: T;
       };

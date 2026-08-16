@@ -5,6 +5,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { AwardsList } from '../../blocks/AwardsList/config'
 import { CallToActionCentered } from '../../blocks/CallToActionCentered/config'
+import { ComparatorGrid } from '../../blocks/ComparatorGrid/config'
 import { ContentColumns } from '../../blocks/ContentColumns/config'
 import { FaqAccordion } from '../../blocks/FaqAccordion/config'
 import { FeatureBento } from '../../blocks/FeatureBento/config'
@@ -91,6 +92,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Archive,
                 AwardsList,
                 CallToActionCentered,
+                ComparatorGrid,
                 ContentColumns,
                 FaqAccordion,
                 FeatureBento,

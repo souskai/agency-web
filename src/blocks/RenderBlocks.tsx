@@ -5,6 +5,7 @@ import type { Page } from '@/payload-types'
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Component'
+import { ComparatorGridBlock } from '@/blocks/ComparatorGrid/Component'
 import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
 import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
 import { FeatureBentoBlock } from '@/blocks/FeatureBento/Component'
@@ -23,6 +24,7 @@ const blockComponents = {
   archive: ArchiveBlock,
   awardsList: AwardsListBlockComponent,
   callToActionCentered: CallToActionCenteredBlock,
+  comparatorGrid: ComparatorGridBlock,
   contentColumns: ContentColumnsBlock,
   faqAccordion: FaqAccordionBlock,
   featureBento: FeatureBentoBlock,
