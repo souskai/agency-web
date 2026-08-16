@@ -7,6 +7,7 @@ import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Component'
 import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
 import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
+import { FeatureBentoBlock } from '@/blocks/FeatureBento/Component'
 import { FeatureGridBasicBlock } from '@/blocks/FeatureGridBasic/Component'
 import { FeatureStepsBlock } from '@/blocks/FeatureSteps/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -24,6 +25,7 @@ const blockComponents = {
   callToActionCentered: CallToActionCenteredBlock,
   contentColumns: ContentColumnsBlock,
   faqAccordion: FaqAccordionBlock,
+  featureBento: FeatureBentoBlock,
   featureGridBasic: FeatureGridBasicBlock,
   featureSteps: FeatureStepsBlock,
   formBlock: FormBlock,

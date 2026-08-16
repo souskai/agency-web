@@ -257,8 +257,9 @@ export interface Page {
     | MediaBlock
     | PricingCardsBlock
     | StatsGridBlock
-    | TestimonialBlock
     | TeamGridBlock
+    | TestimonialBlock
+    | FeatureBentoBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1427,6 +1428,25 @@ export interface StatsGridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamGridBlock".
+ */
+export interface TeamGridBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  members: {
+    avatar: number | Media;
+    name: string;
+    role: string;
+    href?: string | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
@@ -1469,22 +1489,59 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TeamGridBlock".
+ * via the `definition` "FeatureBentoBlock".
  */
-export interface TeamGridBlock {
+export interface FeatureBentoBlock {
   eyebrow?: string | null;
   title: string;
   description?: string | null;
-  members: {
-    avatar: number | Media;
-    name: string;
-    role: string;
-    href?: string | null;
+  /**
+   * The first item leads the grid as the featured cell.
+   */
+  items: {
+    title: string;
+    description: string;
     id?: string | null;
   }[];
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'teamGrid';
+  blockType: 'featureBento';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1989,8 +2046,9 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         pricingCards?: T | PricingCardsBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
-        testimonial?: T | TestimonialBlockSelect<T>;
         teamGrid?: T | TeamGridBlockSelect<T>;
+        testimonial?: T | TestimonialBlockSelect<T>;
+        featureBento?: T | FeatureBentoBlockSelect<T>;
       };
   meta?:
     | T
@@ -2309,16 +2367,6 @@ export interface StatsGridBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialBlock_select".
- */
-export interface TestimonialBlockSelect<T extends boolean = true> {
-  testimonials?: T;
-  layout?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TeamGridBlock_select".
  */
 export interface TeamGridBlockSelect<T extends boolean = true> {
@@ -2332,6 +2380,49 @@ export interface TeamGridBlockSelect<T extends boolean = true> {
         name?: T;
         role?: T;
         href?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock_select".
+ */
+export interface TestimonialBlockSelect<T extends boolean = true> {
+  testimonials?: T;
+  layout?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureBentoBlock_select".
+ */
+export interface FeatureBentoBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
         id?: T;
       };
   id?: T;

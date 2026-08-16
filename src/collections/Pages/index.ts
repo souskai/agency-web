@@ -7,6 +7,7 @@ import { AwardsList } from '../../blocks/AwardsList/config'
 import { CallToActionCentered } from '../../blocks/CallToActionCentered/config'
 import { ContentColumns } from '../../blocks/ContentColumns/config'
 import { FaqAccordion } from '../../blocks/FaqAccordion/config'
+import { FeatureBento } from '../../blocks/FeatureBento/config'
 import { FeatureGridBasic } from '../../blocks/FeatureGridBasic/config'
 import { FeatureSteps } from '../../blocks/FeatureSteps/config'
 import { FormBlock } from '../../blocks/Form/config'
@@ -92,6 +93,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CallToActionCentered,
                 ContentColumns,
                 FaqAccordion,
+                FeatureBento,
                 FeatureGridBasic,
                 FeatureSteps,
                 FormBlock,
