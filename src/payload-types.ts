@@ -255,9 +255,10 @@ export interface Page {
     | HeroBasicBlock
     | LogoBannerBlock
     | MediaBlock
+    | PricingCardsBlock
     | StatsGridBlock
     | TestimonialBlock
-    | PricingCardsBlock
+    | TeamGridBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1349,6 +1350,66 @@ export interface MediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingCardsBlock".
+ */
+export interface PricingCardsBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  plans: {
+    name: string;
+    price: string;
+    period?: string | null;
+    description?: string | null;
+    featured?: boolean | null;
+    features: {
+      feature: string;
+      id?: string | null;
+    }[];
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'services';
+                  value: number | Service;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: number | CaseStudy;
+                } | null)
+              | ({
+                  relationTo: 'legal-pages';
+                  value: number | LegalPage;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricingCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "StatsGridBlock".
  */
 export interface StatsGridBlock {
@@ -1408,63 +1469,22 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PricingCardsBlock".
+ * via the `definition` "TeamGridBlock".
  */
-export interface PricingCardsBlock {
+export interface TeamGridBlock {
   eyebrow?: string | null;
   title: string;
   description?: string | null;
-  plans: {
+  members: {
+    avatar: number | Media;
     name: string;
-    price: string;
-    period?: string | null;
-    description?: string | null;
-    featured?: boolean | null;
-    features: {
-      feature: string;
-      id?: string | null;
-    }[];
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null)
-              | ({
-                  relationTo: 'services';
-                  value: number | Service;
-                } | null)
-              | ({
-                  relationTo: 'case-studies';
-                  value: number | CaseStudy;
-                } | null)
-              | ({
-                  relationTo: 'legal-pages';
-                  value: number | LegalPage;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
+    role: string;
+    href?: string | null;
     id?: string | null;
   }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'pricingCards';
+  blockType: 'teamGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1967,9 +1987,10 @@ export interface PagesSelect<T extends boolean = true> {
         heroBasic?: T | HeroBasicBlockSelect<T>;
         logoBanner?: T | LogoBannerBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        pricingCards?: T | PricingCardsBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        pricingCards?: T | PricingCardsBlockSelect<T>;
+        teamGrid?: T | TeamGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -2228,34 +2249,6 @@ export interface MediaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsGridBlock_select".
- */
-export interface StatsGridBlockSelect<T extends boolean = true> {
-  eyebrow?: T;
-  title?: T;
-  description?: T;
-  metrics?:
-    | T
-    | {
-        value?: T;
-        label?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialBlock_select".
- */
-export interface TestimonialBlockSelect<T extends boolean = true> {
-  testimonials?: T;
-  layout?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "PricingCardsBlock_select".
  */
 export interface PricingCardsBlockSelect<T extends boolean = true> {
@@ -2291,6 +2284,54 @@ export interface PricingCardsBlockSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsGridBlock_select".
+ */
+export interface StatsGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  metrics?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock_select".
+ */
+export interface TestimonialBlockSelect<T extends boolean = true> {
+  testimonials?: T;
+  layout?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamGridBlock_select".
+ */
+export interface TeamGridBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  members?:
+    | T
+    | {
+        avatar?: T;
+        name?: T;
+        role?: T;
+        href?: T;
         id?: T;
       };
   id?: T;

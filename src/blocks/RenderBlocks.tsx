@@ -15,6 +15,7 @@ import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PricingCardsBlock } from '@/blocks/PricingCards/Component'
 import { StatsGridBlock } from '@/blocks/StatsGrid/Component'
+import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
 import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
 
 const blockComponents = {
@@ -31,6 +32,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   pricingCards: PricingCardsBlock,
   statsGrid: StatsGridBlock,
+  teamGrid: TeamGridBlock,
   testimonial: TestimonialBlockComponent,
 }
 

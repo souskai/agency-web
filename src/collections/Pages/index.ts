@@ -15,6 +15,7 @@ import { LogoBanner } from '../../blocks/LogoBanner/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { PricingCards } from '../../blocks/PricingCards/config'
 import { StatsGrid } from '../../blocks/StatsGrid/config'
+import { TeamGrid } from '../../blocks/TeamGrid/config'
 import { Testimonial } from '../../blocks/Testimonial/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -99,6 +100,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBlock,
                 PricingCards,
                 StatsGrid,
+                TeamGrid,
                 Testimonial,
               ],
               required: true,
