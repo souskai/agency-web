@@ -8,6 +8,7 @@ import { CallToActionCentered } from '../../blocks/CallToActionCentered/config'
 import { ContentColumns } from '../../blocks/ContentColumns/config'
 import { FaqAccordion } from '../../blocks/FaqAccordion/config'
 import { FeatureGridBasic } from '../../blocks/FeatureGridBasic/config'
+import { FeatureSteps } from '../../blocks/FeatureSteps/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { HeroBasic } from '../../blocks/HeroBasic/config'
 import { LogoBanner } from '../../blocks/LogoBanner/config'
@@ -90,6 +91,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 ContentColumns,
                 FaqAccordion,
                 FeatureGridBasic,
+                FeatureSteps,
                 FormBlock,
                 HeroBasic,
                 LogoBanner,

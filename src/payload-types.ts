@@ -249,13 +249,14 @@ export interface Page {
     | CallToActionCenteredBlock
     | ContentColumnsBlock
     | FaqAccordionBlock
+    | FeatureGridBasicBlock
     | FormBlock
     | HeroBasicBlock
     | LogoBannerBlock
     | MediaBlock
     | StatsGridBlock
     | TestimonialBlock
-    | FeatureGridBasicBlock
+    | FeatureStepsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -957,6 +958,59 @@ export interface FaqAccordionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBasicBlock".
+ */
+export interface FeatureGridBasicBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  items: {
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureGridBasic';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
@@ -1297,12 +1351,15 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureGridBasicBlock".
+ * via the `definition` "FeatureStepsBlock".
  */
-export interface FeatureGridBasicBlock {
+export interface FeatureStepsBlock {
   eyebrow?: string | null;
   title: string;
   description?: string | null;
+  /**
+   * Steps are numbered automatically in array order.
+   */
   items: {
     title: string;
     description: string;
@@ -1346,7 +1403,7 @@ export interface FeatureGridBasicBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'featureGridBasic';
+  blockType: 'featureSteps';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1843,13 +1900,14 @@ export interface PagesSelect<T extends boolean = true> {
         callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
         contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
+        featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         heroBasic?: T | HeroBasicBlockSelect<T>;
         logoBanner?: T | LogoBannerBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
+        featureSteps?: T | FeatureStepsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1980,6 +2038,39 @@ export interface FaqAccordionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureGridBasicBlock_select".
+ */
+export interface FeatureGridBasicBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
@@ -2070,9 +2161,9 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureGridBasicBlock_select".
+ * via the `definition` "FeatureStepsBlock_select".
  */
-export interface FeatureGridBasicBlockSelect<T extends boolean = true> {
+export interface FeatureStepsBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   description?: T;

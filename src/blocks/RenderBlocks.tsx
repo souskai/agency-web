@@ -8,6 +8,7 @@ import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Compone
 import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
 import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
 import { FeatureGridBasicBlock } from '@/blocks/FeatureGridBasic/Component'
+import { FeatureStepsBlock } from '@/blocks/FeatureSteps/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { HeroBasicBlock } from '@/blocks/HeroBasic/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
@@ -22,6 +23,7 @@ const blockComponents = {
   contentColumns: ContentColumnsBlock,
   faqAccordion: FaqAccordionBlock,
   featureGridBasic: FeatureGridBasicBlock,
+  featureSteps: FeatureStepsBlock,
   formBlock: FormBlock,
   heroBasic: HeroBasicBlock,
   logoBanner: LogoBannerBlockComponent,
