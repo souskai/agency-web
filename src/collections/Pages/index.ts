@@ -4,12 +4,10 @@ import { hasRole } from '../../access/hasRole'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { AwardsList } from '../../blocks/AwardsList/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
+import { FaqAccordion } from '../../blocks/FaqAccordion/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { LogoBanner } from '../../blocks/LogoBanner/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { Stats } from '../../blocks/Stats/config'
 import { Testimonial } from '../../blocks/Testimonial/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -81,15 +79,13 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                CallToAction,
-                Content,
-                MediaBlock,
                 Archive,
-                FormBlock,
-                Testimonial,
-                LogoBanner,
-                Stats,
                 AwardsList,
+                FaqAccordion,
+                FormBlock,
+                LogoBanner,
+                MediaBlock,
+                Testimonial,
               ],
               required: true,
               localized: true,

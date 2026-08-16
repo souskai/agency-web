@@ -59,16 +59,6 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
 }) => {
   const layout: PageBlock[] = [
     {
-      blockName: 'Agency Stats',
-      blockType: 'stats',
-      items: [
-        { label: 'Projects Delivered', value: '150+' },
-        { label: 'Happy Clients', value: '80+' },
-        { label: 'Team Members', value: '35' },
-        { label: 'Awards Won', value: '12' },
-      ],
-    },
-    {
       blockName: 'Our Clients',
       blockType: 'logoBanner',
       displayType: 'customers',
@@ -79,37 +69,6 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       blockType: 'logoBanner',
       displayType: 'technologies',
       heading: 'Built With',
-    },
-    {
-      blockName: 'What We Do',
-      blockType: 'content',
-      columns: [
-        { richText: richRoot([heading('What We Do')]), size: 'full' },
-        {
-          enableLink: false,
-          richText: richRoot([
-            heading('Strategy', 'h3'),
-            paragraph('Research-driven strategies that align business goals with user needs.'),
-          ]),
-          size: 'oneThird',
-        },
-        {
-          enableLink: false,
-          richText: richRoot([
-            heading('Design', 'h3'),
-            paragraph('Human-centred design systems and interfaces that delight users.'),
-          ]),
-          size: 'oneThird',
-        },
-        {
-          enableLink: false,
-          richText: richRoot([
-            heading('Engineering', 'h3'),
-            paragraph('Robust, scalable code built with modern frameworks and best practices.'),
-          ]),
-          size: 'oneThird',
-        },
-      ],
     },
   ]
 
@@ -146,24 +105,6 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       blockType: 'awardsList',
       heading: 'Awards & Recognition',
       limit: 10,
-    },
-    {
-      blockName: 'CTA',
-      blockType: 'cta',
-      links: [
-        {
-          link: {
-            type: 'custom',
-            appearance: 'default',
-            label: 'Start a Project',
-            url: '/contact',
-          },
-        },
-      ],
-      richText: richRoot([
-        heading('Ready to Work Together?', 'h3'),
-        paragraph('Let\u2019s discuss your next project. We\u2019d love to hear from you.'),
-      ]),
     },
   )
 

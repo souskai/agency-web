@@ -244,15 +244,13 @@ export interface Page {
     media?: (number | null) | Media;
   };
   layout: (
-    | CallToActionBlock
-    | ContentBlock
-    | MediaBlock
     | ArchiveBlock
-    | FormBlock
-    | TestimonialBlock
-    | LogoBannerBlock
-    | StatsBlock
     | AwardsListBlock
+    | FaqAccordionBlock
+    | FormBlock
+    | LogoBannerBlock
+    | MediaBlock
+    | TestimonialBlock
   )[];
   meta?: {
     title?: string | null;
@@ -704,138 +702,6 @@ export interface LegalPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock".
- */
-export interface CallToActionBlock {
-  richText?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'services';
-                value: number | Service;
-              } | null)
-            | ({
-                relationTo: 'case-studies';
-                value: number | CaseStudy;
-              } | null)
-            | ({
-                relationTo: 'legal-pages';
-                value: number | LegalPage;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'cta';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
-  columns?:
-    | {
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'services';
-                value: number | Service;
-              } | null)
-            | ({
-                relationTo: 'case-studies';
-                value: number | CaseStudy;
-              } | null)
-            | ({
-                relationTo: 'legal-pages';
-                value: number | LegalPage;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: number | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
@@ -913,6 +779,76 @@ export interface Portfolio {
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardsListBlock".
+ */
+export interface AwardsListBlock {
+  /**
+   * e.g. Awards & Recognition
+   */
+  heading?: string | null;
+  /**
+   * Max awards to show
+   */
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'awardsList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqAccordionBlock".
+ */
+export interface FaqAccordionBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  items: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqAccordion';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1116,6 +1052,33 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoBannerBlock".
+ */
+export interface LogoBannerBlock {
+  /**
+   * Which collection to show (featured items or all)
+   */
+  displayType: 'customers' | 'technologies';
+  /**
+   * Optional section heading (e.g. "Our clients", "Technology partners")
+   */
+  heading?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logoBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
@@ -1155,60 +1118,6 @@ export interface Testimonial {
   featured?: boolean | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LogoBannerBlock".
- */
-export interface LogoBannerBlock {
-  /**
-   * Which collection to show (featured items or all)
-   */
-  displayType: 'customers' | 'technologies';
-  /**
-   * Optional section heading (e.g. "Our clients", "Technology partners")
-   */
-  heading?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'logoBanner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsBlock".
- */
-export interface StatsBlock {
-  /**
-   * Metric label and value pairs (e.g. "Projects Delivered", "150+")
-   */
-  items: {
-    label: string;
-    /**
-     * e.g. "150+", "98%", "12"
-     */
-    value: string;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'stats';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AwardsListBlock".
- */
-export interface AwardsListBlock {
-  /**
-   * e.g. Awards & Recognition
-   */
-  heading?: string | null;
-  /**
-   * Max awards to show
-   */
-  limit?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'awardsList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1700,15 +1609,13 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        cta?: T | CallToActionBlockSelect<T>;
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
-        formBlock?: T | FormBlockSelect<T>;
-        testimonial?: T | TestimonialBlockSelect<T>;
-        logoBanner?: T | LogoBannerBlockSelect<T>;
-        stats?: T | StatsBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
+        faqAccordion?: T | FaqAccordionBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        logoBanner?: T | LogoBannerBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        testimonial?: T | TestimonialBlockSelect<T>;
       };
   meta?:
     | T
@@ -1726,10 +1633,43 @@ export interface PagesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionBlock_select".
+ * via the `definition` "ArchiveBlock_select".
  */
-export interface CallToActionBlockSelect<T extends boolean = true> {
-  richText?: T;
+export interface ArchiveBlockSelect<T extends boolean = true> {
+  introContent?: T;
+  populateBy?: T;
+  relationTo?: T;
+  categories?: T;
+  limit?: T;
+  selectedDocs?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardsListBlock_select".
+ */
+export interface AwardsListBlockSelect<T extends boolean = true> {
+  heading?: T;
+  limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqAccordionBlock_select".
+ */
+export interface FaqAccordionBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   links?:
     | T
     | {
@@ -1750,71 +1690,12 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
- */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ArchiveBlock_select".
- */
-export interface ArchiveBlockSelect<T extends boolean = true> {
-  introContent?: T;
-  populateBy?: T;
-  relationTo?: T;
-  categories?: T;
-  limit?: T;
-  selectedDocs?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialBlock_select".
- */
-export interface TestimonialBlockSelect<T extends boolean = true> {
-  testimonials?: T;
-  layout?: T;
   id?: T;
   blockName?: T;
 }
@@ -1830,26 +1711,20 @@ export interface LogoBannerBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsBlock_select".
+ * via the `definition` "MediaBlock_select".
  */
-export interface StatsBlockSelect<T extends boolean = true> {
-  items?:
-    | T
-    | {
-        label?: T;
-        value?: T;
-        id?: T;
-      };
+export interface MediaBlockSelect<T extends boolean = true> {
+  media?: T;
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AwardsListBlock_select".
+ * via the `definition` "TestimonialBlock_select".
  */
-export interface AwardsListBlockSelect<T extends boolean = true> {
-  heading?: T;
-  limit?: T;
+export interface TestimonialBlockSelect<T extends boolean = true> {
+  testimonials?: T;
+  layout?: T;
   id?: T;
   blockName?: T;
 }

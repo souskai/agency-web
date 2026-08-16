@@ -4,23 +4,19 @@ import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { ContentBlock } from '@/blocks/Content/Component'
+import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { StatsBlockComponent } from '@/blocks/Stats/Component'
 import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   awardsList: AwardsListBlockComponent,
-  content: ContentBlock,
-  cta: CallToActionBlock,
+  faqAccordion: FaqAccordionBlock,
   formBlock: FormBlock,
   logoBanner: LogoBannerBlockComponent,
   mediaBlock: MediaBlock,
-  stats: StatsBlockComponent,
   testimonial: TestimonialBlockComponent,
 }
 
