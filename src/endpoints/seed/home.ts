@@ -59,6 +59,34 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
 }) => {
   const layout: PageBlock[] = [
     {
+      blockName: 'Agency Stats',
+      blockType: 'statsGrid',
+      title: 'Results that speak for themselves',
+      metrics: [
+        { value: '150+', label: 'Projects Delivered' },
+        { value: '80+', label: 'Happy Clients' },
+        { value: '35', label: 'Team Members' },
+        { value: '12', label: 'Awards Won' },
+      ],
+    },
+    {
+      blockName: 'What We Do',
+      blockType: 'contentColumns',
+      eyebrow: 'Capabilities',
+      title: 'What We Do',
+      paragraphs: [
+        {
+          text: 'Strategy — Research-driven strategies that align business goals with user needs.',
+        },
+        {
+          text: 'Design — Human-centred design systems and interfaces that delight users.',
+        },
+        {
+          text: 'Engineering — Robust, scalable code built with modern frameworks and best practices.',
+        },
+      ],
+    },
+    {
       blockName: 'Our Clients',
       blockType: 'logoBanner',
       displayType: 'customers',
@@ -105,6 +133,22 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       blockType: 'awardsList',
       heading: 'Awards & Recognition',
       limit: 10,
+    },
+    {
+      blockName: 'CTA',
+      blockType: 'callToActionCentered',
+      title: 'Ready to Work Together?',
+      description: 'Let’s discuss your next project. We’d love to hear from you.',
+      links: [
+        {
+          link: {
+            type: 'custom',
+            appearance: 'default',
+            label: 'Start a Project',
+            url: '/contact',
+          },
+        },
+      ],
     },
   )
 
