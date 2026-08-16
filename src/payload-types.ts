@@ -250,13 +250,14 @@ export interface Page {
     | ContentColumnsBlock
     | FaqAccordionBlock
     | FeatureGridBasicBlock
+    | FeatureStepsBlock
     | FormBlock
     | HeroBasicBlock
     | LogoBannerBlock
     | MediaBlock
     | StatsGridBlock
     | TestimonialBlock
-    | FeatureStepsBlock
+    | PricingCardsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1011,6 +1012,62 @@ export interface FeatureGridBasicBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureStepsBlock".
+ */
+export interface FeatureStepsBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  /**
+   * Steps are numbered automatically in array order.
+   */
+  items: {
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureSteps';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
@@ -1351,59 +1408,63 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureStepsBlock".
+ * via the `definition` "PricingCardsBlock".
  */
-export interface FeatureStepsBlock {
+export interface PricingCardsBlock {
   eyebrow?: string | null;
   title: string;
   description?: string | null;
-  /**
-   * Steps are numbered automatically in array order.
-   */
-  items: {
-    title: string;
-    description: string;
+  plans: {
+    name: string;
+    price: string;
+    period?: string | null;
+    description?: string | null;
+    featured?: boolean | null;
+    features: {
+      feature: string;
+      id?: string | null;
+    }[];
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'services';
+                  value: number | Service;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: number | CaseStudy;
+                } | null)
+              | ({
+                  relationTo: 'legal-pages';
+                  value: number | LegalPage;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
     id?: string | null;
   }[];
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'services';
-                value: number | Service;
-              } | null)
-            | ({
-                relationTo: 'case-studies';
-                value: number | CaseStudy;
-              } | null)
-            | ({
-                relationTo: 'legal-pages';
-                value: number | LegalPage;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'featureSteps';
+  blockType: 'pricingCards';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1901,13 +1962,14 @@ export interface PagesSelect<T extends boolean = true> {
         contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
+        featureSteps?: T | FeatureStepsBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         heroBasic?: T | HeroBasicBlockSelect<T>;
         logoBanner?: T | LogoBannerBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        featureSteps?: T | FeatureStepsBlockSelect<T>;
+        pricingCards?: T | PricingCardsBlockSelect<T>;
       };
   meta?:
     | T
@@ -2071,6 +2133,39 @@ export interface FeatureGridBasicBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureStepsBlock_select".
+ */
+export interface FeatureStepsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
@@ -2161,31 +2256,40 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeatureStepsBlock_select".
+ * via the `definition` "PricingCardsBlock_select".
  */
-export interface FeatureStepsBlockSelect<T extends boolean = true> {
+export interface PricingCardsBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   description?: T;
-  items?:
+  plans?:
     | T
     | {
-        title?: T;
+        name?: T;
+        price?: T;
+        period?: T;
         description?: T;
-        id?: T;
-      };
-  links?:
-    | T
-    | {
-        link?:
+        featured?: T;
+        features?:
           | T
           | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
+              feature?: T;
+              id?: T;
+            };
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };

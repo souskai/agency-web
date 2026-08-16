@@ -13,6 +13,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { HeroBasicBlock } from '@/blocks/HeroBasic/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { PricingCardsBlock } from '@/blocks/PricingCards/Component'
 import { StatsGridBlock } from '@/blocks/StatsGrid/Component'
 import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
 
@@ -28,6 +29,7 @@ const blockComponents = {
   heroBasic: HeroBasicBlock,
   logoBanner: LogoBannerBlockComponent,
   mediaBlock: MediaBlock,
+  pricingCards: PricingCardsBlock,
   statsGrid: StatsGridBlock,
   testimonial: TestimonialBlockComponent,
 }
