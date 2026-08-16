@@ -246,6 +246,7 @@ export interface Page {
   layout: (
     | ArchiveBlock
     | AwardsListBlock
+    | CallToActionCenteredBlock
     | ContentColumnsBlock
     | FaqAccordionBlock
     | FormBlock
@@ -253,7 +254,7 @@ export interface Page {
     | MediaBlock
     | StatsGridBlock
     | TestimonialBlock
-    | CallToActionCenteredBlock
+    | HeroBasicBlock
   )[];
   meta?: {
     title?: string | null;
@@ -802,6 +803,53 @@ export interface AwardsListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionCenteredBlock".
+ */
+export interface CallToActionCenteredBlock {
+  title: string;
+  description?: string | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'callToActionCentered';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentColumnsBlock".
  */
 export interface ContentColumnsBlock {
@@ -1194,11 +1242,12 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionCenteredBlock".
+ * via the `definition` "HeroBasicBlock".
  */
-export interface CallToActionCenteredBlock {
+export interface HeroBasicBlock {
+  eyebrow?: string | null;
   title: string;
-  description?: string | null;
+  description: string;
   links?:
     | {
         link: {
@@ -1235,9 +1284,15 @@ export interface CallToActionCenteredBlock {
         id?: string | null;
       }[]
     | null;
+  proofItems?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'callToActionCentered';
+  blockType: 'heroBasic';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1731,6 +1786,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         archive?: T | ArchiveBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
+        callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
         contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
@@ -1738,7 +1794,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
+        heroBasic?: T | HeroBasicBlockSelect<T>;
       };
   meta?:
     | T
@@ -1775,6 +1831,31 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
 export interface AwardsListBlockSelect<T extends boolean = true> {
   heading?: T;
   limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionCenteredBlock_select".
+ */
+export interface CallToActionCenteredBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1902,9 +1983,10 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CallToActionCenteredBlock_select".
+ * via the `definition` "HeroBasicBlock_select".
  */
-export interface CallToActionCenteredBlockSelect<T extends boolean = true> {
+export interface HeroBasicBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
   title?: T;
   description?: T;
   links?:
@@ -1920,6 +2002,12 @@ export interface CallToActionCenteredBlockSelect<T extends boolean = true> {
               label?: T;
               appearance?: T;
             };
+        id?: T;
+      };
+  proofItems?:
+    | T
+    | {
+        label?: T;
         id?: T;
       };
   id?: T;
