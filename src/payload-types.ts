@@ -249,6 +249,7 @@ export interface Page {
     | CallToActionCenteredBlock
     | ComparatorGridBlock
     | ContentColumnsBlock
+    | EmbedBasicBlock
     | FaqAccordionBlock
     | FeatureBentoBlock
     | FeatureGridBasicBlock
@@ -261,7 +262,6 @@ export interface Page {
     | StatsGridBlock
     | TeamGridBlock
     | TestimonialBlock
-    | EmbedBasicBlock
   )[];
   meta?: {
     title?: string | null;
@@ -988,6 +988,26 @@ export interface ContentColumnsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmbedBasicBlock".
+ */
+export interface EmbedBasicBlock {
+  /**
+   * Approved HTTPS embed URL (e.g. https://www.youtube.com/embed/VIDEO_ID).
+   */
+  url: string;
+  /**
+   * Accessible title announced to screen readers for the embedded frame.
+   */
+  title: string;
+  aspectRatio: '16:9' | '4:3' | '1:1' | '21:9';
+  caption?: string | null;
+  allowFullscreen?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'embedBasic';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FaqAccordionBlock".
  */
 export interface FaqAccordionBlock {
@@ -1625,26 +1645,6 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EmbedBasicBlock".
- */
-export interface EmbedBasicBlock {
-  /**
-   * Approved HTTPS embed URL (e.g. https://www.youtube.com/embed/VIDEO_ID).
-   */
-  url: string;
-  /**
-   * Accessible title announced to screen readers for the embedded frame.
-   */
-  title: string;
-  aspectRatio: '16:9' | '4:3' | '1:1' | '21:9';
-  caption?: string | null;
-  allowFullscreen?: boolean | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'embedBasic';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "technologies".
  */
 export interface Technology {
@@ -2138,6 +2138,7 @@ export interface PagesSelect<T extends boolean = true> {
         callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
         comparatorGrid?: T | ComparatorGridBlockSelect<T>;
         contentColumns?: T | ContentColumnsBlockSelect<T>;
+        embedBasic?: T | EmbedBasicBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         featureBento?: T | FeatureBentoBlockSelect<T>;
         featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
@@ -2150,7 +2151,6 @@ export interface PagesSelect<T extends boolean = true> {
         statsGrid?: T | StatsGridBlockSelect<T>;
         teamGrid?: T | TeamGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        embedBasic?: T | EmbedBasicBlockSelect<T>;
       };
   meta?:
     | T
@@ -2291,6 +2291,19 @@ export interface ContentColumnsBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EmbedBasicBlock_select".
+ */
+export interface EmbedBasicBlockSelect<T extends boolean = true> {
+  url?: T;
+  title?: T;
+  aspectRatio?: T;
+  caption?: T;
+  allowFullscreen?: T;
   id?: T;
   blockName?: T;
 }
@@ -2575,19 +2588,6 @@ export interface TeamGridBlockSelect<T extends boolean = true> {
 export interface TestimonialBlockSelect<T extends boolean = true> {
   testimonials?: T;
   layout?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "EmbedBasicBlock_select".
- */
-export interface EmbedBasicBlockSelect<T extends boolean = true> {
-  url?: T;
-  title?: T;
-  aspectRatio?: T;
-  caption?: T;
-  allowFullscreen?: T;
   id?: T;
   blockName?: T;
 }
