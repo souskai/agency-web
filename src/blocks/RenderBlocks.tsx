@@ -4,23 +4,41 @@ import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { ContentBlock } from '@/blocks/Content/Component'
+import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Component'
+import { ComparatorGridBlock } from '@/blocks/ComparatorGrid/Component'
+import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
+import { EmbedBasicBlock } from '@/blocks/EmbedBasic/Component'
+import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
+import { FeatureBentoBlock } from '@/blocks/FeatureBento/Component'
+import { FeatureGridBasicBlock } from '@/blocks/FeatureGridBasic/Component'
+import { FeatureStepsBlock } from '@/blocks/FeatureSteps/Component'
 import { FormBlock } from '@/blocks/Form/Component'
+import { HeroBasicBlock } from '@/blocks/HeroBasic/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { StatsBlockComponent } from '@/blocks/Stats/Component'
+import { PricingCardsBlock } from '@/blocks/PricingCards/Component'
+import { StatsGridBlock } from '@/blocks/StatsGrid/Component'
+import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
 import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   awardsList: AwardsListBlockComponent,
-  content: ContentBlock,
-  cta: CallToActionBlock,
+  callToActionCentered: CallToActionCenteredBlock,
+  comparatorGrid: ComparatorGridBlock,
+  contentColumns: ContentColumnsBlock,
+  embedBasic: EmbedBasicBlock,
+  faqAccordion: FaqAccordionBlock,
+  featureBento: FeatureBentoBlock,
+  featureGridBasic: FeatureGridBasicBlock,
+  featureSteps: FeatureStepsBlock,
   formBlock: FormBlock,
+  heroBasic: HeroBasicBlock,
   logoBanner: LogoBannerBlockComponent,
   mediaBlock: MediaBlock,
-  stats: StatsBlockComponent,
+  pricingCards: PricingCardsBlock,
+  statsGrid: StatsGridBlock,
+  teamGrid: TeamGridBlock,
   testimonial: TestimonialBlockComponent,
 }
 

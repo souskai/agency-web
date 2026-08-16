@@ -18,6 +18,9 @@ tsconfig.tsbuildinfo
 src/app/(payload)/admin/importMap.js
 public/media/
 
+# Payload Components kit — local install state ledger (not source)
+.payload-components/
+
 # ───────────────────────────────────────────────
 # Environment & Secrets
 # ───────────────────────────────────────────────
