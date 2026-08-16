@@ -4,6 +4,7 @@ import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
+import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Component'
 import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
 import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
 import { FormBlock } from '@/blocks/Form/Component'
@@ -15,6 +16,7 @@ import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
 const blockComponents = {
   archive: ArchiveBlock,
   awardsList: AwardsListBlockComponent,
+  callToActionCentered: CallToActionCenteredBlock,
   contentColumns: ContentColumnsBlock,
   faqAccordion: FaqAccordionBlock,
   formBlock: FormBlock,

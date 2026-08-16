@@ -251,8 +251,9 @@ export interface Page {
     | FormBlock
     | LogoBannerBlock
     | MediaBlock
-    | TestimonialBlock
     | StatsGridBlock
+    | TestimonialBlock
+    | CallToActionCenteredBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1134,6 +1135,23 @@ export interface MediaBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsGridBlock".
+ */
+export interface StatsGridBlock {
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  metrics: {
+    value: string;
+    label: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statsGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TestimonialBlock".
  */
 export interface TestimonialBlock {
@@ -1176,20 +1194,50 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "StatsGridBlock".
+ * via the `definition` "CallToActionCenteredBlock".
  */
-export interface StatsGridBlock {
-  eyebrow?: string | null;
+export interface CallToActionCenteredBlock {
   title: string;
   description?: string | null;
-  metrics: {
-    value: string;
-    label: string;
-    id?: string | null;
-  }[];
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'statsGrid';
+  blockType: 'callToActionCentered';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1688,8 +1736,9 @@ export interface PagesSelect<T extends boolean = true> {
         formBlock?: T | FormBlockSelect<T>;
         logoBanner?: T | LogoBannerBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
-        testimonial?: T | TestimonialBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
+        testimonial?: T | TestimonialBlockSelect<T>;
+        callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
       };
   meta?:
     | T
@@ -1825,16 +1874,6 @@ export interface MediaBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TestimonialBlock_select".
- */
-export interface TestimonialBlockSelect<T extends boolean = true> {
-  testimonials?: T;
-  layout?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "StatsGridBlock_select".
  */
 export interface StatsGridBlockSelect<T extends boolean = true> {
@@ -1846,6 +1885,41 @@ export interface StatsGridBlockSelect<T extends boolean = true> {
     | {
         value?: T;
         label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TestimonialBlock_select".
+ */
+export interface TestimonialBlockSelect<T extends boolean = true> {
+  testimonials?: T;
+  layout?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CallToActionCenteredBlock_select".
+ */
+export interface CallToActionCenteredBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
         id?: T;
       };
   id?: T;
