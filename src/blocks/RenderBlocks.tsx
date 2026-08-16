@@ -9,6 +9,7 @@ import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { StatsGridBlock } from '@/blocks/StatsGrid/Component'
 import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
 
 const blockComponents = {
@@ -19,6 +20,7 @@ const blockComponents = {
   formBlock: FormBlock,
   logoBanner: LogoBannerBlockComponent,
   mediaBlock: MediaBlock,
+  statsGrid: StatsGridBlock,
   testimonial: TestimonialBlockComponent,
 }
 

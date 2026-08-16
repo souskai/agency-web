@@ -246,12 +246,13 @@ export interface Page {
   layout: (
     | ArchiveBlock
     | AwardsListBlock
+    | ContentColumnsBlock
     | FaqAccordionBlock
     | FormBlock
     | LogoBannerBlock
     | MediaBlock
     | TestimonialBlock
-    | ContentColumnsBlock
+    | StatsGridBlock
   )[];
   meta?: {
     title?: string | null;
@@ -800,6 +801,59 @@ export interface AwardsListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentColumnsBlock".
+ */
+export interface ContentColumnsBlock {
+  eyebrow?: string | null;
+  title: string;
+  paragraphs?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contentColumns';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FaqAccordionBlock".
  */
 export interface FaqAccordionBlock {
@@ -1122,56 +1176,20 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentColumnsBlock".
+ * via the `definition` "StatsGridBlock".
  */
-export interface ContentColumnsBlock {
+export interface StatsGridBlock {
   eyebrow?: string | null;
   title: string;
-  paragraphs?:
-    | {
-        text: string;
-        id?: string | null;
-      }[]
-    | null;
-  links?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null)
-            | ({
-                relationTo: 'services';
-                value: number | Service;
-              } | null)
-            | ({
-                relationTo: 'case-studies';
-                value: number | CaseStudy;
-              } | null)
-            | ({
-                relationTo: 'legal-pages';
-                value: number | LegalPage;
-              } | null);
-          url?: string | null;
-          label: string;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  description?: string | null;
+  metrics: {
+    value: string;
+    label: string;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'contentColumns';
+  blockType: 'statsGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1665,12 +1683,13 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         archive?: T | ArchiveBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
+        contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         logoBanner?: T | LogoBannerBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        contentColumns?: T | ContentColumnsBlockSelect<T>;
+        statsGrid?: T | StatsGridBlockSelect<T>;
       };
   meta?:
     | T
@@ -1707,6 +1726,37 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
 export interface AwardsListBlockSelect<T extends boolean = true> {
   heading?: T;
   limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentColumnsBlock_select".
+ */
+export interface ContentColumnsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  paragraphs?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1785,30 +1835,17 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentColumnsBlock_select".
+ * via the `definition` "StatsGridBlock_select".
  */
-export interface ContentColumnsBlockSelect<T extends boolean = true> {
+export interface StatsGridBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
-  paragraphs?:
+  description?: T;
+  metrics?:
     | T
     | {
-        text?: T;
-        id?: T;
-      };
-  links?:
-    | T
-    | {
-        link?:
-          | T
-          | {
-              type?: T;
-              newTab?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
-              appearance?: T;
-            };
+        value?: T;
+        label?: T;
         id?: T;
       };
   id?: T;

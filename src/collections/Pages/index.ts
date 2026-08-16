@@ -9,6 +9,7 @@ import { FaqAccordion } from '../../blocks/FaqAccordion/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { LogoBanner } from '../../blocks/LogoBanner/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { StatsGrid } from '../../blocks/StatsGrid/config'
 import { Testimonial } from '../../blocks/Testimonial/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
@@ -87,6 +88,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FormBlock,
                 LogoBanner,
                 MediaBlock,
+                StatsGrid,
                 Testimonial,
               ],
               required: true,
