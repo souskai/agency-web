@@ -7,6 +7,7 @@ import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Component'
 import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
 import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
+import { FeatureGridBasicBlock } from '@/blocks/FeatureGridBasic/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { HeroBasicBlock } from '@/blocks/HeroBasic/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
@@ -20,6 +21,7 @@ const blockComponents = {
   callToActionCentered: CallToActionCenteredBlock,
   contentColumns: ContentColumnsBlock,
   faqAccordion: FaqAccordionBlock,
+  featureGridBasic: FeatureGridBasicBlock,
   formBlock: FormBlock,
   heroBasic: HeroBasicBlock,
   logoBanner: LogoBannerBlockComponent,

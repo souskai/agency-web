@@ -250,11 +250,12 @@ export interface Page {
     | ContentColumnsBlock
     | FaqAccordionBlock
     | FormBlock
+    | HeroBasicBlock
     | LogoBannerBlock
     | MediaBlock
     | StatsGridBlock
     | TestimonialBlock
-    | HeroBasicBlock
+    | FeatureGridBasicBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1156,6 +1157,60 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBasicBlock".
+ */
+export interface HeroBasicBlock {
+  eyebrow?: string | null;
+  title: string;
+  description: string;
+  links?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'services';
+                value: number | Service;
+              } | null)
+            | ({
+                relationTo: 'case-studies';
+                value: number | CaseStudy;
+              } | null)
+            | ({
+                relationTo: 'legal-pages';
+                value: number | LegalPage;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  proofItems?:
+    | {
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroBasic';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LogoBannerBlock".
  */
 export interface LogoBannerBlock {
@@ -1242,12 +1297,17 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBasicBlock".
+ * via the `definition` "FeatureGridBasicBlock".
  */
-export interface HeroBasicBlock {
+export interface FeatureGridBasicBlock {
   eyebrow?: string | null;
   title: string;
-  description: string;
+  description?: string | null;
+  items: {
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
   links?:
     | {
         link: {
@@ -1284,15 +1344,9 @@ export interface HeroBasicBlock {
         id?: string | null;
       }[]
     | null;
-  proofItems?:
-    | {
-        label: string;
-        id?: string | null;
-      }[]
-    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'heroBasic';
+  blockType: 'featureGridBasic';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1790,11 +1844,12 @@ export interface PagesSelect<T extends boolean = true> {
         contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        heroBasic?: T | HeroBasicBlockSelect<T>;
         logoBanner?: T | LogoBannerBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         statsGrid?: T | StatsGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        heroBasic?: T | HeroBasicBlockSelect<T>;
+        featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
       };
   meta?:
     | T
@@ -1936,6 +1991,38 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroBasicBlock_select".
+ */
+export interface HeroBasicBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  links?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  proofItems?:
+    | T
+    | {
+        label?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "LogoBannerBlock_select".
  */
 export interface LogoBannerBlockSelect<T extends boolean = true> {
@@ -1983,12 +2070,19 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBasicBlock_select".
+ * via the `definition` "FeatureGridBasicBlock_select".
  */
-export interface HeroBasicBlockSelect<T extends boolean = true> {
+export interface FeatureGridBasicBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   title?: T;
   description?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   links?:
     | T
     | {
@@ -2002,12 +2096,6 @@ export interface HeroBasicBlockSelect<T extends boolean = true> {
               label?: T;
               appearance?: T;
             };
-        id?: T;
-      };
-  proofItems?:
-    | T
-    | {
-        label?: T;
         id?: T;
       };
   id?: T;
