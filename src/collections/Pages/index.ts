@@ -7,6 +7,7 @@ import { AwardsList } from '../../blocks/AwardsList/config'
 import { CallToActionCentered } from '../../blocks/CallToActionCentered/config'
 import { ComparatorGrid } from '../../blocks/ComparatorGrid/config'
 import { ContentColumns } from '../../blocks/ContentColumns/config'
+import { EmbedBasic } from '../../blocks/EmbedBasic/config'
 import { FaqAccordion } from '../../blocks/FaqAccordion/config'
 import { FeatureBento } from '../../blocks/FeatureBento/config'
 import { FeatureGridBasic } from '../../blocks/FeatureGridBasic/config'
@@ -94,6 +95,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 CallToActionCentered,
                 ComparatorGrid,
                 ContentColumns,
+                EmbedBasic,
                 FaqAccordion,
                 FeatureBento,
                 FeatureGridBasic,

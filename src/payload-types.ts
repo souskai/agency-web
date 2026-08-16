@@ -247,6 +247,7 @@ export interface Page {
     | ArchiveBlock
     | AwardsListBlock
     | CallToActionCenteredBlock
+    | ComparatorGridBlock
     | ContentColumnsBlock
     | FaqAccordionBlock
     | FeatureBentoBlock
@@ -260,7 +261,7 @@ export interface Page {
     | StatsGridBlock
     | TeamGridBlock
     | TestimonialBlock
-    | ComparatorGridBlock
+    | EmbedBasicBlock
   )[];
   meta?: {
     title?: string | null;
@@ -853,6 +854,84 @@ export interface CallToActionCenteredBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'callToActionCentered';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparatorGridBlock".
+ */
+export interface ComparatorGridBlock {
+  title?: string | null;
+  description?: string | null;
+  plans: {
+    name: string;
+    price?: string | null;
+    /**
+     * Shown next to the price, e.g. "/month".
+     */
+    period?: string | null;
+    /**
+     * Optional pill above the plan name, e.g. "Most popular".
+     */
+    badge?: string | null;
+    /**
+     * Tints this column to draw the eye to the recommended plan.
+     */
+    highlighted?: boolean | null;
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'services';
+                  value: number | Service;
+                } | null)
+              | ({
+                  relationTo: 'case-studies';
+                  value: number | CaseStudy;
+                } | null)
+              | ({
+                  relationTo: 'legal-pages';
+                  value: number | LegalPage;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  features: {
+    feature: string;
+    /**
+     * One cell per plan, in the same order as Plans. Tick "included" for a checkmark, or set a label for a text value.
+     */
+    values?:
+      | {
+          included?: boolean | null;
+          label?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'comparatorGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1546,81 +1625,23 @@ export interface Testimonial {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ComparatorGridBlock".
+ * via the `definition` "EmbedBasicBlock".
  */
-export interface ComparatorGridBlock {
-  title?: string | null;
-  description?: string | null;
-  plans: {
-    name: string;
-    price?: string | null;
-    /**
-     * Shown next to the price, e.g. "/month".
-     */
-    period?: string | null;
-    /**
-     * Optional pill above the plan name, e.g. "Most popular".
-     */
-    badge?: string | null;
-    /**
-     * Tints this column to draw the eye to the recommended plan.
-     */
-    highlighted?: boolean | null;
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null)
-              | ({
-                  relationTo: 'posts';
-                  value: number | Post;
-                } | null)
-              | ({
-                  relationTo: 'services';
-                  value: number | Service;
-                } | null)
-              | ({
-                  relationTo: 'case-studies';
-                  value: number | CaseStudy;
-                } | null)
-              | ({
-                  relationTo: 'legal-pages';
-                  value: number | LegalPage;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
-  features: {
-    feature: string;
-    /**
-     * One cell per plan, in the same order as Plans. Tick "included" for a checkmark, or set a label for a text value.
-     */
-    values?:
-      | {
-          included?: boolean | null;
-          label?: string | null;
-          id?: string | null;
-        }[]
-      | null;
-    id?: string | null;
-  }[];
+export interface EmbedBasicBlock {
+  /**
+   * Approved HTTPS embed URL (e.g. https://www.youtube.com/embed/VIDEO_ID).
+   */
+  url: string;
+  /**
+   * Accessible title announced to screen readers for the embedded frame.
+   */
+  title: string;
+  aspectRatio: '16:9' | '4:3' | '1:1' | '21:9';
+  caption?: string | null;
+  allowFullscreen?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'comparatorGrid';
+  blockType: 'embedBasic';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2115,6 +2136,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         awardsList?: T | AwardsListBlockSelect<T>;
         callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
+        comparatorGrid?: T | ComparatorGridBlockSelect<T>;
         contentColumns?: T | ContentColumnsBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         featureBento?: T | FeatureBentoBlockSelect<T>;
@@ -2128,7 +2150,7 @@ export interface PagesSelect<T extends boolean = true> {
         statsGrid?: T | StatsGridBlockSelect<T>;
         teamGrid?: T | TeamGridBlockSelect<T>;
         testimonial?: T | TestimonialBlockSelect<T>;
-        comparatorGrid?: T | ComparatorGridBlockSelect<T>;
+        embedBasic?: T | EmbedBasicBlockSelect<T>;
       };
   meta?:
     | T
@@ -2187,6 +2209,54 @@ export interface CallToActionCenteredBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ComparatorGridBlock_select".
+ */
+export interface ComparatorGridBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        period?: T;
+        badge?: T;
+        highlighted?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  features?:
+    | T
+    | {
+        feature?: T;
+        values?:
+          | T
+          | {
+              included?: T;
+              label?: T;
+              id?: T;
             };
         id?: T;
       };
@@ -2510,49 +2580,14 @@ export interface TestimonialBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ComparatorGridBlock_select".
+ * via the `definition` "EmbedBasicBlock_select".
  */
-export interface ComparatorGridBlockSelect<T extends boolean = true> {
+export interface EmbedBasicBlockSelect<T extends boolean = true> {
+  url?: T;
   title?: T;
-  description?: T;
-  plans?:
-    | T
-    | {
-        name?: T;
-        price?: T;
-        period?: T;
-        badge?: T;
-        highlighted?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-        id?: T;
-      };
-  features?:
-    | T
-    | {
-        feature?: T;
-        values?:
-          | T
-          | {
-              included?: T;
-              label?: T;
-              id?: T;
-            };
-        id?: T;
-      };
+  aspectRatio?: T;
+  caption?: T;
+  allowFullscreen?: T;
   id?: T;
   blockName?: T;
 }
