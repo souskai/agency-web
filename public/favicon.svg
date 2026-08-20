@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none" role="img" aria-label="SousKai web development agency logo">
   <style>
-    .bg { fill: #0a0a0a; }
-    .mark { fill: #2b7fff; }
+    .mk { stroke: #000000; }
     @media (prefers-color-scheme: dark) {
-      .bg { fill: #ffffff; }
-      .mark { fill: #2b7fff; }
+      .mk { stroke: #ffffff; }
     }
   </style>
-  <rect width="100" height="100" rx="22" class="bg"/>
-  <text x="50" y="66" text-anchor="middle" class="mark"
-    font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-    font-weight="700" font-size="48" letter-spacing="-0.04em">s</text>
+  <g stroke-width="2.5" stroke-linejoin="round" fill="none">
+    <path class="mk" d="M40 12 L66 27 L66 53 L40 68 L14 53 L14 27 Z"/>
+    <path class="mk" stroke-linecap="round" d="M32 34 L26 40 L32 46"/>
+    <path class="mk" stroke-linecap="round" d="M48 34 L54 40 L48 46"/>
+    <path class="mk" stroke-linecap="round" d="M44 34 L36 46"/>
+  </g>
 </svg>
