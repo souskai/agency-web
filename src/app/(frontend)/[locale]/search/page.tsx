@@ -5,6 +5,8 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { getTranslations } from '@/i18n/translations'
 import { isValidLocale, type Locale } from '@/i18n/config'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { SiteSetting } from '@/payload-types'
 import React from 'react'
 
 import { Search } from '@/search/Component'
@@ -16,7 +18,10 @@ type Args = {
   searchParams: Promise<{ q?: string }>
 }
 
-export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: Args) {
+export default async function Page({
+  params: paramsPromise,
+  searchParams: searchParamsPromise,
+}: Args) {
   const { locale: localeParam } = await paramsPromise
   const { q: query } = await searchParamsPromise
   const locale = isValidLocale(localeParam) ? localeParam : 'en'
@@ -72,8 +77,9 @@ export default async function Page({ params: paramsPromise, searchParams: search
   )
 }
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
   return {
-    title: 'Payload Website Template Search',
+    title: `Search | ${siteSettings?.siteName || 'Souskai'}`,
   }
 }

@@ -41,6 +41,21 @@ export const SiteSettings: GlobalConfig = {
       relationTo: 'media',
     },
     {
+      name: 'ogImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description: 'Default Open Graph / social share image (recommended 1200×630).',
+      },
+    },
+    {
+      name: 'twitterHandle',
+      type: 'text',
+      admin: {
+        description: 'Twitter/X handle without the @, used for the twitter:creator meta tag.',
+      },
+    },
+    {
       name: 'socialLinks',
       type: 'array',
       admin: {
