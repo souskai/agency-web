@@ -6,6 +6,8 @@ import { Pagination } from '@/components/Pagination'
 import { getCachedPosts, POSTS_PER_PAGE } from '@/utilities/getCachedPosts'
 import { getTranslations } from '@/i18n/translations'
 import { isValidLocale, type Locale } from '@/i18n/config'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import type { SiteSetting } from '@/payload-types'
 import React from 'react'
 
 import PageClient from './page.client'
@@ -50,8 +52,9 @@ export default async function Page({ params: paramsPromise }: Args) {
   )
 }
 
-export function generateMetadata({ params }: Args): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
   return {
-    title: 'Payload Website Template Posts',
+    title: `Posts | ${siteSettings?.siteName || 'Souskai'}`,
   }
 }

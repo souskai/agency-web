@@ -3395,6 +3395,14 @@ export interface SiteSetting {
   logo?: (number | null) | Media;
   favicon?: (number | null) | Media;
   /**
+   * Default Open Graph / social share image (recommended 1200×630).
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * Twitter/X handle without the @, used for the twitter:creator meta tag.
+   */
+  twitterHandle?: string | null;
+  /**
    * Social profile URLs
    */
   socialLinks?:
@@ -3498,6 +3506,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   siteDescription?: T;
   logo?: T;
   favicon?: T;
+  ogImage?: T;
+  twitterHandle?: T;
   socialLinks?:
     | T
     | {

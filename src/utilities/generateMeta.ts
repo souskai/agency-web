@@ -1,46 +1,51 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, Config } from '../payload-types'
+import type { Media, Page, Post, SiteSetting } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
+import { getCachedGlobal } from './getGlobals'
 import { getServerSideURL } from './getURL'
 
-const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL()
+const DEFAULT_OG_IMAGE = '/website-template-OG.webp'
+const FALLBACK_SITE_NAME = 'Souskai'
 
-  let url = serverUrl + '/website-template-OG.webp'
+type MetaDoc = Partial<Page> | Partial<Post> | null
 
+const resolveImageUrl = (
+  image: Media | SiteSetting['ogImage'] | number | null | undefined,
+): string | undefined => {
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
-
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
+    return ogUrl ? ogUrl : (image.url ?? undefined)
   }
 
-  return url
+  return undefined
 }
 
-export const generateMeta = async (args: {
-  doc: Partial<Page> | Partial<Post> | null
-}): Promise<Metadata> => {
+export const generateMeta = async (args: { doc: MetaDoc }): Promise<Metadata> => {
   const { doc } = args
 
-  const ogImage = getImageURL(doc?.meta?.image)
+  const serverUrl = getServerSideURL()
+  const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  const siteName = siteSettings?.siteName || FALLBACK_SITE_NAME
+  const siteDescription = siteSettings?.siteDescription || 'A modern web development agency.'
+
+  const docImage = resolveImageUrl(doc?.meta?.image)
+  const defaultImage = resolveImageUrl(siteSettings?.ogImage) ?? DEFAULT_OG_IMAGE
+
+  const ogImage = docImage ? serverUrl + docImage : serverUrl + defaultImage
+
+  const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
+
+  const description = doc?.meta?.description || siteDescription
 
   return {
-    description: doc?.meta?.description,
-    openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
-      images: ogImage
-        ? [
-            {
-              url: ogImage,
-            },
-          ]
-        : undefined,
+    description,
+    openGraph: await mergeOpenGraph({
+      description,
+      images: [{ url: ogImage }],
+      siteName,
       title,
       url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
     }),
