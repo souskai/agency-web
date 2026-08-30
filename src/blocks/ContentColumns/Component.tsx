@@ -3,6 +3,7 @@ import React from 'react'
 import type { ContentColumnsBlock as ContentColumnsBlockData } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { SectionShell } from '@/components/SectionShell'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 
@@ -22,7 +23,13 @@ export const ContentColumnsBlock: React.FC<Props> = ({
   title,
 }) => {
   return (
-    <section className={cn('container', className)} id={id ? `block-${id}` : undefined}>
+    <SectionShell
+      background="mesh-aurora"
+      className={className}
+      dividerBottom="wave"
+      dividerClassName="text-secondary"
+      id={id ? `block-${id}` : undefined}
+    >
       <div className="overflow-hidden rounded-frame border border-border/70 bg-card/35 px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
         <div
           className={cn('grid gap-10 lg:grid-cols-2 lg:gap-16', {
@@ -65,6 +72,6 @@ export const ContentColumnsBlock: React.FC<Props> = ({
           </div>
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }
