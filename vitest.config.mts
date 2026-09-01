@@ -8,5 +8,8 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],
     include: ['tests/int/**/*.int.spec.ts'],
+    // getPayload() pulls the Drizzle schema from Neon on first connect, which
+    // exceeds vitest's default 10s hook timeout on a cold pooled connection.
+    hookTimeout: 60000,
   },
 })

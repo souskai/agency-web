@@ -11,6 +11,9 @@ import 'dotenv/config'
  */
 export default defineConfig({
   testDir: './tests/e2e',
+  /* Raise the default timeout: cold start (Neon/Drizzle schema pull + admin
+     bundle compile) exceeds Playwright's default 30s. Applies to hooks + tests. */
+  timeout: 120_000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
