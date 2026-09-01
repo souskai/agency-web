@@ -5,7 +5,10 @@ import { seedTestUser, cleanupTestUser, testUser } from '../helpers/seedUser'
 test.describe('Admin Panel', () => {
   let page: Page
 
-  test.beforeAll(async ({ browser }, testInfo) => {
+  // Cold start: seedTestUser() pulls the Drizzle schema from Neon, then login
+  // compiles the admin bundle — both exceed Playwright's default 30s timeout
+  // (raised globally in playwright.config.ts).
+  test.beforeAll(async ({ browser }) => {
     await seedTestUser()
 
     const context = await browser.newContext()
@@ -27,7 +30,8 @@ test.describe('Admin Panel', () => {
 
   test('can navigate to list view', async () => {
     await page.goto('http://localhost:3000/admin/collections/users')
-    await expect(page).toHaveURL('http://localhost:3000/admin/collections/users')
+    // Payload 3 appends list query params (e.g. ?depth=1&limit=10) automatically.
+    await expect(page).toHaveURL(/\/admin\/collections\/users/)
     const listViewArtifact = page.locator('h1', { hasText: 'Users' }).first()
     await expect(listViewArtifact).toBeVisible()
   })
