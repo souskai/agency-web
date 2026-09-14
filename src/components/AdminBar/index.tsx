@@ -5,7 +5,7 @@ import type { PayloadAdminBarProps, PayloadMeUser } from '@payloadcms/admin-bar'
 import { cn } from '@/utilities/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { PayloadAdminBar } from '@payloadcms/admin-bar'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { getClientSideURL } from '@/utilities/getURL'
@@ -44,8 +44,19 @@ export const AdminBar: React.FC<{
     setShow(Boolean(user?.id))
   }, [])
 
+  const barRef = useRef<HTMLDivElement>(null)
+
+  // Publish the rendered bar height so the fixed header can sit below it.
+  // When the bar is hidden (display:none), offsetHeight is 0 and the header
+  // stays at top-0 exactly as before.
+  useLayoutEffect(() => {
+    const height = barRef.current?.offsetHeight ?? 0
+    document.documentElement.style.setProperty('--admin-bar-height', `${height}px`)
+  }, [show])
+
   return (
     <div
+      ref={barRef}
       className={cn(baseClass, 'sticky top-0 z-50 py-2 bg-black text-white', {
         'block sm:block': show,
         'hidden sm:hidden': !show,

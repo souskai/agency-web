@@ -59,44 +59,55 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
 }) => {
   const layout: PageBlock[] = [
     {
-      blockName: 'Agency Stats',
-      blockType: 'statsGrid',
-      title: 'Results that speak for themselves',
-      metrics: [
-        { value: '150+', label: 'Projects Delivered' },
-        { value: '80+', label: 'Happy Clients' },
-        { value: '35', label: 'Team Members' },
-        { value: '12', label: 'Awards Won' },
+      blockName: 'Services',
+      blockType: 'featureBento',
+      eyebrow: 'Our Expertise',
+      title: 'Turning your ideas into applications',
+      description:
+        'Custom web and mobile development, from first sketch to launch and beyond.',
+      items: [
+        {
+          title: 'Web Application',
+          description:
+            'Your needs are unique, and so are our solutions. To reach and engage your target audience, we develop high-performance, custom web applications that perfectly meet your specific requirements and constraints.',
+        },
+        {
+          title: 'Mobile Application',
+          description:
+            'Our development process puts the end-user first. Your mobile app is optimized for user retention and engagement, featuring a user-friendly interface that reflects your brand identity.',
+        },
+        {
+          title: 'Corporate Website',
+          description:
+            'A corporate website is the foundation of your digital presence. It embodies your company’s online image and must be carefully crafted, prioritizing seamless navigation, captivating design, reliable features, mobile responsiveness, and SEO optimization.',
+        },
+        {
+          title: 'UI/UX Design',
+          description:
+            'A well-thought-out UI/UX design is essential to capture your users’ attention. We create interfaces that combine aesthetics and ergonomics while ensuring an intuitive and engaging user experience. Using Figma and the Adobe Suite, we bring your vision to life with dynamic and immersive mockups.',
+        },
+        {
+          title: 'Maintenance',
+          description:
+            'Maintaining your digital solutions is crucial to ensuring their long-term performance and security. At Souskai, we offer comprehensive maintenance services, including preventive, evolutionary, and corrective maintenance for your web and mobile applications.',
+        },
+        {
+          title: 'Hosting',
+          description:
+            'We know that every project is unique. That’s why we offer custom web hosting solutions tailored to your company’s specific needs, whether for small websites or large-scale enterprise applications.',
+        },
       ],
     },
     {
-      blockName: 'What We Do',
+      blockName: 'Testimonials Heading',
       blockType: 'contentColumns',
-      eyebrow: 'Capabilities',
-      title: 'What We Do',
+      eyebrow: 'Social proof',
+      title: 'What our clients say 🐝',
       paragraphs: [
         {
-          text: 'Strategy — Research-driven strategies that align business goals with user needs.',
-        },
-        {
-          text: 'Design — Human-centred design systems and interfaces that delight users.',
-        },
-        {
-          text: 'Engineering — Robust, scalable code built with modern frameworks and best practices.',
+          text: '5/5 based on 15 Google reviews',
         },
       ],
-    },
-    {
-      blockName: 'Our Clients',
-      blockType: 'logoBanner',
-      displayType: 'customers',
-      heading: 'Trusted By',
-    },
-    {
-      blockName: 'Technology Partners',
-      blockType: 'logoBanner',
-      displayType: 'technologies',
-      heading: 'Built With',
     },
   ]
 
@@ -111,9 +122,15 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
 
   layout.push(
     {
-      blockName: 'Media Block',
-      blockType: 'mediaBlock',
-      media: metaImage.id,
+      blockName: 'The Agency',
+      blockType: 'contentColumns',
+      eyebrow: 'Who we are',
+      title: 'The Souskai agency',
+      paragraphs: [
+        {
+          text: 'Souskai and its team stand out through a strong passion for solving complex problems and delivering innovative solutions. Located in Strasbourg, our digital agency is made up of deeply passionate experts who continuously train in the latest technologies and programming languages. This is how we deliver cutting-edge, custom-built solutions tailored to your goals.',
+        },
+      ],
     },
     {
       blockName: 'Archive Block',
@@ -129,22 +146,16 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       relationTo: 'posts',
     },
     {
-      blockName: 'Awards & Recognition',
-      blockType: 'awardsList',
-      heading: 'Awards & Recognition',
-      limit: 10,
-    },
-    {
       blockName: 'CTA',
       blockType: 'callToActionCentered',
-      title: 'Ready to Work Together?',
-      description: 'Let’s discuss your next project. We’d love to hear from you.',
+      title: 'Do you have a digital project that requires expert guidance?',
+      description: 'Let’s talk about your timeline, tech stack, and goals.',
       links: [
         {
           link: {
             type: 'custom',
             appearance: 'default',
-            label: 'Start a Project',
+            label: 'Contact Us',
             url: '/contact',
           },
         },
@@ -157,29 +168,28 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
     _status: 'published',
     hero: {
       type: 'heroGrid',
+      richText: richRoot([
+        heading('Turn your ideas into digital successes', 'h1'),
+      ]),
       links: [
-        { link: { type: 'custom', appearance: 'default', label: 'See Portfolio', url: '/posts' } },
         {
           link: {
             type: 'custom',
-            appearance: 'outline',
-            label: 'Get a free consultation',
+            appearance: 'default',
+            label: 'Contact Us',
             url: '/contact',
           },
         },
       ],
-      eyebrow: 'Leading Digital Agency',
+      eyebrow: 'Spice up your digital presence',
       description:
-        'Souskai Digital helps ambitious brands design, build, and scale digital experiences that drive real results \u2014 from web and SEO to AI-powered marketing.',
-      richText: richRoot([
-        heading('Turning strategy, creativity, and data into measurable business growth', 'h1'),
-      ]),
+        'Souskai, your web agency for custom web and mobile app design and development.',
     },
     layout,
     meta: {
-      description: 'A full-service digital agency delivering strategy, design, and engineering.',
+      description: 'Souskai — custom web and mobile app design and development agency.',
       image: heroImage.id,
-      title: 'Agency — Digital Experiences',
+      title: 'Souskai Digital | Custom Web & Mobile Development Agency',
     },
     title: 'Home',
   }
