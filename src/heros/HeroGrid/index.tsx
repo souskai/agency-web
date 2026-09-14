@@ -22,7 +22,7 @@ export const HeroGridHero: React.FC<Page['hero']> = ({ description, eyebrow, lin
   }
 
   return (
-    <section className="container mt-4">
+    <section className="container mt-4 flex min-h-[75vh] flex-col justify-center">
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-12 xl:pt-4">
         <div className="xl:col-span-8 xl:col-start-1 xl:col-end-9">
           <div className="flex flex-col gap-6 lg:gap-10">

@@ -244,26 +244,42 @@ export const seed = async ({
   const testimonialData = [
     {
       quote:
-        'They transformed our digital presence completely. The team delivered a world-class platform on time and exceeded every expectation.',
-      authorName: 'Sarah Chen',
-      authorRole: 'VP of Product',
-      company: 'Globex Industries',
+        'A top-notch team of developers! We love working with them because they quickly understand our needs, know how to address them, and always make themselves available.',
+      authorName: 'Julien M.',
+      authorRole: 'Founder',
+      company: 'Resa Ninja',
       featured: true,
     },
     {
       quote:
-        'Working with this agency was a game-changer. Their strategic approach to UX resulted in a 40% increase in conversions.',
-      authorName: 'Marcus Rivera',
+        'I hired Souskai for the development of a custom application, and I want to thank them for the quality of their work. The team interfaces seamlessly with our own teams to find the best solutions and maintain our online services.',
+      authorName: 'Nicolas P.',
+      authorRole: 'Co-Founder',
+      company: 'Prevconnect',
+      featured: true,
+    },
+    {
+      quote:
+        'We absolutely loved collaborating with the Souskai team. From the very beginning, they scoped the project with clear and responsive management throughout the development phase.',
+      authorName: 'Sophie L.',
+      authorRole: 'Co-President',
+      company: 'FNAIM 67',
+      featured: true,
+    },
+    {
+      quote:
+        'Souskai Digital successfully identified my business needs and proposed AI-driven solutions to improve my processes. I highly recommend them!',
+      authorName: 'Marc D.',
+      authorRole: 'Founder & Production Director',
+      company: 'Swanside',
+      featured: true,
+    },
+    {
+      quote:
+        'A young and dedicated team delivering fast and efficient services, with a strong sense of creativity for their clients. I highly recommend Souskai Digital.',
+      authorName: 'Claire R.',
       authorRole: 'CEO',
-      company: 'Initech',
-      featured: true,
-    },
-    {
-      quote:
-        'From branding to development, the quality of work was outstanding. They truly understand how to build products that users love.',
-      authorName: 'Emily Nakamura',
-      authorRole: 'Head of Design',
-      company: 'Stark Enterprises',
+      company: 'Amomenti',
       featured: true,
     },
   ]

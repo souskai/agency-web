@@ -52,7 +52,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 h-20 bg-background border-b border-border text-foreground transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
+      className={`fixed left-0 right-0 z-40 h-20 bg-background border-b border-border text-foreground transition-transform duration-300 top-[var(--admin-bar-height,0px)] ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="container py-4 flex justify-between items-center">
