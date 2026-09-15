@@ -17,6 +17,7 @@ type Props = {
   dividerTop?: DividerVariant
   id?: string
   innerClassName?: string
+  padding?: string
 }
 
 /**
@@ -44,9 +45,10 @@ export const SectionShell: React.FC<Props> = ({
   dividerTop = 'none',
   id,
   innerClassName,
+  padding = 'py-12 md:py-16',
 }) => {
   return (
-    <section className={cn('relative', className)} id={id}>
+    <section className={cn('relative', container && 'container', padding, className)} id={id}>
       <BackgroundLayers className={backgroundClassName} preset={background} />
 
       {dividerTop !== 'none' ? (
@@ -58,7 +60,7 @@ export const SectionShell: React.FC<Props> = ({
         />
       ) : null}
 
-      <div className={cn('relative z-10', container && 'container', innerClassName)}>
+      <div className={cn('relative z-10', innerClassName)}>
         {children}
       </div>
 

@@ -30,7 +30,7 @@ export const TestimonialBlockComponent: React.FC<TestimonialBlock> = ({ testimon
   const isCarousel = layout === 'carousel'
 
   return (
-    <section className="container">
+    <section className="container py-12 md:py-16">
       <div
         className={cn(
           'flex gap-6',

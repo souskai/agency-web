@@ -30,7 +30,7 @@ export const EmbedBasicBlock: React.FC<Props> = ({
   const safeUrl = getSafeEmbedUrl(url)
 
   return (
-    <section className={cn('container', className)} id={id ? `block-${id}` : undefined}>
+    <section className={cn('container py-12 md:py-16', className)} id={id ? `block-${id}` : undefined}>
       <figure className="overflow-hidden rounded-frame border border-border/70 bg-card/35">
         <div className={cn('relative w-full bg-muted', aspectClass)}>
           {safeUrl ? (

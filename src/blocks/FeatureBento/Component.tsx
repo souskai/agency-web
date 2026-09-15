@@ -3,6 +3,7 @@ import React from 'react'
 import type { FeatureBentoBlock as FeatureBentoBlockData } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { SectionShell } from '@/components/SectionShell'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
@@ -24,7 +25,13 @@ export const FeatureBentoBlock: React.FC<Props> = ({
   title,
 }) => {
   return (
-    <section className={cn('container', className)} id={id ? `block-${id}` : undefined}>
+    <SectionShell
+      background="grid-fade"
+      className={className}
+      dividerBottom="wave"
+      dividerClassName="text-background"
+      id={id ? `block-${id}` : undefined}
+    >
       <div className="overflow-hidden rounded-frame border border-border/70 bg-card/35 px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
         <div
           className={cn('flex flex-col gap-8', {
@@ -80,6 +87,6 @@ export const FeatureBentoBlock: React.FC<Props> = ({
           ) : null}
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }

@@ -30,7 +30,7 @@ async function LogoBannerBlockInner({
   if (items.length === 0) return null
 
   return (
-    <section className="container">
+    <section className="container py-12 md:py-16">
       {heading && (
         <h2 className="mb-6 text-center text-lg font-semibold text-muted-foreground">
           {heading}
