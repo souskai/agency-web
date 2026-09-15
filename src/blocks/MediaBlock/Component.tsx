@@ -35,9 +35,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
   return (
     <div
       className={cn(
-        '',
         {
           container: enableGutter,
+          'py-12 md:py-16': enableGutter,
         },
         className,
       )}

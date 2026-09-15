@@ -26,7 +26,7 @@ export const ContentColumnsBlock: React.FC<Props> = ({
     <SectionShell
       background="mesh-aurora"
       className={className}
-      dividerBottom="wave"
+      dividerBottom="zigzag"
       dividerClassName="text-secondary"
       id={id ? `block-${id}` : undefined}
     >
