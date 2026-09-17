@@ -1,0 +1,125 @@
+// ─────────────────────────────────────────────────────────────
+//  Payload Admin — theme overrides
+//
+//  Overrides Payload's raw color palette so the admin UI matches
+//  the frontend design tokens defined in:
+//  src/app/(frontend)/globals.css
+//
+//  HOW IT WORKS
+//  ────────────
+//  Payload defines its theme inside `@layer payload-default`:
+//  it maps semantic `--theme-*` variables onto a raw `--color-*`
+//  palette, and flips those mappings for dark mode via
+//  `html[data-theme='dark']`. Overriding the `--color-*` palette
+//  therefore re-themes BOTH light and dark modes in one place.
+//
+//  These declarations are intentionally UNLAYERED: unlayered author
+//  styles take precedence over styles inside `@layer`, so they win
+//  over Payload's defaults regardless of import order.
+// ─────────────────────────────────────────────────────────────
+
+:root {
+  // ── Neutral ramp (white → black) — Apple-style grays ──
+  --color-base-0: #ffffff;
+  --color-base-50: #fafafa;
+  --color-base-100: #f5f5f7;
+  --color-base-150: #efeff1;
+  --color-base-200: #eaeaea;
+  --color-base-250: #e7e7ea;
+  --color-base-300: #e5e5ea;
+  --color-base-350: #dcdce1;
+  --color-base-400: #d1d1d6;
+  --color-base-450: #b9b9c0;
+  --color-base-500: #a1a1aa;
+  --color-base-550: #9898a0;
+  --color-base-600: #8e8e93;
+  --color-base-650: #79797e;
+  --color-base-700: #636366;
+  --color-base-750: #565659;
+  --color-base-800: #48484a;
+  --color-base-850: #323234;
+  --color-base-900: #1c1c1e;
+  --color-base-950: #0e0e0f;
+  --color-base-1000: #000000;
+
+  // ── Primary accent — brand blue ──
+  //    (Payload names its primary scale "success")
+  --color-success-50: #eef5ff;
+  --color-success-100: #d9e8ff;
+  --color-success-150: #cbe0ff;
+  --color-success-200: #bcd7ff;
+  --color-success-250: #a5cbff;
+  --color-success-300: #8ebeff;
+  --color-success-350: #74acff;
+  --color-success-400: #599aff;
+  --color-success-450: #428cff;
+  --color-success-500: #2b7fff;
+  --color-success-550: #236bf7;
+  --color-success-600: #1b5af5;
+  --color-success-650: #1750eb;
+  --color-success-700: #1447e1;
+  --color-success-750: #123dcb;
+  --color-success-800: #1034b5;
+  --color-success-850: #0e2b9f;
+  --color-success-900: #0c2389;
+  --color-success-950: #0a1a6e;
+
+  // ── Destructive — brand danger red ──
+  --color-error-50: #fff1f3;
+  --color-error-100: #ffe3e8;
+  --color-error-150: #ffd7e0;
+  --color-error-200: #ffcbd5;
+  --color-error-250: #ffb6c5;
+  --color-error-300: #ffa0b4;
+  --color-error-350: #ff86a2;
+  --color-error-400: #ff6b8f;
+  --color-error-450: #ff4c74;
+  --color-error-500: #ff2d55;
+  --color-error-550: #f41f4d;
+  --color-error-600: #ed1146;
+  --color-error-650: #d60e40;
+  --color-error-700: #c00c3a;
+  --color-error-750: #a30a32;
+  --color-error-800: #86082a;
+  --color-error-850: #690622;
+  --color-error-900: #4c041a;
+  --color-error-950: #2f0210;
+
+  // ── Warning — brand amber ──
+  --color-warning-50: #fff8ec;
+  --color-warning-100: #ffefd1;
+  --color-warning-150: #ffe7ba;
+  --color-warning-200: #ffdea3;
+  --color-warning-250: #ffd28b;
+  --color-warning-300: #ffc472;
+  --color-warning-350: #ffb659;
+  --color-warning-400: #ffab3f;
+  --color-warning-450: #ffa525;
+  --color-warning-500: #ff9f0a;
+  --color-warning-550: #e58e09;
+  --color-warning-600: #cc7d08;
+  --color-warning-650: #b26d07;
+  --color-warning-700: #995d06;
+  --color-warning-750: #804d05;
+  --color-warning-800: #663d04;
+  --color-warning-850: #4d2e03;
+  --color-warning-900: #331f02;
+  --color-warning-950: #1a0f01;
+}
+
+// ── Brand-colored primary actions ──
+//    Payload's default primary button is gray (--theme-elevation-800).
+//    Re-point it at the accent so the brand blue is actually visible
+//    on Login / Save / Publish buttons. Unlayered, so it wins.
+.btn--style-primary {
+  --color: #ffffff;
+  --bg-color: var(--theme-success-500);
+  --hover-bg: var(--theme-success-600);
+
+  &.btn--disabled {
+    --bg-color: var(--theme-elevation-200);
+    --color: var(--theme-elevation-800);
+    --hover-bg: var(--bg-color);
+  }
+}
+
