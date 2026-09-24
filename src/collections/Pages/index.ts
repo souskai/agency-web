@@ -25,6 +25,7 @@ import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { restrictPagePublish } from './hooks/restrictPagePublish'
 
 import {
   MetaDescriptionField,
@@ -37,13 +38,13 @@ import {
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   access: {
-    create: hasRole(['admin', 'editor']),
+    create: hasRole(['admin', 'editor', 'publisher']),
     delete: hasRole(['admin', 'editor']),
     // `authenticatedOrPublished` returns everything to any logged-in user
     // (including the `viewer` role used for client demos) and only published
     // docs to anonymous visitors — exactly what we want.
     read: authenticatedOrPublished,
-    update: hasRole(['admin', 'editor']),
+    update: hasRole(['admin', 'editor', 'publisher']),
   },
   // This config controls what's populated by default when a page is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
@@ -158,7 +159,7 @@ export const Pages: CollectionConfig<'pages'> = {
   ],
   hooks: {
     afterChange: [revalidatePage],
-    beforeChange: [populatePublishedAt],
+    beforeChange: [populatePublishedAt, restrictPagePublish],
     afterDelete: [revalidateDelete],
   },
   versions: {
