@@ -482,9 +482,9 @@ export interface User {
   id: number;
   name?: string | null;
   /**
-   * Admin = full access. Editor = manage content. Viewer = read-only (client demo accounts).
+   * Admin = full access. Editor = manage content. Publisher = write posts + draft pages. Viewer = read-only (client demo accounts).
    */
-  roles?: ('admin' | 'editor' | 'viewer')[] | null;
+  roles?: ('admin' | 'editor' | 'publisher' | 'viewer')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;

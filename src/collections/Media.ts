@@ -13,7 +13,7 @@ export const Media: CollectionConfig = {
   slug: 'media',
   folders: true,
   access: {
-    create: hasRole(['admin', 'editor']),
+    create: hasRole(['admin', 'editor', 'publisher']),
     delete: hasRole(['admin', 'editor']),
     // Public images must remain readable by anyone (used on the live site).
     read: anyone,

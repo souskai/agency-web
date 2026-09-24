@@ -4,6 +4,9 @@ import type { User } from '@/payload-types'
 
 import { authenticated } from '../../access/authenticated'
 import { hasRole } from '../../access/hasRole'
+import { readOwnOrAdmin } from '../../access/readOwnOrAdmin'
+
+import { sendInvitation } from './hooks/sendInvitation'
 
 /**
  * Roles available to authenticated admin users.
@@ -11,7 +14,7 @@ import { hasRole } from '../../access/hasRole'
  * - `editor`      — can create/update/delete content; cannot manage users
  * - `viewer`      — read-only across the site (intended for client demos)
  */
-export const ROLES = ['admin', 'editor', 'viewer'] as const
+export const ROLES = ['admin', 'editor', 'publisher', 'viewer'] as const
 export type Role = (typeof ROLES)[number]
 
 /**
@@ -58,7 +61,7 @@ export const Users: CollectionConfig = {
     admin: authenticated,
     create: createUser,
     delete: hasRole(['admin']),
-    read: authenticated,
+    read: readOwnOrAdmin,
     update: updateOwnOrAdmin,
   },
   admin: {
@@ -173,10 +176,13 @@ export const Users: CollectionConfig = {
       },
       admin: {
         description:
-          'Admin = full access. Editor = manage content. Viewer = read-only (client demo accounts).',
+          'Admin = full access. Editor = manage content. Publisher = write posts + draft pages. Viewer = read-only (client demo accounts).',
       },
     },
   ],
+  hooks: {
+    afterChange: [sendInvitation],
+  },
   timestamps: true,
 }
 

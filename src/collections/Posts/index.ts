@@ -30,13 +30,13 @@ import { slugField } from 'payload'
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   access: {
-    create: hasRole(['admin', 'editor']),
-    delete: hasRole(['admin', 'editor']),
+    create: hasRole(['admin', 'editor', 'publisher']),
+    delete: hasRole(['admin', 'editor', 'publisher']),
     // `authenticatedOrPublished` returns everything to any logged-in user
     // (including the `viewer` role used for client demos) and only published
     // docs to anonymous visitors — exactly what we want.
     read: authenticatedOrPublished,
-    update: hasRole(['admin', 'editor']),
+    update: hasRole(['admin', 'editor', 'publisher']),
   },
   // This config controls what's populated by default when a post is referenced
   // https://payloadcms.com/docs/queries/select#defaultpopulate-collection-config-property
