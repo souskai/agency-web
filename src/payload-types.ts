@@ -3269,6 +3269,41 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Optional dropdown submenu items
+         */
+        children?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: number | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'services';
+                      value: number | Service;
+                    } | null)
+                  | ({
+                      relationTo: 'case-studies';
+                      value: number | CaseStudy;
+                    } | null)
+                  | ({
+                      relationTo: 'legal-pages';
+                      value: number | LegalPage;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -3365,7 +3400,7 @@ export interface Footer {
       }[]
     | null;
   /**
-   * e.g. © 2026 Agency Name. All rights reserved.
+   * e.g. © 2026 Souskai. All rights reserved.
    */
   legalLine?: string | null;
   /**
@@ -3438,6 +3473,20 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        children?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
             };
         id?: T;
       };

@@ -29,7 +29,9 @@ export const generateMeta = async (args: { doc: MetaDoc }): Promise<Metadata> =>
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
 
   const siteName = siteSettings?.siteName || FALLBACK_SITE_NAME
-  const siteDescription = siteSettings?.siteDescription || 'A modern web development agency.'
+  const siteDescription =
+    siteSettings?.siteDescription ||
+    'We engineer modern, type-safe web platforms using Payload CMS and Next.js.'
 
   const docImage = resolveImageUrl(doc?.meta?.image)
   const defaultImage = resolveImageUrl(siteSettings?.ogImage) ?? DEFAULT_OG_IMAGE

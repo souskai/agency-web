@@ -24,7 +24,9 @@ export const mergeOpenGraph = async (
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
 
   const siteName = siteSettings?.siteName || FALLBACK_SITE_NAME
-  const description = siteSettings?.siteDescription || 'A modern web development agency.'
+  const description =
+    siteSettings?.siteDescription ||
+    'We engineer modern, type-safe web platforms using Payload CMS and Next.js.'
   const defaultImage = resolveImageUrl(siteSettings?.ogImage) ?? `${serverUrl}${DEFAULT_OG_IMAGE}`
 
   return {

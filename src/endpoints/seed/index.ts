@@ -101,7 +101,7 @@ export const seed = async ({
   await payload.updateGlobal({
     slug: 'site-settings',
     // `siteName` is required by the schema, so it must not be empty during clearing.
-    data: { siteName: 'Agency Name', socialLinks: [] },
+    data: { siteName: 'Souskai', socialLinks: [] },
     depth: 0,
     context: { disableRevalidate: true },
   })
@@ -238,61 +238,6 @@ export const seed = async ({
       }),
     ),
   )
-
-  payload.logger.info(`— Seeding testimonials...`)
-
-  const testimonialData = [
-    {
-      quote:
-        'A top-notch team of developers! We love working with them because they quickly understand our needs, know how to address them, and always make themselves available.',
-      authorName: 'Julien M.',
-      authorRole: 'Founder',
-      company: 'Resa Ninja',
-      featured: true,
-    },
-    {
-      quote:
-        'I hired Souskai for the development of a custom application, and I want to thank them for the quality of their work. The team interfaces seamlessly with our own teams to find the best solutions and maintain our online services.',
-      authorName: 'Nicolas P.',
-      authorRole: 'Co-Founder',
-      company: 'Prevconnect',
-      featured: true,
-    },
-    {
-      quote:
-        'We absolutely loved collaborating with the Souskai team. From the very beginning, they scoped the project with clear and responsive management throughout the development phase.',
-      authorName: 'Sophie L.',
-      authorRole: 'Co-President',
-      company: 'FNAIM 67',
-      featured: true,
-    },
-    {
-      quote:
-        'Souskai Digital successfully identified my business needs and proposed AI-driven solutions to improve my processes. I highly recommend them!',
-      authorName: 'Marc D.',
-      authorRole: 'Founder & Production Director',
-      company: 'Swanside',
-      featured: true,
-    },
-    {
-      quote:
-        'A young and dedicated team delivering fast and efficient services, with a strong sense of creativity for their clients. I highly recommend Souskai Digital.',
-      authorName: 'Claire R.',
-      authorRole: 'CEO',
-      company: 'Amomenti',
-      featured: true,
-    },
-  ]
-
-  const testimonialDocs = []
-  for (const t of testimonialData) {
-    const doc = await payload.create({
-      collection: 'testimonials',
-      context: { disableRevalidate: true },
-      data: t,
-    })
-    testimonialDocs.push(doc)
-  }
 
   payload.logger.info(`— Seeding awards...`)
 
@@ -792,15 +737,11 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  const [homePage, contactPage] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: home({
-        heroImage: imageHomeDoc,
-        metaImage: image2Doc,
-        testimonialIds: testimonialDocs.map((t) => t.id),
-      }),
+      data: home(),
     }),
     payload.create({
       collection: 'pages',
@@ -820,7 +761,16 @@ export const seed = async ({
       slug: 'header',
       data: {
         navItems: [
-          { link: { type: 'custom', label: 'Services', url: '/services' } },
+          {
+            link: { type: 'custom', label: 'Services', url: '/services' },
+            children: serviceDocs.map((s) => ({
+              link: {
+                type: 'reference' as const,
+                label: s.title,
+                reference: { relationTo: 'services' as const, value: s.id },
+              },
+            })),
+          },
           { link: { type: 'custom', label: 'Work', url: '/posts' } },
           {
             link: {
@@ -895,7 +845,7 @@ export const seed = async ({
             ],
           },
         ],
-        legalLine: `© ${new Date().getFullYear()} Agency Name. All rights reserved.`,
+        legalLine: `© ${new Date().getFullYear()} Souskai. All rights reserved.`,
         socialLinks: [
           { platform: 'twitter', url: 'https://x.com' },
           { platform: 'linkedin', url: 'https://linkedin.com' },
@@ -908,12 +858,12 @@ export const seed = async ({
   await payload.updateGlobal({
     slug: 'site-settings',
     data: {
-      siteName: 'Agency Name',
+      siteName: 'Souskai',
       siteDescription:
-        'A full-service digital agency delivering strategy, design, and engineering.',
-      contactEmail: 'hello@agency.example',
-      contactPhone: '+1 (555) 123-4567',
-      address: '123 Innovation Drive\nSan Francisco, CA 94105',
+        'We engineer modern, type-safe web platforms using Payload CMS and Next.js. We open-sourced the code running this exact site to prove our standards.',
+      contactEmail: 'info@souskai.com',
+      contactPhone: '+1 (758) 721-3630',
+      address: 'Saint Lucia\nAtlanta, USA\nToronto, Canada',
       socialLinks: [
         { platform: 'twitter', url: 'https://x.com' },
         { platform: 'linkedin', url: 'https://linkedin.com' },
@@ -922,6 +872,22 @@ export const seed = async ({
       ],
     },
   })
+
+  /* ------------------------------------------------------------------
+   * Publish pages — created as drafts above so the globals could
+   * reference them without a cross-connection FK visibility race (Neon).
+   * ------------------------------------------------------------------ */
+
+  payload.logger.info(`— Publishing pages...`)
+
+  for (const page of [homePage, contactPage]) {
+    await payload.update({
+      collection: 'pages',
+      id: page.id,
+      data: { _status: 'published' as const },
+      req,
+    })
+  }
 
   payload.logger.info('Seeded database successfully!')
 }

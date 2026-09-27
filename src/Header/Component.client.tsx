@@ -6,8 +6,10 @@ import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
 
+import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+import { MobileNav } from './MobileNav'
 import { prefixWithLocale, useLocale } from '@/i18n/locale'
 import type { Locale } from '@/i18n/config'
 
@@ -59,7 +61,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <Link href={prefixWithLocale('/', locale)}>
           <Logo loading="eager" priority="high" />
         </Link>
-        <HeaderNav data={data} />
+        <div className="flex items-center gap-2">
+          <HeaderNav data={data} />
+          {data.ctaButtons?.map(({ link }, i) => (
+            <CMSLink key={i} {...link} className="hidden md:inline-flex" />
+          ))}
+          <MobileNav data={data} />
+        </div>
       </div>
     </header>
   )
