@@ -58,7 +58,7 @@ export const Footer: GlobalConfig = {
       type: 'text',
       localized: true,
       admin: {
-        description: 'e.g. © 2026 Agency Name. All rights reserved.',
+        description: 'e.g. © 2026 Souskai. All rights reserved.',
       },
     },
     {
