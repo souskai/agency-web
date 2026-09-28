@@ -8,6 +8,8 @@ import type { Header } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import { HeaderDecor } from './Decor'
 import { HeaderNav } from './Nav'
 import { MobileNav } from './MobileNav'
 import { prefixWithLocale, useLocale } from '@/i18n/locale'
@@ -57,16 +59,22 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       className={`fixed left-0 right-0 z-40 h-20 bg-background border-b border-border text-foreground transition-transform duration-300 top-[var(--admin-bar-height,0px)] ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="container py-4 flex justify-between items-center">
-        <Link href={prefixWithLocale('/', locale)}>
-          <Logo loading="eager" priority="high" />
-        </Link>
-        <div className="flex items-center gap-2">
+      <HeaderDecor />
+      <div className="container relative py-4">
+        <div className="grid grid-cols-[1fr_auto] items-center md:grid-cols-[1fr_auto_1fr]">
+          <Link className="w-fit" href={prefixWithLocale('/', locale)}>
+            <Logo loading="eager" priority="high" />
+          </Link>
           <HeaderNav data={data} />
-          {data.ctaButtons?.map(({ link }, i) => (
-            <CMSLink key={i} {...link} className="hidden md:inline-flex" />
-          ))}
-          <MobileNav data={data} />
+          <div className="flex items-center justify-end gap-2">
+            {data.ctaButtons?.map(({ link }, i) => (
+              <CMSLink key={i} {...link} size="sm" className="hidden md:inline-flex" />
+            ))}
+            <div className="hidden md:flex">
+              <ThemeToggle />
+            </div>
+            <MobileNav data={data} />
+          </div>
         </div>
       </div>
     </header>

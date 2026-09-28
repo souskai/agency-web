@@ -168,7 +168,7 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
           },
         },
       ],
-      eyebrow: 'Souskai · Engineering-led web studio',
+      eyebrow: 'Engineering-led web studio',
       description:
         "We engineer type-safe web platforms on Payload CMS + Next.js for organizations that can't afford to lose their history to a black box. You keep the schema, the database, and the code — and we open-sourced this site to prove our standards.",
     },
