@@ -4,6 +4,7 @@ import { ConnectorJunction } from '@/components/ConnectorJunction'
 import { cn } from '@/utilities/ui'
 
 type ContainerRailsEdge = 'top' | 'bottom'
+type ContainerRailsSurface = 'none' | 'background'
 
 interface Props {
   /**
@@ -14,6 +15,12 @@ interface Props {
    *   footer's top border.
    */
   edge?: ContainerRailsEdge
+  /**
+   * `background` paints an opaque `bg-background` band over the `.container`
+   * box (behind the rails), so the host section's surface is CONTAINED to the
+   * rail band instead of bleeding to the viewport edges. `none` = rails only.
+   */
+  surface?: ContainerRailsSurface
   className?: string
 }
 
@@ -37,7 +44,11 @@ interface Props {
  *   10.5–11.5, horizontal bar svg y 10–11), so the same asset serves both edges
  *   with no transform.
  */
-export const ContainerRails: React.FC<Props> = ({ className, edge = 'bottom' }) => {
+export const ContainerRails: React.FC<Props> = ({
+  className,
+  edge = 'bottom',
+  surface = 'none',
+}) => {
   const isTop = edge === 'top'
 
   return (
@@ -48,6 +59,7 @@ export const ContainerRails: React.FC<Props> = ({ className, edge = 'bottom' }) 
         className,
       )}
     >
+      {surface === 'background' && <span className="absolute inset-0 bg-background" />}
       <span className="absolute inset-y-0 left-0 w-px bg-current" />
       <span className="absolute inset-y-0 right-0 w-px bg-current" />
       <ConnectorJunction className={isTop ? '-top-2.75' : '-bottom-2.75'} side="left" />
