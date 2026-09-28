@@ -22,6 +22,9 @@ export const translations = {
       placeholder: 'Search...',
       noResults: 'No results found.',
     },
+    services: {
+      related: 'Related services',
+    },
     common: {
       readMore: 'Read more',
       minRead: 'min read',
@@ -43,6 +46,9 @@ export const translations = {
       title: 'Търсене',
       placeholder: 'Търсене...',
       noResults: 'Няма намерени резултати.',
+    },
+    services: {
+      related: 'Свързани услуги',
     },
     common: {
       readMore: 'Прочети още',

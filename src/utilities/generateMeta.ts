@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, SiteSetting } from '../payload-types'
+import type { Media, Page, Post, Service, SiteSetting } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getCachedGlobal } from './getGlobals'
@@ -9,7 +9,7 @@ import { getServerSideURL } from './getURL'
 const DEFAULT_OG_IMAGE = '/website-template-OG.webp'
 const FALLBACK_SITE_NAME = 'Souskai'
 
-type MetaDoc = Partial<Page> | Partial<Post> | null
+type MetaDoc = Partial<Page> | Partial<Post> | Partial<Service> | null
 
 const resolveImageUrl = (
   image: Media | SiteSetting['ogImage'] | number | null | undefined,
