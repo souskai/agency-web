@@ -40,20 +40,42 @@ const navigationMenuTriggerStyle = cva(
 
 const NavigationMenuTrigger = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <NavigationMenuPrimitive.Trigger
-    ref={ref}
-    className={cn(navigationMenuTriggerStyle(), 'group', className)}
-    {...props}
-  >
-    {children}{' '}
-    <ChevronDown
-      className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
-      aria-hidden="true"
-    />
-  </NavigationMenuPrimitive.Trigger>
-))
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger> & {
+    /**
+     * Render only the children, without the trailing chevron. Required when the
+     * trigger is used with `asChild` to make a link the trigger: Radix `Slot`
+     * accepts exactly one child, so the default `{children}{' '}<ChevronDown/>`
+     * output (an array) throws. Pass `chevron={false}` and render your own
+     * chevron inside the child element instead.
+     */
+    chevron?: boolean
+  }
+>(({ className, children, chevron = true, ...props }, ref) => {
+  const triggerProps = {
+    ref,
+    className: cn(navigationMenuTriggerStyle(), 'group', className),
+    ...props,
+  }
+
+  // `asChild` requires a single element child: a trailing `{' '}<ChevronDown/>`
+  // turns the children into an array and Radix `Slot` throws. When the chevron is
+  // disabled, render the (single) child alone.
+  if (!chevron) {
+    return (
+      <NavigationMenuPrimitive.Trigger {...triggerProps}>{children}</NavigationMenuPrimitive.Trigger>
+    )
+  }
+
+  return (
+    <NavigationMenuPrimitive.Trigger {...triggerProps}>
+      {children}{' '}
+      <ChevronDown
+        className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
+        aria-hidden="true"
+      />
+    </NavigationMenuPrimitive.Trigger>
+  )
+})
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName
 
 const NavigationMenuContent = React.forwardRef<

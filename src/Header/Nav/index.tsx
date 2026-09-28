@@ -1,6 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { ChevronDown } from 'lucide-react'
 
 import type { Header as HeaderType } from '@/payload-types'
 
@@ -27,30 +29,54 @@ const dropdownItemClassName =
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
+  const pathname = usePathname()
+  const [openItem, setOpenItem] = useState('')
+  const [prevPathname, setPrevPathname] = useState(pathname)
+
+  // Radix's trigger click toggles the panel. The header lives in the locale layout
+  // and persists across soft navigation, so a click-opened panel would otherwise
+  // stay open on the new page. Reset it whenever the route changes (React's
+  // "adjust state during render" pattern — no effect needed).
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname)
+    setOpenItem('')
+  }
 
   return (
-    <NavigationMenu className="hidden md:flex">
+    <NavigationMenu className="hidden md:flex" value={openItem} onValueChange={setOpenItem}>
       <NavigationMenuList className="gap-2 space-x-0">
         {navItems.map(({ link, children }, i) => {
           const hasChildren = Boolean(children && children.length > 0)
+          const itemValue = `nav-item-${i}`
 
           if (hasChildren) {
             return (
-              <NavigationMenuItem key={i}>
-                <NavigationMenuTrigger className="h-8 rounded-md px-2.5 py-0 text-sm font-medium">
-                  {link.label}
+              <NavigationMenuItem
+                key={i}
+                value={itemValue}
+                onKeyDown={(event) => {
+                  // The trigger is a real link, so Enter navigates to it. Space and
+                  // ArrowDown disclose the panel instead of scrolling the page.
+                  if (event.key === ' ' || event.key === 'ArrowDown') {
+                    event.preventDefault()
+                    setOpenItem(itemValue)
+                  }
+                }}
+              >
+                <NavigationMenuTrigger
+                  asChild
+                  chevron={false}
+                  className={`${navItemClassName} group py-0 data-[state=open]:bg-accent data-[state=open]:text-accent-foreground`}
+                >
+                  <CMSLink {...link} appearance="inline">
+                    <ChevronDown
+                      className="ml-1 h-3 w-3 opacity-60 transition-transform duration-200 group-data-[state=open]:rotate-180"
+                      aria-hidden="true"
+                    />
+                  </CMSLink>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-1 p-2 md:w-[500px]">
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <CMSLink
-                          {...link}
-                          appearance="inline"
-                          className={`${dropdownItemClassName} font-medium`}
-                        />
-                      </NavigationMenuLink>
-                    </li>
+                <NavigationMenuContent className="md:w-max">
+                  <ul className="grid gap-1 p-2">
                     {children?.map(({ link: childLink }, j) => (
                       <li key={j}>
                         <NavigationMenuLink asChild>

@@ -53,14 +53,24 @@ export const MobileNav: React.FC<{ data: HeaderType }> = ({ data }) => {
               return (
                 <Accordion key={i} type="single" collapsible>
                   <AccordionItem value={`item-${i}`} className="border-b-0">
-                    <AccordionTrigger className="px-3 py-3 text-base">{link.label}</AccordionTrigger>
+                    {/* Desktop parity: the top-level entry is a real link (hover discloses
+                        there). Touch has no hover, so the disclosure moves to a sibling
+                        icon-only toggle. No duplicated parent row inside the panel. */}
+                    <div className="flex items-center gap-1">
+                      <CMSLink
+                        {...link}
+                        appearance="inline"
+                        className="flex-1 rounded-md px-3 py-3 text-base font-medium hover:bg-accent"
+                      />
+                      <AccordionTrigger
+                        aria-label={`Toggle ${link.label} submenu`}
+                        className="w-auto flex-none shrink-0 px-2 py-3 hover:no-underline"
+                      >
+                        {null}
+                      </AccordionTrigger>
+                    </div>
                     <AccordionContent className="[&_a]:no-underline">
                       <div className="flex flex-col">
-                        <CMSLink
-                          {...link}
-                          appearance="inline"
-                          className="rounded-md px-3 py-2 text-base font-medium hover:bg-accent"
-                        />
                         {children?.map(({ link: childLink }, j) => (
                           <CMSLink
                             key={j}
