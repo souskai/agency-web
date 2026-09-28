@@ -42,6 +42,7 @@ prompt-logs/
 repomix-output.xml
 repomix.config.json
 .repomixignore
+.playwright-mcp/
 
 # ───────────────────────────────────────────────
 # Internal Documentation

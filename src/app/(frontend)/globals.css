@@ -514,6 +514,47 @@
 }
 
 /* ─────────────────────────────────────────────
+   BRAND MOTION — animated flame
+   One-shot path morph on first paint, mirroring the reference
+   brand-mark technique. CSS `d: path()` is Chromium/Safari only:
+   Firefox falls back to the static `d` attribute frame, and
+   reduced-motion users get no animation at all.
+   ───────────────────────────────────────────── */
+@layer utilities {
+  /* Ignition → surge → rest. All three paths are anisotropic scalings of the
+     rest silhouette about the flame's base (12, 22.4), so every frame shares an
+     identical 9-cubic + 4-cubic two-subpath structure and CSS can interpolate
+     `d`. Chromium/Safari animate it; Firefox renders the static rest path. */
+  @keyframes flame-flicker {
+    0% {
+      d: path(
+        'M 12.03 4.18 C 12.66 7.79 15.45 9.82 17.37 11.93 C 19.06 13.78 19.98 15.36 20.02 16.94 C 20.09 20.2 16.51 22.4 12 22.4 C 7.49 22.4 3.81 20.2 3.74 16.94 C 3.68 14.39 5.41 13.25 6.36 11.31 C 6.88 10.26 6.97 9.02 6.5 7.88 C 6.27 7.26 6.8 6.65 7.58 6.82 C 9.01 7.09 10.24 7.7 11.13 8.5 C 11.1 6.82 11.28 5.33 12.03 4.18 ZM 11.68 13.25 C 12.15 14.3 13.04 14.92 13.07 16.15 C 13.1 17.47 12.57 18.26 11.69 18.26 C 10.81 18.26 10.24 17.47 10.21 16.15 C 10.18 14.92 11.05 14.3 11.68 13.25 Z'
+      );
+    }
+    45% {
+      d: path(
+        'M 12.77 0.46 C 13.14 4.8 15.35 7.24 16.83 9.79 C 18.14 12.01 18.82 13.92 18.78 15.83 C 18.71 19.75 15.69 22.4 12 22.4 C 8.31 22.4 5.39 19.75 5.46 15.83 C 5.52 12.75 6.99 11.38 7.84 9.04 C 8.32 7.77 8.43 6.29 8.1 4.91 C 7.93 4.17 8.4 3.43 9.02 3.64 C 10.19 3.96 11.16 4.7 11.87 5.65 C 11.9 3.64 12.12 1.84 12.77 0.46 ZM 12.12 11.38 C 12.45 12.65 13.16 13.39 13.13 14.87 C 13.1 16.46 12.63 17.42 11.91 17.42 C 11.19 17.42 10.76 16.46 10.79 14.87 C 10.82 13.39 11.55 12.65 12.12 11.38 Z'
+      );
+    }
+    100% {
+      d: path(
+        'M 12.4 1.7 C 12.9 5.8 15.4 8.1 17.1 10.5 C 18.6 12.6 19.4 14.4 19.4 16.2 C 19.4 19.9 16.1 22.4 12 22.4 C 7.9 22.4 4.6 19.9 4.6 16.2 C 4.6 13.3 6.2 12 7.1 9.8 C 7.6 8.6 7.7 7.2 7.3 5.9 C 7.1 5.2 7.6 4.5 8.3 4.7 C 9.6 5 10.7 5.7 11.5 6.6 C 11.5 4.7 11.7 3 12.4 1.7 ZM 11.9 12 C 12.3 13.2 13.1 13.9 13.1 15.3 C 13.1 16.8 12.6 17.7 11.8 17.7 C 11 17.7 10.5 16.8 10.5 15.3 C 10.5 13.9 11.3 13.2 11.9 12 Z'
+      );
+    }
+  }
+
+  .flame-flicker {
+    animation: flame-flicker 0.93s var(--ease-out-expo) 1 both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flame-flicker {
+      animation: none;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────
    BASE RESETS
    ───────────────────────────────────────────── */
 @layer base {

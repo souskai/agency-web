@@ -1,5 +1,6 @@
-import clsx from 'clsx'
 import React from 'react'
+
+import { cn } from '@/utilities/ui'
 
 interface Props {
   className?: string
@@ -11,7 +12,7 @@ export const Logo = (props: Props) => {
   const { className } = props
 
   return (
-    <div className={clsx('flex items-center gap-2 max-w-56.25 w-full h-12.75', className)}>
+    <div className={cn('flex items-center gap-2 max-w-56.25 w-full h-10', className)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 80 80"
