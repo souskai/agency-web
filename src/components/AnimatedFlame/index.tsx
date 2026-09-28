@@ -21,12 +21,14 @@ interface Props {
 }
 
 /**
- * Brand flame mark with a one-shot path morph on first paint (the keyframes
- * live in `globals.css` under `@layer utilities` as `.flame-flicker`).
+ * Brand flame mark with a continuous idle path morph (the keyframes live in
+ * `globals.css` under `@layer utilities` as `.flame-flicker`).
  *
- * The keyframe paths are anisotropic scalings of the rest path about the flame's
- * base, so they share an identical command structure and CSS can interpolate
- * them. Firefox has no `d` support and `prefers-reduced-motion` disables the
+ * The animation is a closed 2.6s cycle — 0%/35%/70%/100% of rest → flare →
+ * pinch → rest — so it wraps seamlessly with no snap. Every keyframe path is an
+ * anisotropic scaling of this rest path about the flame's base (12, 22.4), so
+ * they share an identical command structure and CSS can interpolate them.
+ * Firefox has no `d` support and `prefers-reduced-motion` disables the
  * animation, so the mark falls back to this rest silhouette untouched.
  *
  * Presentation-only — no client JS, no dependencies; the morph is pure CSS.
