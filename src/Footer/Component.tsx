@@ -7,6 +7,7 @@ import type { Footer } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import { FooterDecor } from './Decor'
 
 import { getLocalizedPath, type Locale } from '@/i18n/config'
 
@@ -20,11 +21,12 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
   const homeHref = getLocalizedPath(locale, '/')
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 flex flex-col gap-8">
+    <footer className="relative mt-auto border-t border-border text-foreground">
+      <FooterDecor />
+      <div className="container relative py-8 flex flex-col gap-8">
         <div className="flex flex-col md:flex-row md:justify-between gap-8">
           <Link className="flex items-center shrink-0" href={homeHref}>
-            <Logo className="invert" />
+            <Logo />
           </Link>
 
           {columns.length > 0 && (
@@ -35,7 +37,7 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
                   <ul className="flex flex-col gap-2">
                     {column.links?.map((item, i) => (
                       <li key={i}>
-                        <CMSLink className="text-white hover:underline" {...item.link} />
+                        <CMSLink className="hover:underline" {...item.link} />
                       </li>
                     ))}
                   </ul>
@@ -54,7 +56,7 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
                       href={item.url ?? '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-white transition-colors"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                       aria-label={item.platform ?? 'Social link'}
                     >
                       {item.platform}

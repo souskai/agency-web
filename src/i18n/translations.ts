@@ -22,6 +22,12 @@ export const translations = {
       placeholder: 'Search...',
       noResults: 'No results found.',
     },
+    services: {
+      related: 'Related services',
+      title: 'Services',
+      intro: 'From strategy to launch — explore what we build and how we build it.',
+      noResults: 'No services found.',
+    },
     common: {
       readMore: 'Read more',
       minRead: 'min read',
@@ -43,6 +49,12 @@ export const translations = {
       title: 'Търсене',
       placeholder: 'Търсене...',
       noResults: 'Няма намерени резултати.',
+    },
+    services: {
+      related: 'Свързани услуги',
+      title: 'Услуги',
+      intro: 'От стратегия до стартиране — разгледайте какво създаваме и как го изграждаме.',
+      noResults: 'Няма намерени услуги.',
     },
     common: {
       readMore: 'Прочети още',
