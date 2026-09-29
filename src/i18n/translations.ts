@@ -24,6 +24,9 @@ export const translations = {
     },
     services: {
       related: 'Related services',
+      title: 'Services',
+      intro: 'From strategy to launch — explore what we build and how we build it.',
+      noResults: 'No services found.',
     },
     common: {
       readMore: 'Read more',
@@ -49,6 +52,9 @@ export const translations = {
     },
     services: {
       related: 'Свързани услуги',
+      title: 'Услуги',
+      intro: 'От стратегия до стартиране — разгледайте какво създаваме и как го изграждаме.',
+      noResults: 'Няма намерени услуги.',
     },
     common: {
       readMore: 'Прочети още',
