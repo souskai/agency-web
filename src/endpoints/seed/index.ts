@@ -772,6 +772,7 @@ export const seed = async ({
             })),
           },
           { link: { type: 'custom', label: 'Work', url: '/posts' } },
+          { link: { type: 'custom', label: 'Design System', url: '/design-system' } },
           {
             link: {
               type: 'reference',
