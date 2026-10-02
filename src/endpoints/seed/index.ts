@@ -422,6 +422,10 @@ export const seed = async ({
         summary: s.summary,
         icon: s.icon,
         features: s.features,
+        hero: {
+          type: 'lowImpact',
+          richText: lexRichText([lexHeading(s.title, 'h1'), lexParagraph(s.summary)]),
+        },
         _status: 'published',
         coverImage: imageHomeDoc.id,
         content: lexRichText([
@@ -852,6 +856,29 @@ export const seed = async ({
           { platform: 'linkedin', url: 'https://linkedin.com' },
           { platform: 'github', url: 'https://github.com' },
         ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'services-page',
+      data: {
+        hero: {
+          type: 'mediumImpact',
+          richText: lexRichText([
+            lexHeading('Services', 'h1'),
+            lexParagraph('From strategy to launch — explore what we build and how we build it.'),
+          ]),
+          links: [
+            {
+              link: {
+                type: 'custom',
+                appearance: 'default',
+                label: 'Get a free consultation',
+                url: '/contact',
+              },
+            },
+          ],
+          media: imageHomeDoc.id,
+        },
       },
     }),
   ])

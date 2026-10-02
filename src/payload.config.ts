@@ -25,6 +25,7 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { SiteSettings } from './globals/SiteSettings/config'
+import { ServicesPage } from './globals/ServicesPage/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -119,7 +120,7 @@ export default buildConfig({
     defaultFromName: process.env.RESEND_FROM_NAME || 'Agency Admin',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
-  globals: [Header, Footer, SiteSettings],
+  globals: [Header, Footer, SiteSettings, ServicesPage],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

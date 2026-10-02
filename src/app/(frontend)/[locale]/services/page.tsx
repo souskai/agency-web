@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
 
-import type { SiteSetting } from '@/payload-types'
+import type { ServicesPage, SiteSetting } from '@/payload-types'
 
 import { ServiceIcon } from '@/components/ServiceIcon'
+import { RenderHero } from '@/heros/RenderHero'
 import { getLocalizedPath, isValidLocale, type Locale } from '@/i18n/config'
 import { getTranslations } from '@/i18n/translations'
 import { getCachedGlobal } from '@/utilities/getGlobals'
@@ -21,14 +22,12 @@ export default async function ServicesIndex({ params: paramsPromise }: Args) {
   const locale: Locale = isValidLocale(localeParam) ? localeParam : 'en'
   const t = getTranslations(locale)
   const services = await getCachedServices(locale)
+  const servicesPage = (await getCachedGlobal('services-page', 1, locale)) as ServicesPage
 
   return (
     <div className="pt-24 pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <h1 className="text-4xl font-bold tracking-tight">{t.services.title}</h1>
-        <p className="mt-4 max-w-[48rem] text-lg text-muted-foreground">{t.services.intro}</p>
-      </div>
+      <RenderHero {...servicesPage.hero} />
 
       <div className="container">
         {services.docs.length === 0 ? (
