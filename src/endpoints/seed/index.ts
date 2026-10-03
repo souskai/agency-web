@@ -1,5 +1,7 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 
+import type { Service } from '@/payload-types'
+
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
@@ -369,6 +371,7 @@ export const seed = async ({
     summary: string
     icon: ServiceIcon
     features: { title: string; description: string }[]
+    layout?: NonNullable<Service['layout']>
   }[] = [
     {
       title: 'Digital Strategy',
@@ -384,6 +387,140 @@ export const seed = async ({
         {
           title: 'Roadmap Planning',
           description: 'Phased delivery plans tied to measurable KPIs.',
+        },
+      ],
+      layout: [
+        {
+          blockName: 'Where you are today',
+          blockType: 'contentColumns',
+          eyebrow: 'Digital strategy',
+          title: 'Strategy is an architecture decision, not a slide deck.',
+          paragraphs: [
+            {
+              text: "Most digital strategies stop at a deck. Ours starts with what you're actually running: a WordPress site held together by plugins, a page builder nobody can maintain, or a SaaS CMS that charges per record and keeps your content behind an API you don't control.",
+            },
+            {
+              text: 'We audit what you have — content model, front end, hosting, and who can change what — then map it to a platform you own: Payload CMS, Next.js App Router, and PostgreSQL in your account.',
+            },
+            {
+              text: 'No plugin patch treadmill, no per-record content pricing, no PHP and JavaScript split-brain. One type-safe codebase from schema to edge.',
+            },
+          ],
+        },
+        {
+          blockName: 'Current stack audit',
+          blockType: 'featureGridBasic',
+          eyebrow: 'Current stack',
+          title: 'Signs your platform is costing you more than it should',
+          description:
+            'Every incumbent stack gives off the same early-warning signals. If a few of these sound familiar, your strategy has a measurement gap.',
+          items: [
+            {
+              title: 'Plugin bloat and patch treadmill',
+              description:
+                'A WordPress build with thirty-plus plugins turns every security patch into a compatibility lottery, and the site breaks in ways no one can reproduce.',
+            },
+            {
+              title: "Content you can't model",
+              description:
+                'Page builders store design, not data. Reusing a component means copy-paste, and a redesign means rebuilding every page by hand.',
+            },
+            {
+              title: 'Mixed PHP and JavaScript',
+              description:
+                'Templates, plugins, and theme code share one runtime, so new hires ramp slowly and every audit gets expensive.',
+            },
+            {
+              title: "A database you don't control",
+              description:
+                "Shared hosting with an opaque database and no query access means you can't export, report, or migrate without asking a vendor.",
+            },
+            {
+              title: 'Per-record pricing and lock-in',
+              description:
+                'SaaS headless CMS bills scale with content volume, and the content model is their schema — not yours.',
+            },
+            {
+              title: 'Unknown numbers',
+              description:
+                "If you can't answer 'what is our TTFB, LCP, and monthly hosting cost?', your strategy has a measurement gap.",
+            },
+          ],
+        },
+        {
+          blockName: 'Onboarding',
+          blockType: 'featureSteps',
+          eyebrow: 'Onboarding',
+          title: 'From first call to first deploy',
+          description:
+            'A fixed, five-step path from the first call to a platform your team can run without us.',
+          items: [
+            {
+              title: 'Discovery and audit',
+              description:
+                'We inventory your current site, content, analytics, and integrations — and agree the KPIs the platform must move.',
+            },
+            {
+              title: 'Schema and content model',
+              description:
+                'We design your collections, fields, access rules, and localization in Payload before any UI exists. The data model is the plan.',
+            },
+            {
+              title: 'Design system in the repo',
+              description:
+                'Tokens, components, and shadcn/ui primitives live in your codebase, not a vendor tool — so design and build never drift.',
+            },
+            {
+              title: 'Build in reviewable increments',
+              description:
+                'Every change ships behind a preview URL with type checks and lint in CI. You review the real page, not a mockup.',
+            },
+            {
+              title: 'Launch, measure, iterate',
+              description:
+                'We deploy to the edge, wire cache tags for instant content updates, and hand over the repo, the database, and the docs.',
+            },
+          ],
+        },
+        {
+          blockName: 'Engineering standard',
+          blockType: 'featureGridBasic',
+          eyebrow: 'How we build',
+          title: 'The engineering standard behind every engagement',
+          description:
+            'The practices that keep a strategy alive once it hits production — not just in the kickoff deck.',
+          items: [
+            {
+              title: 'Type safety end to end',
+              description:
+                'Payload generates your TypeScript types from the schema. A renamed field breaks the build, not the page.',
+            },
+            {
+              title: 'Caching you can control',
+              description:
+                'Next.js App Router cache tags, invalidated by Payload afterChange hooks — content updates instantly without disabling the cache.',
+            },
+            {
+              title: 'Previews and CI on every change',
+              description:
+                'Draft previews, lint, and type checks gate every merge. Nothing reaches production unverified.',
+            },
+            {
+              title: 'Performance budgets',
+              description:
+                'Core Web Vitals targets are agreed up front and measured on real devices — not just a Lighthouse screenshot.',
+            },
+            {
+              title: 'You own the platform',
+              description:
+                'Your repository, your PostgreSQL database, your hosting account. No per-seat tax to keep the lights on.',
+            },
+            {
+              title: 'Documented handover',
+              description:
+                'Schema notes, deploy steps, and an architecture map — so any team can pick up the code.',
+            },
+          ],
         },
       ],
     },
@@ -422,6 +559,7 @@ export const seed = async ({
         summary: s.summary,
         icon: s.icon,
         features: s.features,
+        layout: s.layout ?? [],
         hero: {
           type: 'lowImpact',
           richText: lexRichText([lexHeading(s.title, 'h1'), lexParagraph(s.summary)]),

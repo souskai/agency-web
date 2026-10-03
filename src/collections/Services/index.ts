@@ -11,9 +11,26 @@ import {
 
 import { hasRole } from '@/access/hasRole'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
+import { Archive } from '@/blocks/ArchiveBlock/config'
+import { AwardsList } from '@/blocks/AwardsList/config'
 import { Banner } from '@/blocks/Banner/config'
+import { CallToActionCentered } from '@/blocks/CallToActionCentered/config'
 import { Code } from '@/blocks/Code/config'
+import { ComparatorGrid } from '@/blocks/ComparatorGrid/config'
+import { ContentColumns } from '@/blocks/ContentColumns/config'
+import { EmbedBasic } from '@/blocks/EmbedBasic/config'
+import { FaqAccordion } from '@/blocks/FaqAccordion/config'
+import { FeatureBento } from '@/blocks/FeatureBento/config'
+import { FeatureGridBasic } from '@/blocks/FeatureGridBasic/config'
+import { FeatureSteps } from '@/blocks/FeatureSteps/config'
+import { FormBlock } from '@/blocks/Form/config'
+import { HeroBasic } from '@/blocks/HeroBasic/config'
+import { LogoBanner } from '@/blocks/LogoBanner/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { PricingCards } from '@/blocks/PricingCards/config'
+import { StatsGrid } from '@/blocks/StatsGrid/config'
+import { TeamGrid } from '@/blocks/TeamGrid/config'
+import { Testimonial } from '@/blocks/Testimonial/config'
 import { hero } from '@/heros/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidateDelete, revalidateService } from './hooks/revalidateService'
@@ -141,6 +158,35 @@ export const Services: CollectionConfig<'services'> = {
                 },
               }),
               label: 'Full content',
+            },
+            {
+              name: 'layout',
+              type: 'blocks',
+              blocks: [
+                Archive,
+                AwardsList,
+                CallToActionCentered,
+                ComparatorGrid,
+                ContentColumns,
+                EmbedBasic,
+                FaqAccordion,
+                FeatureBento,
+                FeatureGridBasic,
+                FeatureSteps,
+                FormBlock,
+                HeroBasic,
+                LogoBanner,
+                MediaBlock,
+                PricingCards,
+                StatsGrid,
+                TeamGrid,
+                Testimonial,
+              ],
+              localized: true,
+              admin: {
+                initCollapsed: true,
+              },
+              label: 'Page sections',
             },
           ],
         },
