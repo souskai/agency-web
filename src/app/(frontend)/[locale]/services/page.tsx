@@ -25,7 +25,7 @@ export default async function ServicesIndex({ params: paramsPromise }: Args) {
   const servicesPage = (await getCachedGlobal('services-page', 1, locale)) as ServicesPage
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pt-16 pb-24">
       <PageClient />
       <RenderHero {...servicesPage.hero} />
 
