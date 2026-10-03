@@ -862,22 +862,29 @@ export const seed = async ({
       slug: 'services-page',
       data: {
         hero: {
-          type: 'mediumImpact',
-          richText: lexRichText([
-            lexHeading('Services', 'h1'),
-            lexParagraph('From strategy to launch — explore what we build and how we build it.'),
-          ]),
+          type: 'heroGrid',
+          richText: lexRichText([lexHeading('Choose the work. Own the platform.', 'h1')]),
           links: [
             {
               link: {
                 type: 'custom',
                 appearance: 'default',
-                label: 'Get a free consultation',
+                label: 'Start a project',
                 url: '/contact',
               },
             },
+            {
+              link: {
+                type: 'custom',
+                appearance: 'outline',
+                label: 'See our thinking',
+                url: '/posts',
+              },
+            },
           ],
-          media: null,
+          eyebrow: 'What we build',
+          description:
+            'Three engagements, one standard: type-safe architecture, a schema you control, and code any team can pick up. Plug in at strategy, design, or the full build — or chain all three from first principles to production.',
         },
       },
     }),
