@@ -14,6 +14,7 @@ import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { Banner } from '@/blocks/Banner/config'
 import { Code } from '@/blocks/Code/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
+import { hero } from '@/heros/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidateDelete, revalidateService } from './hooks/revalidateService'
 
@@ -75,6 +76,10 @@ export const Services: CollectionConfig<'services'> = {
     {
       type: 'tabs',
       tabs: [
+        {
+          label: 'Hero',
+          fields: [{ ...hero, name: 'hero', localized: true }],
+        },
         {
           label: 'Content',
           fields: [

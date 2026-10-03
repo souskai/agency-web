@@ -422,6 +422,10 @@ export const seed = async ({
         summary: s.summary,
         icon: s.icon,
         features: s.features,
+        hero: {
+          type: 'mediumImpact',
+          richText: lexRichText([lexHeading(s.title, 'h1'), lexParagraph(s.summary)]),
+        },
         _status: 'published',
         coverImage: imageHomeDoc.id,
         content: lexRichText([
@@ -852,6 +856,36 @@ export const seed = async ({
           { platform: 'linkedin', url: 'https://linkedin.com' },
           { platform: 'github', url: 'https://github.com' },
         ],
+      },
+    }),
+    payload.updateGlobal({
+      slug: 'services-page',
+      data: {
+        hero: {
+          type: 'heroGrid',
+          richText: lexRichText([lexHeading('Choose the work. Own the platform.', 'h1')]),
+          links: [
+            {
+              link: {
+                type: 'custom',
+                appearance: 'default',
+                label: 'Start a project',
+                url: '/contact',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                appearance: 'outline',
+                label: 'See our thinking',
+                url: '/posts',
+              },
+            },
+          ],
+          eyebrow: 'What we build',
+          description:
+            'Three engagements, one standard: type-safe architecture, a schema you control, and code any team can pick up. Plug in at strategy, design, or the full build — or chain all three from first principles to production.',
+        },
       },
     }),
   ])

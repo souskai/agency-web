@@ -7,10 +7,9 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { Media } from '@/components/Media'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import RichText from '@/components/RichText'
-import { ServiceIcon } from '@/components/ServiceIcon'
+import { RenderHero } from '@/heros/RenderHero'
 import { getLocalizedPath, isValidLocale, type Locale } from '@/i18n/config'
 import { getTranslations } from '@/i18n/translations'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -63,7 +62,6 @@ export default async function Service({ params: paramsPromise }: Args) {
   if (!service) return <PayloadRedirects url={url} />
 
   const t = getTranslations(locale)
-  const coverImage = service.coverImage
   const relatedServices = (service.relatedServices ?? []).filter(
     (related): related is Service => typeof related === 'object',
   )
@@ -74,22 +72,9 @@ export default async function Service({ params: paramsPromise }: Args) {
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
 
-      <div className="container">
-        <header className="flex flex-col gap-6 pb-10 md:flex-row md:items-start md:gap-10">
-          <div className="flex-1">
-            <ServiceIcon icon={service.icon} className="h-10 w-10 text-primary" />
-            <h1 className="mt-4 text-4xl font-bold tracking-tight">{service.title}</h1>
-            {service.summary && (
-              <p className="mt-4 text-lg text-muted-foreground">{service.summary}</p>
-            )}
-          </div>
-          {typeof coverImage === 'object' && coverImage && (
-            <div className="w-full overflow-hidden rounded-lg border border-border md:w-1/2">
-              <Media resource={coverImage} />
-            </div>
-          )}
-        </header>
+      <RenderHero {...service.hero} icon={service.icon} />
 
+      <div className="container">
         {service.features && service.features.length > 0 && (
           <div className="grid gap-4 pb-10 sm:grid-cols-2 lg:grid-cols-3">
             {service.features.map((feature, i) => (
