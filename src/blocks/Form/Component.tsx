@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import RichText from '@/components/RichText'
+import { SectionShell } from '@/components/SectionShell'
 import { Button } from '@/components/ui/button'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
@@ -114,7 +115,7 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <div className="container lg:max-w-[48rem] py-12 md:py-16">
+    <SectionShell className="lg:max-w-[48rem]">
       {enableIntro && introContent && !hasSubmitted && (
         <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
       )}
@@ -158,6 +159,6 @@ export const FormBlock: React.FC<
           )}
         </FormProvider>
       </div>
-    </div>
+    </SectionShell>
   )
 }

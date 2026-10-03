@@ -4,6 +4,8 @@ import React from 'react'
 
 import type { Award, AwardsListBlock } from '@/payload-types'
 
+import { SectionShell } from '@/components/SectionShell'
+
 function groupAwardsByYear(awards: Award[]): Map<number, Award[]> {
   const byYear = new Map<number, Award[]>()
   for (const a of awards) {
@@ -32,7 +34,7 @@ export const AwardsListBlockComponent: React.FC<AwardsListBlock> = async ({
   const byYear = groupAwardsByYear(awards)
 
   return (
-    <section className="container py-12 md:py-16">
+    <SectionShell>
       {heading && (
         <h2 className="mb-6 text-center text-lg font-semibold text-muted-foreground">
           {heading}
@@ -101,6 +103,6 @@ export const AwardsListBlockComponent: React.FC<AwardsListBlock> = async ({
           </div>
         ))}
       </div>
-    </section>
+    </SectionShell>
   )
 }

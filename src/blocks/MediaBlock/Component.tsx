@@ -3,6 +3,7 @@ import type { StaticImageData } from 'next/image'
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
+import { SectionShell } from '@/components/SectionShell'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
 
@@ -33,14 +34,10 @@ export const MediaBlock: React.FC<Props> = (props) => {
   if (media && typeof media === 'object') caption = media.caption
 
   return (
-    <div
-      className={cn(
-        {
-          container: enableGutter,
-          'py-12 md:py-16': enableGutter,
-        },
-        className,
-      )}
+    <SectionShell
+      className={className}
+      container={enableGutter}
+      spacing={enableGutter ? 'md' : 'none'}
     >
       {(media || staticImage) && (
         <Media
@@ -62,6 +59,6 @@ export const MediaBlock: React.FC<Props> = (props) => {
           <RichText data={caption} enableGutter={false} />
         </div>
       )}
-    </div>
+    </SectionShell>
   )
 }

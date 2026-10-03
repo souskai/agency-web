@@ -60,11 +60,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const BlockWithProps = Block as React.FC<Record<string, unknown>>
-              return (
-                <div key={index}>
-                  <BlockWithProps {...block} disableInnerContainer />
-                </div>
-              )
+              return <BlockWithProps key={index} {...block} disableInnerContainer />
             }
           }
           return null
