@@ -72,7 +72,7 @@ export default async function Service({ params: paramsPromise }: Args) {
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...service.hero} />
+      <RenderHero {...service.hero} icon={service.icon} />
 
       <div className="container">
         {service.features && service.features.length > 0 && (

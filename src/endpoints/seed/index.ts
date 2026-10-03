@@ -423,7 +423,7 @@ export const seed = async ({
         icon: s.icon,
         features: s.features,
         hero: {
-          type: 'lowImpact',
+          type: 'mediumImpact',
           richText: lexRichText([lexHeading(s.title, 'h1'), lexParagraph(s.summary)]),
         },
         _status: 'published',
@@ -877,7 +877,7 @@ export const seed = async ({
               },
             },
           ],
-          media: imageHomeDoc.id,
+          media: null,
         },
       },
     }),

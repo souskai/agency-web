@@ -7,14 +7,16 @@ import { HighImpactHero } from '@/heros/HighImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
 
-const heroes = {
+type HeroProps = Page['hero'] & { icon?: string | null }
+
+const heroes: Record<string, React.FC<HeroProps>> = {
   heroGrid: HeroGridHero,
   highImpact: HighImpactHero,
   lowImpact: LowImpactHero,
   mediumImpact: MediumImpactHero,
 }
 
-export const RenderHero: React.FC<Page['hero']> = (props) => {
+export const RenderHero: React.FC<HeroProps> = (props) => {
   const { type } = props || {}
 
   if (!type || type === 'none') return null
