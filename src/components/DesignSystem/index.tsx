@@ -44,7 +44,7 @@ export type DesignSystemCopy = (typeof translations)['en']['designSystem']
 
 export const DesignSystem: React.FC<{ copy: DesignSystemCopy }> = ({ copy }) => {
   return (
-    <div className="container flex flex-col gap-24">
+    <div className="flex flex-col gap-24">
       {/* Colors */}
       <section>
         <h2 className="mb-8 text-2xl font-semibold tracking-tight">{copy.colorsTitle}</h2>
