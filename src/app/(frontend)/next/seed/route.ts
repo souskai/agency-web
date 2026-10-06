@@ -25,7 +25,20 @@ export async function POST(): Promise<Response> {
 
     return Response.json({ success: true })
   } catch (e) {
+    const err = e as {
+      message?: string
+      data?: unknown
+      cause?: { constraint?: string; detail?: string }
+    }
     payload.logger.error({ err: e, message: 'Error seeding data' })
-    return new Response('Error seeding data.', { status: 500 })
+    return Response.json(
+      {
+        error: err.message ?? 'Unknown error',
+        data: err.data ?? null,
+        constraint: err.cause?.constraint ?? null,
+        detail: err.cause?.detail ?? null,
+      },
+      { status: 500 },
+    )
   }
 }

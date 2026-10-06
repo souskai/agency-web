@@ -18,6 +18,7 @@ import { CallToActionCentered } from '@/blocks/CallToActionCentered/config'
 import { Code } from '@/blocks/Code/config'
 import { ComparatorGrid } from '@/blocks/ComparatorGrid/config'
 import { ContentColumns } from '@/blocks/ContentColumns/config'
+import { DesignSystem } from '@/blocks/DesignSystem/config'
 import { EmbedBasic } from '@/blocks/EmbedBasic/config'
 import { FaqAccordion } from '@/blocks/FaqAccordion/config'
 import { FeatureBento } from '@/blocks/FeatureBento/config'
@@ -31,6 +32,7 @@ import { PricingCards } from '@/blocks/PricingCards/config'
 import { StatsGrid } from '@/blocks/StatsGrid/config'
 import { TeamGrid } from '@/blocks/TeamGrid/config'
 import { Testimonial } from '@/blocks/Testimonial/config'
+import { withDbName } from '@/blocks/shared/withDbName'
 import { hero } from '@/heros/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { revalidateDelete, revalidateService } from './hooks/revalidateService'
@@ -165,21 +167,28 @@ export const Services: CollectionConfig<'services'> = {
               blocks: [
                 Archive,
                 AwardsList,
-                CallToActionCentered,
-                ComparatorGrid,
-                ContentColumns,
-                EmbedBasic,
-                FaqAccordion,
-                FeatureBento,
-                FeatureGridBasic,
-                FeatureSteps,
+                // Kit blocks ship with a shared short `dbName` (`pc_*`). Because
+                // they are also registered on `pages`, that fixed name would make
+                // the two collections share tables (colliding integer serial ids
+                // in the version tables). Clone each with a `sc_*` identifier so
+                // services get their own tables while keeping the same slug and
+                // interfaceName.
+                withDbName(CallToActionCentered, 'sc_cal_to_act_cen'),
+                withDbName(ComparatorGrid, 'sc_com_gri'),
+                withDbName(ContentColumns, 'sc_con_col'),
+                DesignSystem,
+                withDbName(EmbedBasic, 'sc_emb_bas'),
+                withDbName(FaqAccordion, 'sc_faq_acc'),
+                withDbName(FeatureBento, 'sc_fea_ben'),
+                withDbName(FeatureGridBasic, 'sc_fea_gri_bas'),
+                withDbName(FeatureSteps, 'sc_fea_ste'),
                 FormBlock,
-                HeroBasic,
+                withDbName(HeroBasic, 'sc_her_bas'),
                 LogoBanner,
                 MediaBlock,
-                PricingCards,
-                StatsGrid,
-                TeamGrid,
+                withDbName(PricingCards, 'sc_pri_car'),
+                withDbName(StatsGrid, 'sc_sta_gri'),
+                withDbName(TeamGrid, 'sc_tea_gri'),
                 Testimonial,
               ],
               localized: true,

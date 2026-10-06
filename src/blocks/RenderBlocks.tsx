@@ -7,6 +7,7 @@ import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
 import { CallToActionCenteredBlock } from '@/blocks/CallToActionCentered/Component'
 import { ComparatorGridBlock } from '@/blocks/ComparatorGrid/Component'
 import { ContentColumnsBlock } from '@/blocks/ContentColumns/Component'
+import { DesignSystemBlock } from '@/blocks/DesignSystem/Component'
 import { EmbedBasicBlock } from '@/blocks/EmbedBasic/Component'
 import { FaqAccordionBlock } from '@/blocks/FaqAccordion/Component'
 import { FeatureBentoBlock } from '@/blocks/FeatureBento/Component'
@@ -27,6 +28,7 @@ const blockComponents = {
   callToActionCentered: CallToActionCenteredBlock,
   comparatorGrid: ComparatorGridBlock,
   contentColumns: ContentColumnsBlock,
+  designSystem: DesignSystemBlock,
   embedBasic: EmbedBasicBlock,
   faqAccordion: FaqAccordionBlock,
   featureBento: FeatureBentoBlock,

@@ -534,6 +534,49 @@ export const seed = async ({
         { title: 'Design Systems', description: 'Scalable component libraries and design tokens.' },
         { title: 'Prototyping', description: 'Interactive prototypes for rapid user testing.' },
       ],
+      layout: [
+        {
+          blockName: 'Design system',
+          blockType: 'designSystem',
+        },
+        {
+          blockName: 'Design capabilities',
+          blockType: 'featureSteps',
+          eyebrow: 'Design',
+          title: 'Design as a system, not a file',
+          items: [
+            {
+              title: 'Brand & voice systems',
+              description:
+                'Positioning, voice rules, and a banned-jargon list your whole team can use.',
+            },
+            {
+              title: 'Design tokens & theme',
+              description: 'Color, type, spacing, and radius as tokens — light/dark from one source.',
+            },
+            {
+              title: 'Motion & micro-interaction',
+              description:
+                'Calm, low-frequency motion that respects reduced-motion preferences.',
+            },
+          ],
+        },
+        {
+          blockName: 'Design CTA',
+          blockType: 'callToActionCentered',
+          title: 'Design as code, not decoration.',
+          links: [
+            {
+              link: {
+                type: 'custom',
+                appearance: 'default',
+                label: 'Start a project',
+                url: '/contact',
+              },
+            },
+          ],
+        },
+      ],
     },
     {
       title: 'Web Development',
@@ -543,6 +586,78 @@ export const seed = async ({
       features: [
         { title: 'Headless CMS', description: 'Payload CMS, Sanity, and Contentful integrations.' },
         { title: 'Performance', description: 'Core Web Vitals optimisation and edge deployment.' },
+      ],
+      layout: [
+        {
+          blockName: 'Built to be cited',
+          blockType: 'contentColumns',
+          eyebrow: 'Web development',
+          title: 'Built to be cited',
+          paragraphs: [
+            {
+              text: 'We write structured data, canonical URLs, and verifiable copy so AI search engines quote you accurately — not approximately.',
+            },
+          ],
+        },
+        {
+          blockName: 'How the work lands',
+          blockType: 'featureSteps',
+          eyebrow: 'Process',
+          title: 'How the work lands',
+          items: [
+            {
+              title: 'Schema & content model first',
+              description:
+                'We model your content in TypeScript before pixels, so the site can grow without a redesign.',
+            },
+            {
+              title: 'Component design in code',
+              description:
+                'Shadcn UI + Tailwind, built as reusable blocks your team edits in a visual admin.',
+            },
+            {
+              title: 'Deploy on the edge',
+              description:
+                'Vercel edge caching, sub-second responses, and Core Web Vitals measured — not promised.',
+            },
+          ],
+        },
+        {
+          blockName: 'Web development FAQ',
+          blockType: 'faqAccordion',
+          eyebrow: 'FAQ',
+          title: 'Questions we get before kickoff',
+          items: [
+            {
+              question: 'Will we own the code?',
+              answer: 'Yes — full repository access, your license, your accounts.',
+            },
+            {
+              question: 'How fast?',
+              answer:
+                'We measure per-route Core Web Vitals in CI; targets are set before launch, not after.',
+            },
+            {
+              question: 'Can you migrate an existing site?',
+              answer: 'Yes — content, redirects, and SEO metadata migrate first; design follows.',
+            },
+          ],
+        },
+        {
+          blockName: 'Web development CTA',
+          blockType: 'callToActionCentered',
+          title: 'Build the record. Own the record.',
+          links: [
+            {
+              link: {
+                type: 'custom',
+                appearance: 'default',
+                label: 'Start a project',
+                url: '/contact',
+              },
+            },
+          ],
+        },
       ],
     },
   ]
@@ -914,7 +1029,6 @@ export const seed = async ({
             })),
           },
           { link: { type: 'custom', label: 'Work', url: '/posts' } },
-          { link: { type: 'custom', label: 'Design System', url: '/design-system' } },
           {
             link: {
               type: 'reference',

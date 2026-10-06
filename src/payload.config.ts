@@ -86,6 +86,9 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: vercelPostgresAdapter({
+    // Dev points at the shared PROD Neon DB, so disable automatic schema push.
+    // Schema is owned by migrations (`pnpm build` runs `payload migrate`).
+    push: false,
     // DATABASE_URL is the default env var from Vercel (Neon Postgres). Only pass when it's a Postgres URL.
     pool: (() => {
       const url = process.env.DATABASE_URL?.startsWith('postgresql')

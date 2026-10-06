@@ -619,6 +619,7 @@ export interface Service {
         | CallToActionCenteredBlock
         | ComparatorGridBlock
         | ContentColumnsBlock
+        | DesignSystemBlock
         | EmbedBasicBlock
         | FaqAccordionBlock
         | FeatureBentoBlock
@@ -1072,6 +1073,15 @@ export interface ContentColumnsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'contentColumns';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DesignSystemBlock".
+ */
+export interface DesignSystemBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'designSystem';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2948,6 +2958,7 @@ export interface ServicesSelect<T extends boolean = true> {
         callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
         comparatorGrid?: T | ComparatorGridBlockSelect<T>;
         contentColumns?: T | ContentColumnsBlockSelect<T>;
+        designSystem?: T | DesignSystemBlockSelect<T>;
         embedBasic?: T | EmbedBasicBlockSelect<T>;
         faqAccordion?: T | FaqAccordionBlockSelect<T>;
         featureBento?: T | FeatureBentoBlockSelect<T>;
@@ -2977,6 +2988,14 @@ export interface ServicesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "DesignSystemBlock_select".
+ */
+export interface DesignSystemBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
