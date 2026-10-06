@@ -374,6 +374,215 @@ export const seed = async ({
     layout?: NonNullable<Service['layout']>
   }[] = [
     {
+      title: 'Web Development',
+      slug: 'web-development',
+      summary:
+        'Type-safe web platforms on Payload CMS + Next.js that you own outright — schema, database, and code.',
+      icon: 'code',
+      features: [
+        { title: 'Headless CMS', description: 'Payload CMS, Sanity, and Contentful integrations.' },
+        { title: 'Performance', description: 'Core Web Vitals optimisation and edge deployment.' },
+      ],
+      layout: [
+        {
+          blockName: 'Built to be cited',
+          blockType: 'contentColumns',
+          eyebrow: 'Web development',
+          title: 'Built to be cited.',
+          paragraphs: [
+            {
+              text: "Most sites answer questions nobody asked, then go dark when the editor who built them leaves. We build differently: a platform you own outright — schema, database, and code — so the record survives the people who made it.",
+            },
+            {
+              text: 'Payload CMS models your content in TypeScript. Next.js App Router serves it from the edge. PostgreSQL on Neon keeps every row in your account. One type-safe codebase from schema to deploy.',
+            },
+            {
+              text: 'The proof is this site — it is open source, so you can read the schema and the components before you hire us.',
+            },
+          ],
+          links: [
+            {
+              link: {
+                type: 'custom',
+                appearance: 'default',
+                label: 'Read the code',
+                url: 'https://github.com/souskai/agency-web',
+              },
+            },
+          ],
+        },
+        {
+          blockName: 'Every layer wired',
+          blockType: 'featureGridBasic',
+          eyebrow: 'The stack',
+          title: 'Every layer wired, typed, and owned',
+          description:
+            'A platform is not a page. Every layer below is wired to the one above, so a schema change never silently breaks the front end.',
+          items: [
+            {
+              title: 'Schema becomes TypeScript',
+              description:
+                'Payload generates your types from the content model. Rename a field and the build fails — not the page.',
+            },
+            {
+              title: 'Server components by default',
+              description:
+                'React Server Components ship less JavaScript to the browser, so pages render fast and hydrate with almost nothing.',
+            },
+            {
+              title: 'PostgreSQL you control',
+              description:
+                'Neon gives you real migrations, real backups, and real query access. Your rows, exported on your terms.',
+            },
+            {
+              title: 'Cache invalidation, not evasion',
+              description:
+                'Next.js cache tags, invalidated by Payload afterChange hooks — content updates instantly without disabling the cache.',
+            },
+            {
+              title: 'Edge rendering',
+              description:
+                'Static and server-rendered routes on Vercel edge, with Core Web Vitals measured in CI on real devices.',
+            },
+            {
+              title: 'CI gates every merge',
+              description:
+                'Type checks, lint, and previews run before anything reaches production. Nothing ships unverified.',
+            },
+          ],
+        },
+        {
+          blockName: 'Proof',
+          blockType: 'statsGrid',
+          eyebrow: 'Proof',
+          title: 'Facts to point at, not adjectives',
+          description:
+            'The numbers below are properties of the stack we ship, not promises we hope to keep.',
+          metrics: [
+            { value: '100%', label: 'TypeScript, end to end' },
+            { value: '0', label: 'plugins to patch' },
+            { value: '1', label: 'repo you own' },
+            { value: 'sub-second', label: 'edge responses, measured' },
+          ],
+        },
+        {
+          blockName: 'What ships',
+          blockType: 'featureBento',
+          eyebrow: 'What ships',
+          title: 'Not a theme — a platform you extend',
+          items: [
+            {
+              title: 'The schema is the type system',
+              description:
+                'Define content once in Payload and the TypeScript types, the admin forms, and the page components all agree. No schema drift, no guesswork.',
+            },
+            {
+              title: 'A block library, not a page builder',
+              description:
+                'Sections are reusable blocks your editors drop into any page. The tenth page costs less than the first.',
+            },
+            {
+              title: 'Live preview',
+              description:
+                'Editors see drafts render in real time — responsive, on real data — before anything is published.',
+            },
+            {
+              title: 'Forms and captures',
+              description:
+                'Native form builder with your own storage. No third-party form tax, no data leaving your account.',
+            },
+            {
+              title: 'Redirects and search',
+              description:
+                '301s, sitemaps, and search live in your config, versioned in the repo with the rest of the platform.',
+            },
+          ],
+        },
+        {
+          blockName: 'How the work lands',
+          blockType: 'featureSteps',
+          eyebrow: 'Process',
+          title: 'How the work lands',
+          items: [
+            {
+              title: 'Schema & content model first',
+              description:
+                'We model your content in TypeScript before pixels, so the site can grow without a redesign.',
+            },
+            {
+              title: 'Component design in code',
+              description:
+                'Shadcn UI + Tailwind, built as reusable blocks your team edits in a visual admin.',
+            },
+            {
+              title: 'Deploy on the edge',
+              description:
+                'Vercel edge caching, sub-second responses, and Core Web Vitals measured — not promised.',
+            },
+            {
+              title: 'Documented handover',
+              description:
+                'You get the repo, the database, and the docs — schema notes, deploy steps, and an architecture map.',
+            },
+          ],
+        },
+        {
+          blockName: 'Web development FAQ',
+          blockType: 'faqAccordion',
+          eyebrow: 'FAQ',
+          title: 'Questions we get before kickoff',
+          items: [
+            {
+              question: 'Will we own the code?',
+              answer: 'Yes — full repository access, your license, your accounts. You can hand it to any team tomorrow.',
+            },
+            {
+              question: 'How fast?',
+              answer:
+                'We measure per-route Core Web Vitals in CI; targets are set before launch, not after.',
+            },
+            {
+              question: 'Can you migrate an existing site?',
+              answer: 'Yes — content, redirects, and SEO metadata migrate first; design follows.',
+            },
+            {
+              question: 'What happens if we part ways?',
+              answer:
+                'The platform keeps running. The code, the database, and the hosting live in your accounts, not ours.',
+            },
+            {
+              question: 'Why Payload CMS and not WordPress?',
+              answer:
+                'WordPress couples content to a plugin ecosystem you do not control. Payload keeps your schema in your code, typed and versioned.',
+            },
+          ],
+        },
+        {
+          blockName: 'Web development CTA',
+          blockType: 'callToActionCentered',
+          title: 'Build the record. Own the record.',
+          links: [
+            {
+              link: {
+                type: 'custom',
+                appearance: 'default',
+                label: 'Start a project',
+                url: '/contact',
+              },
+            },
+            {
+              link: {
+                type: 'custom',
+                appearance: 'outline',
+                label: 'Read the code',
+                url: 'https://github.com/souskai/agency-web',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       title: 'Digital Strategy',
       slug: 'digital-strategy',
       summary:
@@ -536,28 +745,121 @@ export const seed = async ({
       ],
       layout: [
         {
+          blockName: 'Why hire us',
+          blockType: 'contentColumns',
+          eyebrow: 'UI/UX design',
+          title: 'Why hire us for UI/UX before development?',
+          paragraphs: [
+            {
+              text: "User-centric approach — we design backwards from the person's task: journeys, states, and edge cases mapped before a single component is styled, so the interface answers the question it is actually asked.",
+            },
+            {
+              text: '1:1 CMS mapping — every component we draw has a matching Payload field group. The admin form and the page component are the same object, so no design that engineering cannot ship and no content an editor cannot change.',
+            },
+            {
+              text: 'Scalable architectures — tokens, variants, and composition rules come before pages. New sections assemble from existing primitives, so the tenth page costs less than the first and the system survives a rebrand.',
+            },
+          ],
+        },
+        {
+          blockName: 'Design directly in code',
+          blockType: 'faqAccordion',
+          eyebrow: 'Method',
+          title: 'Why we design directly in code',
+          description:
+            'Static mockups promise a perfect layout; the web is fluid, dynamic, and unpredictable. We design in the browser instead, so responsiveness, hover states, micro-interactions, and fluid type are baked in from day one — not patched in afterwards.',
+          items: [
+            {
+              question: 'Why not start with static design files?',
+              answer:
+                'A picture of a layout hides the parts that decide quality: how it reflows at 375px, what happens on hover and focus, how a twelve-word headline wraps next to a three-word one. We would rather answer those questions in the browser than discover them after handoff.',
+            },
+            {
+              question: 'Who designs the page?',
+              answer:
+                'The same engineers who build it. They have the UI/UX depth to set spacing, alignment, and hierarchy directly in the medium the work ships in — so the design and the implementation never drift apart.',
+            },
+            {
+              question: 'How does that fit a block-based CMS?',
+              answer:
+                'Every block we design is a living component with a matching Payload field group, not a picture of one. We see how CMS data flows into the UI and test editorial limits — short headline versus long, one card versus six — as we build.',
+            },
+            {
+              question: 'How do we review the work?',
+              answer:
+                'On a real staging URL, not a clickable image. What you approve is what goes live, and there is no duplicate effort translating a static picture into Tailwind or CSS.',
+            },
+          ],
+        },
+        {
           blockName: 'Design system',
           blockType: 'designSystem',
         },
         {
-          blockName: 'Design capabilities',
-          blockType: 'featureSteps',
-          eyebrow: 'Design',
-          title: 'Design as a system, not a file',
+          blockName: 'What actually ships',
+          blockType: 'featureGridBasic',
+          eyebrow: 'Deliverables',
+          title: 'What actually ships',
+          description:
+            'Design in code is not a metaphor. Every engagement ends with these artifacts in your repository, versioned with the site.',
           items: [
             {
-              title: 'Brand & voice systems',
+              title: 'Design tokens',
               description:
-                'Positioning, voice rules, and a banned-jargon list your whole team can use.',
+                'Color, type, spacing, and radius as CSS variables in one @theme source — light and dark from a single definition.',
             },
             {
-              title: 'Design tokens & theme',
-              description: 'Color, type, spacing, and radius as tokens — light/dark from one source.',
+              title: 'Component library',
+              description:
+                'shadcn/ui primitives plus reusable blocks, documented so any editor can assemble a page without design help.',
             },
             {
-              title: 'Motion & micro-interaction',
+              title: 'Admin parity',
               description:
-                'Calm, low-frequency motion that respects reduced-motion preferences.',
+                'Each block exposes its own Payload field group, so the form an editor fills mirrors the component on the page.',
+            },
+            {
+              title: 'Motion spec',
+              description:
+                'Low-frequency, purposeful motion with reduced-motion fallbacks — no decoration that fights the user.',
+            },
+            {
+              title: 'Accessibility pass',
+              description:
+                'Contrast, focus order, and keyboard paths are part of the component spec, not a post-launch audit.',
+            },
+            {
+              title: 'Docs & handover',
+              description:
+                'A token map and block inventory, so the next team inherits the system — not a pile of files.',
+            },
+          ],
+        },
+        {
+          blockName: 'From tokens to handover',
+          blockType: 'featureSteps',
+          eyebrow: 'Process',
+          title: 'From tokens to handover',
+          items: [
+            {
+              title: 'Audit & inventory',
+              description:
+                'We map the existing pages, content model, and brand assets to find what is reusable and what must be rebuilt.',
+            },
+            {
+              title: 'Tokens & theme',
+              description:
+                'Color, type, spacing, and radius are defined once in code, then mirrored for anyone working in a design tool.',
+            },
+            {
+              title: 'Components in code',
+              description:
+                'Blocks are built as living components with their own Payload fields — never as static pictures of components.',
+            },
+            {
+              title: 'Handover & governance',
+              description:
+                'You receive the repo, the token map, and the docs. Design and build stay in one type-safe codebase.',
             },
           ],
         },
@@ -565,88 +867,6 @@ export const seed = async ({
           blockName: 'Design CTA',
           blockType: 'callToActionCentered',
           title: 'Design as code, not decoration.',
-          links: [
-            {
-              link: {
-                type: 'custom',
-                appearance: 'default',
-                label: 'Start a project',
-                url: '/contact',
-              },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Web Development',
-      slug: 'web-development',
-      summary: 'Robust, scalable code built with modern frameworks and best practices.',
-      icon: 'code',
-      features: [
-        { title: 'Headless CMS', description: 'Payload CMS, Sanity, and Contentful integrations.' },
-        { title: 'Performance', description: 'Core Web Vitals optimisation and edge deployment.' },
-      ],
-      layout: [
-        {
-          blockName: 'Built to be cited',
-          blockType: 'contentColumns',
-          eyebrow: 'Web development',
-          title: 'Built to be cited',
-          paragraphs: [
-            {
-              text: 'We write structured data, canonical URLs, and verifiable copy so AI search engines quote you accurately — not approximately.',
-            },
-          ],
-        },
-        {
-          blockName: 'How the work lands',
-          blockType: 'featureSteps',
-          eyebrow: 'Process',
-          title: 'How the work lands',
-          items: [
-            {
-              title: 'Schema & content model first',
-              description:
-                'We model your content in TypeScript before pixels, so the site can grow without a redesign.',
-            },
-            {
-              title: 'Component design in code',
-              description:
-                'Shadcn UI + Tailwind, built as reusable blocks your team edits in a visual admin.',
-            },
-            {
-              title: 'Deploy on the edge',
-              description:
-                'Vercel edge caching, sub-second responses, and Core Web Vitals measured — not promised.',
-            },
-          ],
-        },
-        {
-          blockName: 'Web development FAQ',
-          blockType: 'faqAccordion',
-          eyebrow: 'FAQ',
-          title: 'Questions we get before kickoff',
-          items: [
-            {
-              question: 'Will we own the code?',
-              answer: 'Yes — full repository access, your license, your accounts.',
-            },
-            {
-              question: 'How fast?',
-              answer:
-                'We measure per-route Core Web Vitals in CI; targets are set before launch, not after.',
-            },
-            {
-              question: 'Can you migrate an existing site?',
-              answer: 'Yes — content, redirects, and SEO metadata migrate first; design follows.',
-            },
-          ],
-        },
-        {
-          blockName: 'Web development CTA',
-          blockType: 'callToActionCentered',
-          title: 'Build the record. Own the record.',
           links: [
             {
               link: {
