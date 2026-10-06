@@ -3,6 +3,7 @@ import React from 'react'
 import type { EmbedBasicBlock as EmbedBasicBlockData } from '@/payload-types'
 
 import { getSafeEmbedUrl } from '@/blocks/shared/safeUrls'
+import { SectionShell } from '@/components/SectionShell'
 import { cn } from '@/utilities/ui'
 
 type Props = EmbedBasicBlockData & {
@@ -30,7 +31,7 @@ export const EmbedBasicBlock: React.FC<Props> = ({
   const safeUrl = getSafeEmbedUrl(url)
 
   return (
-    <section className={cn('container py-12 md:py-16', className)} id={id ? `block-${id}` : undefined}>
+    <SectionShell className={className} id={id ? `block-${id}` : undefined}>
       <figure className="overflow-hidden rounded-frame border border-border/70 bg-card/35">
         <div className={cn('relative w-full bg-muted', aspectClass)}>
           {safeUrl ? (
@@ -51,6 +52,6 @@ export const EmbedBasicBlock: React.FC<Props> = ({
           <figcaption className="px-6 py-4 text-sm text-muted-foreground">{caption}</figcaption>
         ) : null}
       </figure>
-    </section>
+    </SectionShell>
   )
 }

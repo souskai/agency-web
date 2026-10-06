@@ -5,6 +5,17 @@ import type { BackgroundPresetKey } from '@/components/BackgroundLayers/registry
 import { ShapeDivider, type DividerVariant } from '@/components/ShapeDivider'
 import { cn } from '@/utilities/ui'
 
+type Spacing = 'none' | 'sm' | 'md' | 'lg'
+
+// Literal map so the Tailwind v4 scanner sees every class statically
+// (never build these strings dynamically — that defeats the scanner).
+const spacingClass: Record<Spacing, string> = {
+  none: 'py-section-none',
+  sm: 'py-section-sm md:py-section-md',
+  md: 'py-section-md md:py-section-xl',
+  lg: 'py-section-xl md:py-section-2xl',
+}
+
 type Props = {
   background?: BackgroundPresetKey
   backgroundClassName?: string
@@ -17,7 +28,9 @@ type Props = {
   dividerTop?: DividerVariant
   id?: string
   innerClassName?: string
+  /** @deprecated use `spacing` */
   padding?: string
+  spacing?: Spacing
 }
 
 /**
@@ -45,10 +58,18 @@ export const SectionShell: React.FC<Props> = ({
   dividerTop = 'none',
   id,
   innerClassName,
-  padding = 'py-12 md:py-16',
+  padding,
+  spacing = 'md',
 }) => {
+  const paddingClass = padding ?? spacingClass[spacing]
+
   return (
-    <section className={cn('relative', container && 'container', padding, className)} id={id}>
+    <section
+      className={cn('relative', container && 'container', paddingClass, className)}
+      data-section=""
+      data-section-bg={background}
+      id={id}
+    >
       <BackgroundLayers className={backgroundClassName} preset={background} />
 
       {dividerTop !== 'none' ? (
@@ -60,7 +81,7 @@ export const SectionShell: React.FC<Props> = ({
         />
       ) : null}
 
-      <div className={cn('relative z-10', innerClassName)}>
+      <div className={cn('section-content relative z-10', innerClassName)}>
         {children}
       </div>
 

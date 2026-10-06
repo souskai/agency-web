@@ -8,7 +8,7 @@ import { getPayload } from 'payload'
 
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import RichText from '@/components/RichText'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { getLocalizedPath, isValidLocale, type Locale } from '@/i18n/config'
 import { getTranslations } from '@/i18n/translations'
@@ -74,24 +74,9 @@ export default async function Service({ params: paramsPromise }: Args) {
 
       <RenderHero {...service.hero} icon={service.icon} />
 
+      <RenderBlocks blocks={service.layout ?? []} />
+
       <div className="container">
-        {service.features && service.features.length > 0 && (
-          <div className="grid gap-4 pb-10 sm:grid-cols-2 lg:grid-cols-3">
-            {service.features.map((feature, i) => (
-              <div key={i} className="rounded-lg border border-border bg-card p-5">
-                <h2 className="text-base font-semibold">{feature.title}</h2>
-                {feature.description && (
-                  <p className="mt-2 text-sm text-muted-foreground">{feature.description}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
-        {service.content && (
-          <RichText className="max-w-[48rem]" data={service.content} enableGutter={false} />
-        )}
-
         {relatedServices.length > 0 && (
           <div className="mt-12 border-t border-border pt-8">
             <h2 className="text-xl font-semibold">{t.services.related}</h2>

@@ -4,6 +4,7 @@ import React from 'react'
 
 import type { Customer, LogoBannerBlock, Technology } from '@/payload-types'
 
+import { SectionShell } from '@/components/SectionShell'
 import { cn } from '@/utilities/ui'
 
 async function LogoBannerBlockInner({
@@ -30,7 +31,7 @@ async function LogoBannerBlockInner({
   if (items.length === 0) return null
 
   return (
-    <section className="container py-12 md:py-16">
+    <SectionShell>
       {heading && (
         <h2 className="mb-6 text-center text-lg font-semibold text-muted-foreground">
           {heading}
@@ -76,7 +77,7 @@ async function LogoBannerBlockInner({
           )
         })}
       </ul>
-    </section>
+    </SectionShell>
   )
 }
 

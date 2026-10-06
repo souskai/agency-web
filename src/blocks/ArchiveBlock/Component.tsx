@@ -4,6 +4,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import RichText from '@/components/RichText'
+import { SectionShell } from '@/components/SectionShell'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
 
@@ -53,13 +54,13 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <div className="py-12 md:py-16" id={`block-${id}`}>
+    <SectionShell container={false} id={`block-${id}`}>
       {introContent && (
         <div className="container mb-16">
           <RichText className="ms-0 max-w-[48rem]" data={introContent} enableGutter={false} />
         </div>
       )}
       <CollectionArchive posts={posts} />
-    </div>
+    </SectionShell>
   )
 }

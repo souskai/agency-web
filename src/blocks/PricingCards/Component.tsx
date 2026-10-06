@@ -4,6 +4,7 @@ import React from 'react'
 import type { PricingCardsBlock as PricingCardsBlockData } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { SectionShell } from '@/components/SectionShell'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -33,7 +34,7 @@ export const PricingCardsBlock: React.FC<Props> = ({
   title,
 }) => {
   return (
-    <section className={cn('container py-12 md:py-16', className)} id={id ? `block-${id}` : undefined}>
+    <SectionShell className={className} id={id ? `block-${id}` : undefined}>
       <div className="overflow-hidden rounded-frame border border-border/70 bg-card/35 px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
         <div
           className={cn('flex flex-col gap-10', {
@@ -118,6 +119,6 @@ export const PricingCardsBlock: React.FC<Props> = ({
           ) : null}
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }

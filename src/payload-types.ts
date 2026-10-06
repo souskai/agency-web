@@ -612,6 +612,28 @@ export interface Service {
     };
     [k: string]: unknown;
   } | null;
+  layout?:
+    | (
+        | ArchiveBlock
+        | AwardsListBlock
+        | CallToActionCenteredBlock
+        | ComparatorGridBlock
+        | ContentColumnsBlock
+        | EmbedBasicBlock
+        | FaqAccordionBlock
+        | FeatureBentoBlock
+        | FeatureGridBasicBlock
+        | FeatureStepsBlock
+        | FormBlock
+        | HeroBasicBlock
+        | LogoBannerBlock
+        | MediaBlock
+        | PricingCardsBlock
+        | StatsGridBlock
+        | TeamGridBlock
+        | TestimonialBlock
+      )[]
+    | null;
   relatedServices?: (number | Service)[] | null;
   meta?: {
     title?: string | null;
@@ -2918,6 +2940,28 @@ export interface ServicesSelect<T extends boolean = true> {
         id?: T;
       };
   content?: T;
+  layout?:
+    | T
+    | {
+        archive?: T | ArchiveBlockSelect<T>;
+        awardsList?: T | AwardsListBlockSelect<T>;
+        callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
+        comparatorGrid?: T | ComparatorGridBlockSelect<T>;
+        contentColumns?: T | ContentColumnsBlockSelect<T>;
+        embedBasic?: T | EmbedBasicBlockSelect<T>;
+        faqAccordion?: T | FaqAccordionBlockSelect<T>;
+        featureBento?: T | FeatureBentoBlockSelect<T>;
+        featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
+        featureSteps?: T | FeatureStepsBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        heroBasic?: T | HeroBasicBlockSelect<T>;
+        logoBanner?: T | LogoBannerBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        pricingCards?: T | PricingCardsBlockSelect<T>;
+        statsGrid?: T | StatsGridBlockSelect<T>;
+        teamGrid?: T | TeamGridBlockSelect<T>;
+        testimonial?: T | TestimonialBlockSelect<T>;
+      };
   relatedServices?: T;
   meta?:
     | T

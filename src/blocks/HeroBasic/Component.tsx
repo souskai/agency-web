@@ -4,6 +4,7 @@ import type { HeroBasicBlock as HeroBasicBlockData } from '@/payload-types'
 
 import { Badge } from '@/components/ui/badge'
 import { CMSLink } from '@/components/Link'
+import { SectionShell } from '@/components/SectionShell'
 import { cn } from '@/utilities/ui'
 
 type Props = HeroBasicBlockData & {
@@ -23,7 +24,7 @@ export const HeroBasicBlock: React.FC<Props> = ({
   title,
 }) => {
   return (
-    <section className={cn('container py-12 md:py-16', className)} id={id ? `block-${id}` : undefined}>
+    <SectionShell className={className} id={id ? `block-${id}` : undefined}>
       <div className="overflow-hidden rounded-frame border border-border/70 bg-card/35 px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
         <div
           className={cn('flex flex-col gap-8', {
@@ -70,6 +71,6 @@ export const HeroBasicBlock: React.FC<Props> = ({
           ) : null}
         </div>
       </div>
-    </section>
+    </SectionShell>
   )
 }

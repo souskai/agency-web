@@ -211,6 +211,15 @@
 
   /* Easing */
   --ease-out-expo: var(--ease-out-expo);
+
+  /* Section rhythm (dev-only, Rule #14) */
+  --spacing-section-none: 0px;
+  --spacing-section-seam: 3rem; /* 48px — snap gap for same-background pairs */
+  --spacing-section-sm: 2.5rem; /* 40px */
+  --spacing-section-md: 4rem; /* 64px — phone cushion (default preset) */
+  --spacing-section-lg: 5rem; /* 80px */
+  --spacing-section-xl: 7rem; /* 112px — desktop cushion (default preset) */
+  --spacing-section-2xl: 10rem; /* 160px */
 }
 
 /* ─────────────────────────────────────────────
@@ -318,6 +327,27 @@
   }
   .container-narrow {
     @apply container max-w-3xl;
+  }
+
+  /* Section content: zero first/last-child margins so block content can't
+     leak extra space into the section's own padding (mirrors prose). */
+  .section-content > :first-child {
+    margin-top: 0;
+  }
+  .section-content > :last-child {
+    margin-bottom: 0;
+  }
+
+  /* Same-background collapse (Rule #14): adjacent sections sharing a background
+     snap together; a background change keeps full padding and reads as a chapter
+     break. Static selectors only — never build these dynamically. */
+  [data-section-bg='none'] + [data-section][data-section-bg='none'],
+  [data-section-bg='mesh-aurora'] + [data-section][data-section-bg='mesh-aurora'],
+  [data-section-bg='grid-fade'] + [data-section][data-section-bg='grid-fade'],
+  [data-section-bg='soft-noise'] + [data-section][data-section-bg='soft-noise'],
+  [data-section-bg='svg-circuit'] + [data-section][data-section-bg='svg-circuit'],
+  [data-section-bg='radial-vignette'] + [data-section][data-section-bg='radial-vignette'] {
+    padding-block-start: var(--spacing-section-seam);
   }
 
   /* ── Section background presets (dev-only, referenced by BackgroundLayers) ──

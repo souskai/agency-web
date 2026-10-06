@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { Testimonial as TestimonialType, TestimonialBlock } from '@/payload-types'
 
+import { SectionShell } from '@/components/SectionShell'
 import { cn } from '@/utilities/ui'
 
 function SingleTestimonial({ t }: { t: TestimonialType }) {
@@ -30,7 +31,7 @@ export const TestimonialBlockComponent: React.FC<TestimonialBlock> = ({ testimon
   const isCarousel = layout === 'carousel'
 
   return (
-    <section className="container py-12 md:py-16">
+    <SectionShell>
       <div
         className={cn(
           'flex gap-6',
@@ -43,6 +44,6 @@ export const TestimonialBlockComponent: React.FC<TestimonialBlock> = ({ testimon
           </div>
         ))}
       </div>
-    </section>
+    </SectionShell>
   )
 }

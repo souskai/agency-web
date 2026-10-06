@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import type { Page } from '@/payload-types'
+import type { Page, Service } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
@@ -42,8 +42,12 @@ const blockComponents = {
   testimonial: TestimonialBlockComponent,
 }
 
+type LayoutBlock =
+  | NonNullable<Page['layout']>[number]
+  | NonNullable<Service['layout']>[number]
+
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][]
+  blocks: LayoutBlock[]
 }> = (props) => {
   const { blocks } = props
 
@@ -60,11 +64,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const BlockWithProps = Block as React.FC<Record<string, unknown>>
-              return (
-                <div key={index}>
-                  <BlockWithProps {...block} disableInnerContainer />
-                </div>
-              )
+              return <BlockWithProps key={index} {...block} disableInnerContainer />
             }
           }
           return null
