@@ -43,9 +43,7 @@ export const PricingCardsBlock: React.FC<Props> = ({
         >
           <div className="mx-auto flex max-w-2xl flex-col gap-4 text-center">
             {eyebrow ? (
-              <Badge variant="outline" className="mx-auto w-fit rounded-full px-3 py-1 uppercase tracking-eyebrow">
-                {eyebrow}
-              </Badge>
+              <p className="label mx-auto w-fit">{eyebrow}</p>
             ) : null}
 
             <h2 className="text-4xl font-medium tracking-display text-balance sm:text-5xl">{title}</h2>

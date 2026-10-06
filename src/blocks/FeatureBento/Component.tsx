@@ -4,7 +4,6 @@ import type { FeatureBentoBlock as FeatureBentoBlockData } from '@/payload-types
 
 import { CMSLink } from '@/components/Link'
 import { SectionShell } from '@/components/SectionShell'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
@@ -40,9 +39,7 @@ export const FeatureBentoBlock: React.FC<Props> = ({
         >
           <div className="flex max-w-3xl flex-col gap-4">
             {eyebrow ? (
-              <Badge variant="outline" className="w-fit rounded-full px-3 py-1 uppercase tracking-eyebrow">
-                {eyebrow}
-              </Badge>
+              <p className="label w-fit">{eyebrow}</p>
             ) : null}
 
             <h2 className="text-4xl font-medium tracking-display text-balance sm:text-5xl">{title}</h2>

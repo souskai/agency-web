@@ -33,9 +33,7 @@ export const HeroBasicBlock: React.FC<Props> = ({
         >
           <div className="flex flex-col gap-4">
             {eyebrow ? (
-              <Badge variant="outline" className="w-fit rounded-full px-3 py-1 uppercase tracking-eyebrow">
-                {eyebrow}
-              </Badge>
+              <p className="label w-fit">{eyebrow}</p>
             ) : null}
 
             <div className="flex max-w-3xl flex-col gap-4">

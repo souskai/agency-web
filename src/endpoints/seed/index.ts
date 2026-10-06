@@ -536,28 +536,121 @@ export const seed = async ({
       ],
       layout: [
         {
+          blockName: 'Why hire us',
+          blockType: 'contentColumns',
+          eyebrow: 'UI/UX design',
+          title: 'Why hire us for UI/UX before development?',
+          paragraphs: [
+            {
+              text: "User-centric approach — we design backwards from the person's task: journeys, states, and edge cases mapped before a single component is styled, so the interface answers the question it is actually asked.",
+            },
+            {
+              text: '1:1 CMS mapping — every component we draw has a matching Payload field group. The admin form and the page component are the same object, so no design that engineering cannot ship and no content an editor cannot change.',
+            },
+            {
+              text: 'Scalable architectures — tokens, variants, and composition rules come before pages. New sections assemble from existing primitives, so the tenth page costs less than the first and the system survives a rebrand.',
+            },
+          ],
+        },
+        {
+          blockName: 'Design directly in code',
+          blockType: 'faqAccordion',
+          eyebrow: 'Method',
+          title: 'Why we design directly in code',
+          description:
+            'Static mockups promise a perfect layout; the web is fluid, dynamic, and unpredictable. We design in the browser instead, so responsiveness, hover states, micro-interactions, and fluid type are baked in from day one — not patched in afterwards.',
+          items: [
+            {
+              question: 'Why not start with static design files?',
+              answer:
+                'A picture of a layout hides the parts that decide quality: how it reflows at 375px, what happens on hover and focus, how a twelve-word headline wraps next to a three-word one. We would rather answer those questions in the browser than discover them after handoff.',
+            },
+            {
+              question: 'Who designs the page?',
+              answer:
+                'The same engineers who build it. They have the UI/UX depth to set spacing, alignment, and hierarchy directly in the medium the work ships in — so the design and the implementation never drift apart.',
+            },
+            {
+              question: 'How does that fit a block-based CMS?',
+              answer:
+                'Every block we design is a living component with a matching Payload field group, not a picture of one. We see how CMS data flows into the UI and test editorial limits — short headline versus long, one card versus six — as we build.',
+            },
+            {
+              question: 'How do we review the work?',
+              answer:
+                'On a real staging URL, not a clickable image. What you approve is what goes live, and there is no duplicate effort translating a static picture into Tailwind or CSS.',
+            },
+          ],
+        },
+        {
           blockName: 'Design system',
           blockType: 'designSystem',
         },
         {
-          blockName: 'Design capabilities',
-          blockType: 'featureSteps',
-          eyebrow: 'Design',
-          title: 'Design as a system, not a file',
+          blockName: 'What actually ships',
+          blockType: 'featureGridBasic',
+          eyebrow: 'Deliverables',
+          title: 'What actually ships',
+          description:
+            'Design in code is not a metaphor. Every engagement ends with these artifacts in your repository, versioned with the site.',
           items: [
             {
-              title: 'Brand & voice systems',
+              title: 'Design tokens',
               description:
-                'Positioning, voice rules, and a banned-jargon list your whole team can use.',
+                'Color, type, spacing, and radius as CSS variables in one @theme source — light and dark from a single definition.',
             },
             {
-              title: 'Design tokens & theme',
-              description: 'Color, type, spacing, and radius as tokens — light/dark from one source.',
+              title: 'Component library',
+              description:
+                'shadcn/ui primitives plus reusable blocks, documented so any editor can assemble a page without design help.',
             },
             {
-              title: 'Motion & micro-interaction',
+              title: 'Admin parity',
               description:
-                'Calm, low-frequency motion that respects reduced-motion preferences.',
+                'Each block exposes its own Payload field group, so the form an editor fills mirrors the component on the page.',
+            },
+            {
+              title: 'Motion spec',
+              description:
+                'Low-frequency, purposeful motion with reduced-motion fallbacks — no decoration that fights the user.',
+            },
+            {
+              title: 'Accessibility pass',
+              description:
+                'Contrast, focus order, and keyboard paths are part of the component spec, not a post-launch audit.',
+            },
+            {
+              title: 'Docs & handover',
+              description:
+                'A token map and block inventory, so the next team inherits the system — not a pile of files.',
+            },
+          ],
+        },
+        {
+          blockName: 'From tokens to handover',
+          blockType: 'featureSteps',
+          eyebrow: 'Process',
+          title: 'From tokens to handover',
+          items: [
+            {
+              title: 'Audit & inventory',
+              description:
+                'We map the existing pages, content model, and brand assets to find what is reusable and what must be rebuilt.',
+            },
+            {
+              title: 'Tokens & theme',
+              description:
+                'Color, type, spacing, and radius are defined once in code, then mirrored for anyone working in a design tool.',
+            },
+            {
+              title: 'Components in code',
+              description:
+                'Blocks are built as living components with their own Payload fields — never as static pictures of components.',
+            },
+            {
+              title: 'Handover & governance',
+              description:
+                'You receive the repo, the token map, and the docs. Design and build stay in one type-safe codebase.',
             },
           ],
         },

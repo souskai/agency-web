@@ -3,7 +3,6 @@ import React from 'react'
 import type { StatsGridBlock as StatsGridBlockData } from '@/payload-types'
 
 import { SectionShell } from '@/components/SectionShell'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 
 // Layout adapted from tailark/blocks (MIT) — re-implemented as a Payload block.
@@ -33,9 +32,7 @@ export const StatsGridBlock: React.FC<Props> = ({
         >
           <div className="flex flex-col gap-4">
             {eyebrow ? (
-              <Badge variant="outline" className="w-fit rounded-full px-3 py-1 uppercase tracking-eyebrow">
-                {eyebrow}
-              </Badge>
+              <p className="label w-fit">{eyebrow}</p>
             ) : null}
 
             <h2 className="text-4xl font-medium tracking-display text-balance sm:text-5xl">{title}</h2>

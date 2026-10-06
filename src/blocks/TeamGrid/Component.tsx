@@ -4,7 +4,6 @@ import type { TeamGridBlock as TeamGridBlockData } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { SectionShell } from '@/components/SectionShell'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 
 type Props = TeamGridBlockData & {
@@ -33,9 +32,7 @@ export const TeamGridBlock: React.FC<Props> = ({
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div className="flex flex-col gap-4">
               {eyebrow ? (
-                <Badge variant="outline" className="w-fit rounded-full px-3 py-1 uppercase tracking-eyebrow">
-                  {eyebrow}
-                </Badge>
+                <p className="label w-fit">{eyebrow}</p>
               ) : null}
 
               <h2 className="text-3xl font-medium tracking-title text-balance sm:text-4xl">{title}</h2>
