@@ -1,12 +1,11 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import React from 'react'
 
 import type { ServicesPage, SiteSetting } from '@/payload-types'
 
-import { ServiceIcon } from '@/components/ServiceIcon'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
-import { getLocalizedPath, isValidLocale, type Locale } from '@/i18n/config'
+import { isValidLocale, type Locale } from '@/i18n/config'
 import { getTranslations } from '@/i18n/translations'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getCachedServices } from '@/utilities/getCachedServices'
@@ -20,7 +19,6 @@ type Args = {
 export default async function ServicesIndex({ params: paramsPromise }: Args) {
   const { locale: localeParam } = await paramsPromise
   const locale: Locale = isValidLocale(localeParam) ? localeParam : 'en'
-  const t = getTranslations(locale)
   const services = await getCachedServices(locale)
   const servicesPage = (await getCachedGlobal('services-page', 1, locale)) as ServicesPage
 
@@ -29,31 +27,7 @@ export default async function ServicesIndex({ params: paramsPromise }: Args) {
       <PageClient />
       <RenderHero {...servicesPage.hero} />
 
-      <div className="container">
-        {services.docs.length === 0 ? (
-          <p className="text-muted-foreground">{t.services.noResults}</p>
-        ) : (
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.docs.map((service) => (
-              <li key={service.id}>
-                <Link
-                  href={getLocalizedPath(locale, `/services/${service.slug}`)}
-                  className="group flex h-full flex-col rounded-lg border border-border bg-card p-6 transition-colors hover:bg-accent"
-                >
-                  <ServiceIcon icon={service.icon} className="h-8 w-8 text-primary" />
-                  <h2 className="mt-4 text-xl font-semibold">{service.title}</h2>
-                  {service.summary && (
-                    <p className="mt-2 flex-1 text-sm text-muted-foreground">{service.summary}</p>
-                  )}
-                  <span className="mt-4 text-sm font-medium text-primary">
-                    {t.common.readMore} →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <RenderBlocks blocks={servicesPage.layout ?? []} locale={locale} services={services.docs} />
     </div>
   )
 }

@@ -3678,8 +3678,41 @@ export interface ServicesPage {
     description?: string | null;
     media?: (number | null) | Media;
   };
+  layout?:
+    | (
+        | ArchiveBlock
+        | AwardsListBlock
+        | CallToActionCenteredBlock
+        | ComparatorGridBlock
+        | ContentColumnsBlock
+        | DesignSystemBlock
+        | EmbedBasicBlock
+        | FaqAccordionBlock
+        | FeatureBentoBlock
+        | FeatureGridBasicBlock
+        | FeatureStepsBlock
+        | FormBlock
+        | HeroBasicBlock
+        | LogoBannerBlock
+        | MediaBlock
+        | PricingCardsBlock
+        | ServicesIndexBlock
+        | StatsGridBlock
+        | TeamGridBlock
+        | TestimonialBlock
+      )[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesIndexBlock".
+ */
+export interface ServicesIndexBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesIndex';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3825,9 +3858,41 @@ export interface ServicesPageSelect<T extends boolean = true> {
         description?: T;
         media?: T;
       };
+  layout?:
+    | T
+    | {
+        archive?: T | ArchiveBlockSelect<T>;
+        awardsList?: T | AwardsListBlockSelect<T>;
+        callToActionCentered?: T | CallToActionCenteredBlockSelect<T>;
+        comparatorGrid?: T | ComparatorGridBlockSelect<T>;
+        contentColumns?: T | ContentColumnsBlockSelect<T>;
+        designSystem?: T | DesignSystemBlockSelect<T>;
+        embedBasic?: T | EmbedBasicBlockSelect<T>;
+        faqAccordion?: T | FaqAccordionBlockSelect<T>;
+        featureBento?: T | FeatureBentoBlockSelect<T>;
+        featureGridBasic?: T | FeatureGridBasicBlockSelect<T>;
+        featureSteps?: T | FeatureStepsBlockSelect<T>;
+        formBlock?: T | FormBlockSelect<T>;
+        heroBasic?: T | HeroBasicBlockSelect<T>;
+        logoBanner?: T | LogoBannerBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        pricingCards?: T | PricingCardsBlockSelect<T>;
+        servicesIndex?: T | ServicesIndexBlockSelect<T>;
+        statsGrid?: T | StatsGridBlockSelect<T>;
+        teamGrid?: T | TeamGridBlockSelect<T>;
+        testimonial?: T | TestimonialBlockSelect<T>;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesIndexBlock_select".
+ */
+export interface ServicesIndexBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

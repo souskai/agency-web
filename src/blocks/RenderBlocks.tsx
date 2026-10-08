@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
-import type { Page, Service } from '@/payload-types'
+import type { Locale } from '@/i18n/config'
+import type { Page, Service, ServicesPage } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { AwardsListBlockComponent } from '@/blocks/AwardsList/Component'
@@ -18,6 +19,7 @@ import { HeroBasicBlock } from '@/blocks/HeroBasic/Component'
 import { LogoBannerBlockComponent } from '@/blocks/LogoBanner/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { PricingCardsBlock } from '@/blocks/PricingCards/Component'
+import { ServicesIndexBlock, type ServicesIndexService } from '@/blocks/ServicesIndex/Component'
 import { StatsGridBlock } from '@/blocks/StatsGrid/Component'
 import { TeamGridBlock } from '@/blocks/TeamGrid/Component'
 import { TestimonialBlockComponent } from '@/blocks/Testimonial/Component'
@@ -39,6 +41,7 @@ const blockComponents = {
   logoBanner: LogoBannerBlockComponent,
   mediaBlock: MediaBlock,
   pricingCards: PricingCardsBlock,
+  servicesIndex: ServicesIndexBlock,
   statsGrid: StatsGridBlock,
   teamGrid: TeamGridBlock,
   testimonial: TestimonialBlockComponent,
@@ -47,11 +50,16 @@ const blockComponents = {
 type LayoutBlock =
   | NonNullable<Page['layout']>[number]
   | NonNullable<Service['layout']>[number]
+  | NonNullable<ServicesPage['layout']>[number]
 
 export const RenderBlocks: React.FC<{
   blocks: LayoutBlock[]
+  /** Forwarded to blocks that render collection data (e.g. `servicesIndex`). */
+  locale?: Locale
+  /** Forwarded to blocks that render collection data (e.g. `servicesIndex`). */
+  services?: ServicesIndexService[]
 }> = (props) => {
-  const { blocks } = props
+  const { blocks, locale, services } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -66,7 +74,15 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               const BlockWithProps = Block as React.FC<Record<string, unknown>>
-              return <BlockWithProps key={index} {...block} disableInnerContainer />
+              return (
+                <BlockWithProps
+                  key={index}
+                  {...block}
+                  disableInnerContainer
+                  locale={locale}
+                  services={services}
+                />
+              )
             }
           }
           return null

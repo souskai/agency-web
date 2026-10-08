@@ -1334,30 +1334,106 @@ export const seed = async ({
       slug: 'services-page',
       data: {
         hero: {
-          type: 'heroGrid',
-          richText: lexRichText([lexHeading('Choose the work. Own the platform.', 'h1')]),
-          links: [
-            {
-              link: {
-                type: 'custom',
-                appearance: 'default',
-                label: 'Start a project',
-                url: '/contact',
-              },
-            },
-            {
-              link: {
-                type: 'custom',
-                appearance: 'outline',
-                label: 'See our thinking',
-                url: '/posts',
-              },
-            },
-          ],
-          eyebrow: 'What we build',
-          description:
-            'Three engagements, one standard: type-safe architecture, a schema you control, and code any team can pick up. Plug in at strategy, design, or the full build — or chain all three from first principles to production.',
+          type: 'lowImpact',
+          richText: lexRichText([
+            lexHeading('Choose where to plug in. Own everything you build.', 'h1'),
+          ]),
         },
+        layout: [
+          {
+            blockName: 'Three engagements',
+            blockType: 'contentColumns',
+            eyebrow: 'Services',
+            title: 'Three engagements, one standard.',
+            paragraphs: [
+              {
+                text: 'Strategy maps the platform you actually need. Design binds it to a system you can extend. Development turns both into a codebase you own outright — schema, database, and build.',
+              },
+              {
+                text: 'Each engagement stands alone: fix the position, fix the interface, or fix the build. Chained, they take a platform from first principles to production without a handoff document ever going stale.',
+              },
+              {
+                text: 'Every section below is open-source proof of the standard — this site runs on the same stack and the same blocks we ship.',
+              },
+            ],
+            links: [
+              {
+                link: {
+                  type: 'custom',
+                  appearance: 'default',
+                  label: 'Start a project',
+                  url: '/contact',
+                },
+              },
+            ],
+          },
+          {
+            blockName: 'Services index',
+            blockType: 'servicesIndex',
+          },
+          {
+            blockName: 'Proof',
+            blockType: 'statsGrid',
+            eyebrow: 'Proof',
+            title: 'Facts to point at, not adjectives',
+            description:
+              'The numbers below are properties of the platform we ship — not promises we hope to keep.',
+            metrics: [
+              { value: '100%', label: 'TypeScript, end to end' },
+              { value: '0', label: 'plugins to patch' },
+              { value: '1', label: 'repo you own' },
+              { value: '3', label: 'engagements, chained or separate' },
+            ],
+          },
+          {
+            blockName: 'Services FAQ',
+            blockType: 'faqAccordion',
+            eyebrow: 'FAQ',
+            title: 'Before you pick an engagement',
+            items: [
+              {
+                question: 'Which service should I start with?',
+                answer:
+                  'Start where it hurts. If the product is vague, strategy first. If the interface is the bottleneck, design first. If both are clear, development first. We tell you which gap is costing the most before we quote anything.',
+              },
+              {
+                question: 'Can the engagements be chained?',
+                answer:
+                  'Yes — and they usually should be. Strategy informs design, design informs development, and the same schema and tokens flow through all three, so nothing is redrawn or rebuilt between phases.',
+              },
+              {
+                question: 'What do we own at the end?',
+                answer:
+                  'Everything: the repository, the schema, the database, and the hosting accounts. The platform keeps running with or without us, and any team can pick up the code.',
+              },
+            ],
+          },
+          {
+            blockName: 'Services CTA',
+            blockType: 'callToActionCentered',
+            title: 'Pick a lane, or all three.',
+            description:
+              "Tell us what's blocking you and we'll point you at the engagement that unpicks it — or chain all three into a platform you own end to end.",
+            links: [
+              {
+                link: {
+                  type: 'custom',
+                  appearance: 'default',
+                  label: 'Start a project',
+                  url: '/contact',
+                },
+              },
+              {
+                link: {
+                  type: 'custom',
+                  appearance: 'outline',
+                  label: 'See our thinking',
+                  url: '/posts',
+                },
+              },
+            ],
+          },
+        ],
       },
     }),
   ])
