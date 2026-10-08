@@ -120,8 +120,10 @@ export const seed = async ({
     await payload.db.deleteVersions({ collection, req, where: {} })
   }
 
-  payload.logger.info(`— Seeding demo author and user...`)
+  payload.logger.info(`— Purging any legacy demo author account...`)
 
+  // Belt-and-braces cleanup: any DB that seeded while this next block still
+  // created a hardcoded demo-admin is scrubbed here on a fresh reseed.
   await payload.delete({
     collection: 'users',
     depth: 0,
@@ -145,17 +147,9 @@ export const seed = async ({
     ),
   ])
 
-  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
-    payload.create({
-      collection: 'users',
-      data: {
-        name: 'Demo Author',
-        email: 'demo-author@example.com',
-        password: 'password',
-        roles: ['admin'],
-      },
-      draft: false,
-    }),
+  // NOTE: the seed never creates a user. A hardcoded login in a public repo is a
+  // live backdoor; posts below resolve an already-existing author instead.
+  const [image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
     payload.create({
       collection: 'media',
       data: image1,
@@ -1163,25 +1157,36 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding posts...`)
 
+  // Resolve an existing user as the post author (never create a login here).
+  // Falls back to `undefined` on a brand-new database; posts then render without
+  // a byline (PostHero guards it) until the operator assigns authors in /admin.
+  const existingUsers = await payload.find({
+    collection: 'users',
+    limit: 1,
+    sort: 'id',
+    overrideAccess: true,
+  })
+  const postAuthor = existingUsers.docs[0]
+
   const post1Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post1({ heroImage: image1Doc, blockImage: image2Doc, author: demoAuthor }),
+    data: post1({ heroImage: image1Doc, blockImage: image2Doc, author: postAuthor }),
   })
 
   const post2Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post2({ heroImage: image2Doc, blockImage: image3Doc, author: demoAuthor }),
+    data: post2({ heroImage: image2Doc, blockImage: image3Doc, author: postAuthor }),
   })
 
   const post3Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post3({ heroImage: image3Doc, blockImage: image1Doc, author: demoAuthor }),
+    data: post3({ heroImage: image3Doc, blockImage: image1Doc, author: postAuthor }),
   })
 
   await payload.update({
