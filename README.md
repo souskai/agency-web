@@ -22,7 +22,7 @@ We think that's backwards. You should own the code, the database, and the memory
 
 | | What you get |
 |---|---|
-| **The code** | A public, versioned codebase. No mystery layer — you can read every line. |
+| **The code** | A private or public, versioned codebase. No mystery layer — you can read every line. |
 | **The data** | Your content lives in your PostgreSQL database — your rows, your exports, your backups. |
 | **The content model** | The structure of your site is defined in typed code (`src/collections`, `src/blocks`), so it cannot silently change under you. |
 | **The exit** | Cancel us and you keep the code, the database, and an export of every page, post, and image. Nothing held hostage. |
@@ -84,7 +84,7 @@ None of this is a compliance certificate. It is the groundwork a serious product
 
 **Built-in SEO, search, and redirects** — per-page meta, a search index, and safe URL redirects out of the box.
 
-**Two languages** — English and Bulgarian, with URL-based locale routing.
+**Localization wired in** — English and Bulgarian ship today, with URL-based locale routing ready for more.
 
 ---
 
