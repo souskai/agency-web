@@ -149,7 +149,7 @@ export const seed = async ({
 
   // NOTE: the seed never creates a user. A hardcoded login in a public repo is a
   // live backdoor; posts below resolve an already-existing author instead.
-  const [image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
+  const [image1Doc, image2Doc, image3Doc, imageHomeDoc, categoriesDocs] = await Promise.all([
     payload.create({
       collection: 'media',
       data: image1,
@@ -170,13 +170,20 @@ export const seed = async ({
       data: imageHero1,
       file: hero1Buffer,
     }),
-    categories.map((category) =>
-      payload.create({
-        collection: 'categories',
-        data: { title: category, slug: category },
-      }),
+    Promise.all(
+      categories.map((category) =>
+        payload.create({
+          collection: 'categories',
+          data: { title: category, slug: category },
+        }),
+      ),
     ),
   ])
+
+  // slug → id map for assigning a category (and thus its icon) to each seeded post.
+  const categoryIds = Object.fromEntries(
+    categoriesDocs.map((category) => [String(category.slug).toLowerCase(), category.id]),
+  )
 
   /* ------------------------------------------------------------------
    * Agency collections – Customers, Testimonials, Awards
@@ -1172,21 +1179,21 @@ export const seed = async ({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post1({ heroImage: image1Doc, blockImage: image2Doc, author: postAuthor }),
+    data: { ...post1({ heroImage: image1Doc, blockImage: image2Doc, author: postAuthor }), categories: [categoryIds.technology] },
   })
 
   const post2Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post2({ heroImage: image2Doc, blockImage: image3Doc, author: postAuthor }),
+    data: { ...post2({ heroImage: image2Doc, blockImage: image3Doc, author: postAuthor }), categories: [categoryIds.news] },
   })
 
   const post3Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post3({ heroImage: image3Doc, blockImage: image1Doc, author: postAuthor }),
+    data: { ...post3({ heroImage: image3Doc, blockImage: image1Doc, author: postAuthor }), categories: [categoryIds.finance] },
   })
 
   await payload.update({

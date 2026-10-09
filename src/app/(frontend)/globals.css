@@ -108,6 +108,15 @@
     --duration-fast: 150ms;
     --duration-base: 250ms;
     --duration-slow: 400ms;
+
+    /* === HERO GRADIENT FAMILY (decoupled from the semantic palette) ===
+       Provisional values from the film-box reference; exact hexes to be sampled in the design phase. */
+    --grad-navy: #1e3a5c;
+    --grad-brick: #8e2b24;
+    --grad-orange: #e8752a;
+    --grad-amber: #f2c14e;
+    --grad-blue: #7ec4de;
+    --grad-beige: #e7c999;
   }
 
   /* === SEMANTIC — DARK MODE === */
@@ -405,6 +414,23 @@
       color-mix(in oklab, var(--brand-500) 10%, transparent),
       transparent 60%
     );
+  }
+
+  /* ── Post-hero gradients (decoupled family; used by PostHero, later /og) ── */
+  .hero-grad-1 {
+    background-image: linear-gradient(135deg, var(--grad-navy), var(--grad-brick));
+  }
+  .hero-grad-2 {
+    background-image: linear-gradient(135deg, var(--grad-brick), var(--grad-orange));
+  }
+  .hero-grad-3 {
+    background-image: linear-gradient(135deg, var(--grad-orange), var(--grad-amber));
+  }
+  .hero-grad-4 {
+    background-image: linear-gradient(160deg, var(--grad-navy), var(--grad-blue));
+  }
+  .hero-grad-5 {
+    background-image: linear-gradient(135deg, var(--grad-beige), var(--grad-amber));
   }
 
   /* Typography */

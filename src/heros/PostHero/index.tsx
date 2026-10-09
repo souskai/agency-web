@@ -3,16 +3,30 @@ import React from 'react'
 
 import type { Post } from '@/payload-types'
 
+import { CategoryIcon } from '@/components/CategoryIcon'
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
+import { pickHeroGradient } from '@/utilities/heroGradient'
+import { cn } from '@/utilities/ui'
 
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, populatedAuthors, publishedAt, title } = post
+  const { categories, heroImage, id, populatedAuthors, publishedAt, title } = post
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
+
+  // Primary category slug drives the decorative icon; unknown/missing → neutral fallback.
+  let categorySlug: string | undefined
+  if (categories) {
+    for (const category of categories) {
+      if (typeof category === 'object' && category !== null && category.slug) {
+        categorySlug = category.slug
+        break
+      }
+    }
+  }
 
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
@@ -62,11 +76,30 @@ export const PostHero: React.FC<{
           </div>
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
+      <div className="relative min-h-[80vh] select-none overflow-hidden">
+        {/* deterministic gradient — always present */}
+        <div className={cn('absolute inset-0', pickHeroGradient(id ?? title ?? ''))} />
+        {/* hero image covers the gradient when uploaded */}
         {heroImage && typeof heroImage !== 'string' && (
-          <Media fill priority imgClassName="-z-10 object-cover" resource={heroImage} />
+          <Media
+            className="absolute inset-0"
+            fill
+            priority
+            imgClassName="object-cover"
+            resource={heroImage}
+          />
         )}
-        <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-linear-to-t from-black to-transparent" />
+        {/* legibility scrim — keeps white text readable on light gradients and images */}
+        <div className="absolute inset-0 bg-black/40" />
+        {/* category icon — always on top of image or gradient */}
+        {categorySlug && (
+          <CategoryIcon
+            className="absolute right-8 top-20 h-40 w-40 text-white/25 pointer-events-none"
+            category={categorySlug}
+          />
+        )}
+        {/* bottom fade into the page */}
+        <div className="absolute pointer-events-none inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black to-transparent" />
       </div>
     </div>
   )
