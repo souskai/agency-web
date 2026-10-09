@@ -6,27 +6,18 @@ import type { Post } from '@/payload-types'
 import { CategoryIcon } from '@/components/CategoryIcon'
 import { Media } from '@/components/Media'
 import { formatAuthors } from '@/utilities/formatAuthors'
-import { pickHeroGradient } from '@/utilities/heroGradient'
+import { pickHeroGradient, primaryCategorySlug } from '@/utilities/heroGradient'
 import { cn } from '@/utilities/ui'
 
 export const PostHero: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { categories, heroImage, id, populatedAuthors, publishedAt, title } = post
+  const { categories, heroImage, populatedAuthors, publishedAt, slug, title } = post
 
   const hasAuthors =
     populatedAuthors && populatedAuthors.length > 0 && formatAuthors(populatedAuthors) !== ''
 
-  // Primary category slug drives the decorative icon; unknown/missing → neutral fallback.
-  let categorySlug: string | undefined
-  if (categories) {
-    for (const category of categories) {
-      if (typeof category === 'object' && category !== null && category.slug) {
-        categorySlug = category.slug
-        break
-      }
-    }
-  }
+  const categorySlug = primaryCategorySlug(categories)
 
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
@@ -78,7 +69,7 @@ export const PostHero: React.FC<{
       </div>
       <div className="relative min-h-[80vh] select-none overflow-hidden">
         {/* deterministic gradient — always present */}
-        <div className={cn('absolute inset-0', pickHeroGradient(id ?? title ?? ''))} />
+        <div className={cn('absolute inset-0', pickHeroGradient(slug ?? title ?? ''))} />
         {/* hero image covers the gradient when uploaded */}
         {heroImage && typeof heroImage !== 'string' && (
           <Media

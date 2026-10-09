@@ -1179,21 +1179,21 @@ export const seed = async ({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: { ...post1({ heroImage: image1Doc, blockImage: image2Doc, author: postAuthor }), categories: [categoryIds.technology] },
+    data: { ...post1({ blockImage: image2Doc, author: postAuthor }), categories: [categoryIds.technology] },
   })
 
   const post2Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: { ...post2({ heroImage: image2Doc, blockImage: image3Doc, author: postAuthor }), categories: [categoryIds.news] },
+    data: { ...post2({ blockImage: image3Doc, author: postAuthor }), categories: [categoryIds.engineering] },
   })
 
   const post3Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: { ...post3({ heroImage: image3Doc, blockImage: image1Doc, author: postAuthor }), categories: [categoryIds.finance] },
+    data: { ...post3({ blockImage: image1Doc, author: postAuthor }), categories: [categoryIds.finance] },
   })
 
   await payload.update({
