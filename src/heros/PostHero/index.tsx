@@ -67,7 +67,7 @@ export const PostHero: React.FC<{
           </div>
         </div>
       </div>
-      <div className="relative min-h-[80vh] select-none overflow-hidden">
+      <div className="min-h-[80vh] select-none">
         {/* deterministic gradient — always present */}
         <div className={cn('absolute inset-0', pickHeroGradient(slug ?? title ?? ''))} />
         {/* hero image covers the gradient when uploaded */}
