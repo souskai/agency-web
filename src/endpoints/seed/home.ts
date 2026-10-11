@@ -156,7 +156,7 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
             type: 'custom',
             appearance: 'default',
             label: 'See the proof',
-            url: '/case-studies/agency-web-platform',
+            url: '/work',
           },
         },
         {

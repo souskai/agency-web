@@ -126,6 +126,7 @@ export default buildConfig({
   globals: [Header, Footer, SiteSettings, ServicesPage],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
+  telemetry: false,
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

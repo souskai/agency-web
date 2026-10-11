@@ -149,7 +149,7 @@ export const seed = async ({
 
   // NOTE: the seed never creates a user. A hardcoded login in a public repo is a
   // live backdoor; posts below resolve an already-existing author instead.
-  const [image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
+  const [image1Doc, image2Doc, image3Doc, imageHomeDoc, categoriesDocs] = await Promise.all([
     payload.create({
       collection: 'media',
       data: image1,
@@ -170,13 +170,20 @@ export const seed = async ({
       data: imageHero1,
       file: hero1Buffer,
     }),
-    categories.map((category) =>
-      payload.create({
-        collection: 'categories',
-        data: { title: category, slug: category },
-      }),
+    Promise.all(
+      categories.map((category) =>
+        payload.create({
+          collection: 'categories',
+          data: { title: category, slug: category },
+        }),
+      ),
     ),
   ])
+
+  // slug → id map for assigning a category (and thus its icon) to each seeded post.
+  const categoryIds = Object.fromEntries(
+    categoriesDocs.map((category) => [String(category.slug).toLowerCase(), category.id]),
+  )
 
   /* ------------------------------------------------------------------
    * Agency collections – Customers, Testimonials, Awards
@@ -914,66 +921,139 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding case studies...`)
 
-  const caseStudiesData = [
+  const caseStudiesData: Array<{
+    title: string
+    slug: string
+    phase: 'previous' | 'current' | 'future'
+    featured: boolean
+    sortOrder: number
+    coverImage: number
+    summary: string
+    paragraphs: string[]
+    results: { metric: string; value: string }[]
+    testimonial: { quote: string; authorName: string; authorRole: string }
+    projectLink?: {
+      url: string
+      label: string
+      newTab?: boolean
+    } | null
+  }> = [
     {
-      title: 'Globex Platform Redesign',
-      slug: 'globex-platform-redesign',
-      summary: 'A complete digital overhaul that increased online conversions by 40%.',
+      title: 'Pacio Core — Secure Online System (SOS)',
+      slug: 'pacio-sos-mvp',
+      phase: 'previous',
+      featured: false,
+      sortOrder: 1,
+      coverImage: image1Doc.id,
+      summary:
+        'A biometrically-verified self-sovereign identity that anchors Triple Entry Accounting to real, compliant payments.',
+      paragraphs: [
+        'The global economy leaks an estimated $36 trillion a year through the failures of 600-year-old double-entry accounting — fraud, corruption, reconciliation overhead, and identity silos. Pacio Core set out to build the missing primitive: an identity layer that makes every value transfer auditable by design.',
+        'SOS mints a self-sovereign identity from face and voice biometrics plus a single linked credential, weighted into a 0–100 veracity score. Banks and platforms verify age and identity through zero-knowledge APIs that return Boolean attestations — never raw personal data — against ISO/IEC 27566-1 and 30107-3 standards.',
+        'The MVP closed the loop with a real payment: USDC on Base Sepolia between two verified SIDs, producing an immutable Triple Entry record — payer, payee, and value in a single cryptographic receipt — with FATF Recommendations 10, 16, and 20 satisfied end to end.',
+      ],
       results: [
-        { metric: 'Conversion Rate', value: '+40%' },
-        { metric: 'Page Load Time', value: '1.2s' },
-        { metric: 'User Satisfaction', value: '94%' },
+        { metric: 'Testnet USDC payments', value: '50+' },
+        { metric: 'Personal SIDs', value: '200' },
+        { metric: 'Entity SIDs', value: '10' },
       ],
       testimonial: {
         quote:
-          'The new platform exceeded all our expectations and paid for itself within three months.',
-        authorName: 'Sarah Chen',
-        authorRole: 'VP of Product',
+          'The payment itself is the proof: two verified identities, one immutable transaction, zero ambiguity.',
+        authorName: 'Pacio Core',
+        authorRole: 'Product',
+      },
+      projectLink: {
+        url: 'https://sos-mvp-omega.vercel.app/',
+        label: 'Visit the live MVP',
+        newTab: true,
       },
     },
     {
-      title: 'Initech Brand Identity',
-      slug: 'initech-brand-identity',
-      summary: 'A fresh identity system that unified the brand across 12 markets.',
+      title: 'Souskai Agency Platform',
+      slug: 'agency-web-platform',
+      phase: 'current',
+      featured: true,
+      sortOrder: 2,
+      coverImage: image2Doc.id,
+      summary: 'The open-source Payload + Next.js platform this very site runs on — our live proof of standard.',
+      paragraphs: [
+        'This site is the evidence: Payload 3 and the Next.js App Router, type-safe from schema to deploy, with PostgreSQL on Neon and edge-served pages. Every collection, block, and component is built on the same stack you would receive.',
+        'You own the schema, the database, and the code outright. No black-box vendor lock-in — read the components before you hire us, and keep the whole record when the engagement ends.',
+        'The work above and below is authored through the exact CMS this site runs on — case studies are ordinary Payload records, not hand-coded pages.',
+      ],
       results: [
-        { metric: 'Brand Recognition', value: '+65%' },
-        { metric: 'Markets Unified', value: '12' },
+        { metric: 'TypeScript', value: '100%' },
+        { metric: 'Repo you own', value: '1' },
+        { metric: 'Edge responses', value: 'sub-second' },
       ],
       testimonial: {
-        quote: 'They captured our brand essence perfectly and gave us a system that scales.',
-        authorName: 'Marcus Rivera',
-        authorRole: 'CEO',
+        quote: 'This site is the evidence: schema, database, and code — all open and owned end to end.',
+        authorName: 'Souskai',
+        authorRole: 'Engineering',
       },
+      projectLink: null,
+    },
+    {
+      title: 'Gulf Regulatory Intelligence (working name)',
+      slug: 'gulf-regtech-platform',
+      phase: 'future',
+      featured: false,
+      sortOrder: 3,
+      coverImage: image3Doc.id,
+      summary:
+        'A Gulf-states regulatory intelligence platform — the Caribbean RegTech playbook re-based on GCC regulators.',
+      paragraphs: [
+        'The Caribbean taught us the pattern: regulators publish constantly across official gazettes, securities commissions, and central banks, and no tool on the market indexes them. The Gulf is the same regulatory black hole at six times the scale — SAMA, CBUAE, DFSA, QCB, the Central Bank of Bahrain, and the region’s capital-markets authorities.',
+        'The product is a curated, section-level regulatory corpus, assistive change monitoring of official sources, and AI-drafted regulatory guidance briefs where every material claim is bound to a stored section ID — anything unbound is flagged and never rendered. Monitoring is explicitly non-exhaustive and says so.',
+        'It ships multi-tenant from the first commit: role-based access, privileged client documents delivered only through short-lived signed URLs, and pinned model profiles with per-generation cost capture. Caribbean coverage first, then the GCC — briefs, not just monitoring.',
+      ],
+      results: [
+        { metric: 'GCC jurisdictions', value: '6' },
+        { metric: 'Launch instruments', value: '8' },
+        { metric: 'Pilot', value: 'Q4 2027' },
+      ],
+      testimonial: {
+        quote:
+          'The moat is the corpus nobody else has — coverage the global RegTech tools never built.',
+        authorName: 'Souskai',
+        authorRole: 'Strategy',
+      },
+      projectLink: null,
     },
   ]
 
+  const caseStudyDocs = []
   for (const cs of caseStudiesData) {
-    await payload.create({
+    const doc = await payload.create({
       collection: 'case-studies',
       depth: 0,
       context: { disableRevalidate: true },
+      draft: true,
       data: {
         title: cs.title,
         slug: cs.slug,
-        _status: 'published',
+        phase: cs.phase,
+        featured: cs.featured,
+        sortOrder: cs.sortOrder,
         summary: cs.summary,
-        coverImage: image1Doc.id,
+        coverImage: cs.coverImage,
         results: cs.results,
         services: serviceDocs.map((s) => s.id),
         testimonial: cs.testimonial,
-        content: lexRichText([
-          lexHeading(cs.title),
-          lexParagraph(cs.summary),
-          lexHeading('The Challenge', 'h3'),
-          lexParagraph(
-            'The client needed a modern, scalable solution that could serve millions of users while maintaining brand consistency across every touchpoint.',
-          ),
-          lexHeading('Our Approach', 'h3'),
-          lexParagraph(
-            'We combined research-driven strategy with iterative design and agile development to deliver measurable results within a tight timeline.',
-          ),
-        ]),
+        ...(cs.projectLink ? { projectLink: cs.projectLink } : {}),
+        content: lexRichText(cs.paragraphs.map((text) => lexParagraph(text))),
       },
+    })
+    caseStudyDocs.push(doc)
+  }
+
+  for (const doc of caseStudyDocs) {
+    await payload.update({
+      collection: 'case-studies',
+      id: doc.id,
+      data: { _status: 'published' as const },
+      req,
     })
   }
 
@@ -1172,21 +1252,21 @@ export const seed = async ({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post1({ heroImage: image1Doc, blockImage: image2Doc, author: postAuthor }),
+    data: { ...post1({ blockImage: image2Doc, author: postAuthor }), categories: [categoryIds.technology] },
   })
 
   const post2Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post2({ heroImage: image2Doc, blockImage: image3Doc, author: postAuthor }),
+    data: { ...post2({ blockImage: image3Doc, author: postAuthor }), categories: [categoryIds.engineering] },
   })
 
   const post3Doc = await payload.create({
     collection: 'posts',
     depth: 0,
     context: { disableRevalidate: true },
-    data: post3({ heroImage: image3Doc, blockImage: image1Doc, author: postAuthor }),
+    data: { ...post3({ blockImage: image1Doc, author: postAuthor }), categories: [categoryIds.finance] },
   })
 
   await payload.update({
@@ -1253,7 +1333,8 @@ export const seed = async ({
               },
             })),
           },
-          { link: { type: 'custom', label: 'Work', url: '/posts' } },
+          { link: { type: 'custom', label: 'Work', url: '/work' } },
+          { link: { type: 'custom', label: 'Insights', url: '/posts' } },
           {
             link: {
               type: 'reference',
@@ -1277,7 +1358,7 @@ export const seed = async ({
             heading: 'Agency',
             links: [
               { link: { type: 'custom', label: 'About', url: '/about' } },
-              { link: { type: 'custom', label: 'Blog', url: '/posts' } },
+              { link: { type: 'custom', label: 'Insights', url: '/posts' } },
               { link: { type: 'custom', label: 'Careers', url: '/careers' } },
             ],
           },

@@ -4,7 +4,7 @@ const collectionPrefixMap: Record<string, string> = {
   posts: '/posts',
   pages: '',
   services: '/services',
-  'case-studies': '/case-studies',
+  'case-studies': '/work',
 }
 
 type Props = {

@@ -16,6 +16,8 @@ export const revalidateCaseStudy: CollectionAfterChangeHook<CaseStudy> = ({
       payload.logger.info(`Revalidating case study at path: ${path}`)
 
       revalidatePath(path)
+      revalidatePath('/work')
+      revalidatePath('/bg/work')
       revalidateTag('case-studies-sitemap', 'max')
       revalidateTag('case-studies-list', 'max')
       revalidateTag(`case-studies_${doc.slug}`, 'max')
@@ -28,6 +30,8 @@ export const revalidateCaseStudy: CollectionAfterChangeHook<CaseStudy> = ({
       payload.logger.info(`Revalidating old case study at path: ${oldPath}`)
 
       revalidatePath(oldPath)
+      revalidatePath('/work')
+      revalidatePath('/bg/work')
       revalidateTag('case-studies-sitemap', 'max')
       revalidateTag('case-studies-list', 'max')
       revalidateTag(`case-studies_${previousDoc.slug}`, 'max')
@@ -49,6 +53,8 @@ export const revalidateDelete: CollectionAfterDeleteHook<CaseStudy> = ({
     const path = `/case-studies/${doc?.slug}`
 
     revalidatePath(path)
+    revalidatePath('/work')
+    revalidatePath('/bg/work')
     revalidateTag('case-studies-sitemap', 'max')
     revalidateTag('case-studies-list', 'max')
     if (doc?.slug) revalidateTag(`case-studies_${doc.slug}`, 'max')

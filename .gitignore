@@ -28,6 +28,7 @@ public/media/
 .env.*
 !.env.example
 test.env
+.devserver.log
 
 # ───────────────────────────────────────────────
 # AI & Agentic Tooling (keep local-only)
