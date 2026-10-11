@@ -6,15 +6,17 @@ import React, { Fragment } from 'react'
 
 import type { Post } from '@/payload-types'
 
+import { BackgroundLayers } from '@/components/BackgroundLayers'
 import { CategoryIcon } from '@/components/CategoryIcon'
 import { Media } from '@/components/Media'
-import { pickHeroGradient, primaryCategorySlug } from '@/utilities/heroGradient'
+import { postBackgroundForIndex, primaryCategorySlug } from '@/utilities/postBackground'
 import { prefixWithLocale, useLocale } from '@/i18n/locale'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
+  backgroundIndex?: number
   className?: string
   doc?: CardPostData
   relationTo?: 'posts'
@@ -22,7 +24,7 @@ export const Card: React.FC<{
   title?: string
 }> = (props) => {
   const { card, link } = useClickableCard({})
-  const { className, doc, relationTo, showCategories, title: titleFromProps } = props
+  const { backgroundIndex, className, doc, relationTo, showCategories, title: titleFromProps } = props
 
   const locale = useLocale()
   const { slug, categories, meta, title } = doc || {}
@@ -45,15 +47,15 @@ export const Card: React.FC<{
       ref={card}
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden">
-        {/* deterministic gradient — always present; image covers it when a meta.image is set */}
-        <div className={cn('absolute inset-0', pickHeroGradient(slug ?? title ?? ''))} />
+        {/* order-cycled SectionShell gradient — always present; image covers it when a meta.image is set */}
+        <BackgroundLayers preset={postBackgroundForIndex(backgroundIndex ?? 0)} />
         {metaImage && typeof metaImage !== 'string' && (
           <Media className="absolute inset-0" fill imgClassName="object-cover" resource={metaImage} />
         )}
         {/* category icon — always on top of image or gradient */}
         {categorySlug && (
           <CategoryIcon
-            className="absolute right-4 top-4 h-16 w-16 text-white/25 pointer-events-none"
+            className="absolute right-4 top-4 h-16 w-16 text-foreground/10 pointer-events-none"
             category={categorySlug}
           />
         )}

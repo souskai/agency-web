@@ -3,6 +3,9 @@ import React from 'react'
 export type BackgroundPresetKey =
   | 'none'
   | 'mesh-aurora'
+  | 'mesh-tide'
+  | 'mesh-sunrise'
+  | 'mesh-dusk'
   | 'grid-fade'
   | 'soft-noise'
   | 'svg-circuit'
@@ -22,6 +25,9 @@ export type BackgroundPresetKey =
  */
 export const backgroundPresets: Record<Exclude<BackgroundPresetKey, 'none'>, React.ReactNode> = {
   'mesh-aurora': <div className="absolute inset-0 bg-mesh-aurora" />,
+  'mesh-tide': <div className="absolute inset-0 bg-mesh-tide" />,
+  'mesh-sunrise': <div className="absolute inset-0 bg-mesh-sunrise" />,
+  'mesh-dusk': <div className="absolute inset-0 bg-mesh-dusk" />,
   'grid-fade': <div className="absolute inset-0 bg-grid-fade" />,
   'soft-noise': <div className="absolute inset-0 bg-soft-noise" />,
   'svg-circuit': <div className="absolute inset-0 bg-svg-circuit" />,

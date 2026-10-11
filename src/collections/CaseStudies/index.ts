@@ -88,6 +88,27 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
               required: true,
             },
             {
+              name: 'projectLink',
+              type: 'group',
+              admin: { description: 'Optional link to the shipped product or live site' },
+              fields: [
+                {
+                  name: 'label',
+                  type: 'text',
+                },
+                {
+                  name: 'url',
+                  type: 'text',
+                },
+                {
+                  name: 'newTab',
+                  type: 'checkbox',
+                  defaultValue: true,
+                  admin: { description: 'Open in new tab' },
+                },
+              ],
+            },
+            {
               name: 'results',
               type: 'array',
               admin: {
@@ -208,6 +229,38 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
             return value
           },
         ],
+      },
+    },
+    {
+      name: 'phase',
+      type: 'select',
+      required: true,
+      defaultValue: 'current',
+      options: [
+        { label: 'Previous', value: 'previous' },
+        { label: 'Current', value: 'current' },
+        { label: 'Future', value: 'future' },
+      ],
+      admin: {
+        position: 'sidebar',
+        description: 'Where this project sits in the timeline',
+      },
+    },
+    {
+      name: 'featured',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Rendered first on the Work page',
+      },
+    },
+    {
+      name: 'sortOrder',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+        description: 'Lower numbers appear first',
       },
     },
     slugField({ localized: true }),

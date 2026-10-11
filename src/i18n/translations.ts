@@ -12,7 +12,7 @@ export const translations = {
       home: 'Home',
     },
     posts: {
-      title: 'Posts',
+      title: 'Insights',
       pageTitle: 'Page',
       pagination: 'Page {current} of {total}',
       noResults: 'No posts found.',
@@ -27,6 +27,14 @@ export const translations = {
       title: 'Services',
       intro: 'From strategy to launch — explore what we build and how we build it.',
       noResults: 'No services found.',
+    },
+    work: {
+      title: 'Work',
+      intro: 'Previous, current, and future engagements — the record of what we build.',
+      featured: 'Featured',
+      previous: 'Previous',
+      current: 'Current',
+      future: 'Future',
     },
     designSystem: {
       title: 'Design System',
@@ -54,7 +62,7 @@ export const translations = {
       home: 'Начало',
     },
     posts: {
-      title: 'Публикации',
+      title: 'Прозрения',
       pageTitle: 'Страница',
       pagination: 'Страница {current} от {total}',
       noResults: 'Няма намерени публикации.',
@@ -69,6 +77,14 @@ export const translations = {
       title: 'Услуги',
       intro: 'От стратегия до стартиране — разгледайте какво създаваме и как го изграждаме.',
       noResults: 'Няма намерени услуги.',
+    },
+    work: {
+      title: 'Работа',
+      intro: 'Предишни, настоящи и бъдещи проекти — записът на това, което изграждаме.',
+      featured: 'Избрано',
+      previous: 'Предишен',
+      current: 'Настоящ',
+      future: 'Бъдещ',
     },
     designSystem: {
       title: 'Дизайн система',

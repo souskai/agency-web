@@ -41,6 +41,7 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
     entries.push(
       { loc: `${SITE_URL}${getLocalizedPath(locale, '/search')}`, lastmod: dateFallback },
       { loc: `${SITE_URL}${getLocalizedPath(locale, '/posts')}`, lastmod: dateFallback },
+      { loc: `${SITE_URL}${getLocalizedPath(locale, '/work')}`, lastmod: dateFallback },
     )
 
     if (results.docs) {

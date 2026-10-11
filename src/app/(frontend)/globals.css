@@ -108,15 +108,6 @@
     --duration-fast: 150ms;
     --duration-base: 250ms;
     --duration-slow: 400ms;
-
-    /* === HERO GRADIENT FAMILY (decoupled from the semantic palette) ===
-       Provisional values from the film-box reference; exact hexes to be sampled in the design phase. */
-    --grad-navy: #1e3a5c;
-    --grad-brick: #8e2b24;
-    --grad-orange: #e8752a;
-    --grad-amber: #f2c14e;
-    --grad-blue: #7ec4de;
-    --grad-beige: #e7c999;
   }
 
   /* === SEMANTIC — DARK MODE === */
@@ -352,6 +343,9 @@
      break. Static selectors only — never build these dynamically. */
   [data-section-bg='none'] + [data-section][data-section-bg='none'],
   [data-section-bg='mesh-aurora'] + [data-section][data-section-bg='mesh-aurora'],
+  [data-section-bg='mesh-tide'] + [data-section][data-section-bg='mesh-tide'],
+  [data-section-bg='mesh-sunrise'] + [data-section][data-section-bg='mesh-sunrise'],
+  [data-section-bg='mesh-dusk'] + [data-section][data-section-bg='mesh-dusk'],
   [data-section-bg='grid-fade'] + [data-section][data-section-bg='grid-fade'],
   [data-section-bg='soft-noise'] + [data-section][data-section-bg='soft-noise'],
   [data-section-bg='svg-circuit'] + [data-section][data-section-bg='svg-circuit'],
@@ -416,127 +410,79 @@
     );
   }
 
-  /* ── Post-hero gradients (decoupled family; blended mesh like the SectionShell presets) ──
-     Dark bases keep white text legible; the colour blooms bleed into each other via
-     color-mix(in oklab) so each variant reads as a rich blend, not a flat 2-stop ramp. */
-  .hero-grad-1 {
-    background-color: var(--grad-navy);
+  /* ── Mesh gradient variants for posts (order-cycled 1–5) ──
+     Same blended-mesh family as `.bg-mesh-aurora`, built from the standard token
+     palette so light/dark theming stays driven by CSS custom properties. */
+  .bg-mesh-tide {
+    background-color: var(--background-soft);
     background-image:
       radial-gradient(
-        75% 65% at 10% 15%,
-        color-mix(in oklab, var(--grad-brick) 60%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        60% 55% at 90% 10%,
-        color-mix(in oklab, var(--grad-orange) 45%, transparent),
+        60% 50% at 85% 15%,
+        color-mix(in oklab, var(--success-400) 26%, transparent),
         transparent 70%
       ),
       radial-gradient(
-        70% 60% at 80% 90%,
-        color-mix(in oklab, var(--grad-amber) 30%, transparent),
-        transparent 72%
+        55% 45% at 15% 20%,
+        color-mix(in oklab, var(--brand-400) 24%, transparent),
+        transparent 70%
       ),
       radial-gradient(
-        55% 50% at 5% 90%,
-        color-mix(in oklab, var(--grad-blue) 25%, transparent),
+        60% 55% at 20% 85%,
+        color-mix(in oklab, var(--success-500) 20%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 40% at 90% 90%,
+        color-mix(in oklab, var(--brand-500) 18%, transparent),
         transparent 70%
       );
   }
-  .hero-grad-2 {
-    background-color: var(--grad-brick);
+  .bg-mesh-sunrise {
+    background-color: var(--background-soft);
     background-image:
       radial-gradient(
-        70% 60% at 85% 20%,
-        color-mix(in oklab, var(--grad-amber) 55%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        65% 55% at 15% 85%,
-        color-mix(in oklab, var(--grad-orange) 45%, transparent),
+        60% 50% at 10% 15%,
+        color-mix(in oklab, var(--warning-500) 26%, transparent),
         transparent 70%
       ),
       radial-gradient(
-        55% 45% at 20% 15%,
-        color-mix(in oklab, var(--grad-beige) 30%, transparent),
+        55% 45% at 85% 10%,
+        color-mix(in oklab, var(--danger-400) 20%, transparent),
         transparent 70%
       ),
       radial-gradient(
-        60% 50% at 95% 95%,
-        color-mix(in oklab, var(--grad-navy) 35%, transparent),
-        transparent 72%
-      );
-  }
-  .hero-grad-3 {
-    background-color: var(--grad-navy);
-    background-image:
-      radial-gradient(
-        70% 60% at 20% 25%,
-        color-mix(in oklab, var(--grad-blue) 55%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        60% 55% at 88% 80%,
-        color-mix(in oklab, var(--grad-beige) 35%, transparent),
+        60% 55% at 80% 85%,
+        color-mix(in oklab, var(--brand-500) 18%, transparent),
         transparent 70%
       ),
       radial-gradient(
-        65% 50% at 10% 90%,
-        color-mix(in oklab, var(--grad-brick) 40%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        50% 45% at 85% 10%,
-        color-mix(in oklab, var(--grad-amber) 25%, transparent),
+        50% 40% at 15% 90%,
+        color-mix(in oklab, var(--warning-500) 18%, transparent),
         transparent 70%
       );
   }
-  .hero-grad-4 {
-    background-color: var(--grad-orange);
+  .bg-mesh-dusk {
+    background-color: var(--background-soft);
     background-image:
       radial-gradient(
-        70% 60% at 15% 20%,
-        color-mix(in oklab, var(--grad-amber) 60%, transparent),
+        65% 55% at 20% 20%,
+        color-mix(in oklab, var(--brand-500) 24%, transparent),
         transparent 72%
       ),
       radial-gradient(
-        65% 55% at 85% 85%,
-        color-mix(in oklab, var(--grad-brick) 50%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        55% 50% at 90% 15%,
-        color-mix(in oklab, var(--grad-beige) 40%, transparent),
+        55% 45% at 85% 75%,
+        color-mix(in oklab, var(--success-500) 20%, transparent),
         transparent 70%
       ),
       radial-gradient(
-        60% 50% at 10% 90%,
-        color-mix(in oklab, var(--grad-navy) 30%, transparent),
-        transparent 72%
-      );
-  }
-  .hero-grad-5 {
-    background-color: var(--grad-navy);
-    background-image:
-      radial-gradient(
-        70% 60% at 80% 20%,
-        color-mix(in oklab, var(--grad-amber) 40%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        65% 55% at 15% 80%,
-        color-mix(in oklab, var(--grad-brick) 55%, transparent),
-        transparent 72%
-      ),
-      radial-gradient(
-        55% 45% at 15% 10%,
-        color-mix(in oklab, var(--grad-orange) 35%, transparent),
+        60% 50% at 75% 15%,
+        color-mix(in oklab, var(--warning-500) 18%, transparent),
         transparent 70%
       ),
       radial-gradient(
-        60% 50% at 90% 90%,
-        color-mix(in oklab, var(--grad-blue) 30%, transparent),
-        transparent 72%
+        50% 45% at 10% 90%,
+        color-mix(in oklab, var(--brand-400) 22%, transparent),
+        transparent 70%
       );
   }
 

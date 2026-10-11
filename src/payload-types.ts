@@ -675,6 +675,17 @@ export interface CaseStudy {
   summary?: string | null;
   coverImage: number | Media;
   /**
+   * Optional link to the shipped product or live site
+   */
+  projectLink?: {
+    label?: string | null;
+    url?: string | null;
+    /**
+     * Open in new tab
+     */
+    newTab?: boolean | null;
+  };
+  /**
    * Key metrics (e.g. +45% revenue)
    */
   results?:
@@ -733,6 +744,18 @@ export interface CaseStudy {
     description?: string | null;
   };
   publishedAt?: string | null;
+  /**
+   * Where this project sits in the timeline
+   */
+  phase: 'previous' | 'current' | 'future';
+  /**
+   * Rendered first on the Work page
+   */
+  featured?: boolean | null;
+  /**
+   * Lower numbers appear first
+   */
+  sortOrder?: number | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -3006,6 +3029,13 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   client?: T;
   summary?: T;
   coverImage?: T;
+  projectLink?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        newTab?: T;
+      };
   results?:
     | T
     | {
@@ -3031,6 +3061,9 @@ export interface CaseStudiesSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  phase?: T;
+  featured?: T;
+  sortOrder?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

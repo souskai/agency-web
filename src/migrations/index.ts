@@ -4,6 +4,8 @@ import * as migration_20261003_123608_add_services_layout from './20261003_12360
 import * as migration_20261006_111848_add_design_system_block from './20261006_111848_add_design_system_block';
 import * as migration_20261006_123740_deconflict_kit_block_tables from './20261006_123740_deconflict_kit_block_tables';
 import * as migration_20261007_083431_add_services_page_layout from './20261007_083431_add_services_page_layout';
+import * as migration_20261011_073755 from './20261011_073755';
+import * as migration_20261011_101624_add_case_study_project_link from './20261011_101624_add_case_study_project_link';
 
 export const migrations = [
   {
@@ -34,6 +36,16 @@ export const migrations = [
   {
     up: migration_20261007_083431_add_services_page_layout.up,
     down: migration_20261007_083431_add_services_page_layout.down,
-    name: '20261007_083431_add_services_page_layout'
+    name: '20261007_083431_add_services_page_layout',
+  },
+  {
+    up: migration_20261011_073755.up,
+    down: migration_20261011_073755.down,
+    name: '20261011_073755',
+  },
+  {
+    up: migration_20261011_101624_add_case_study_project_link.up,
+    down: migration_20261011_101624_add_case_study_project_link.down,
+    name: '20261011_101624_add_case_study_project_link'
   },
 ];
