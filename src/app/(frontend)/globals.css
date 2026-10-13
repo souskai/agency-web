@@ -17,14 +17,14 @@
 @layer base {
   :root {
     /* === BRAND / ACCENT === */
-    --brand-50: #eef5ff;
-    --brand-100: #d9e8ff;
-    --brand-200: #bcd7ff;
-    --brand-300: #8ebeff;
-    --brand-400: #599aff;
-    --brand-500: #2b7fff;
-    --brand-600: #1b5af5;
-    --brand-700: #1447e1;
+    --brand-50: #fff4ef;
+    --brand-100: #ffe6da;
+    --brand-200: #ffcbb3;
+    --brand-300: #ffa57f;
+    --brand-400: #ff7a47;
+    --brand-500: #ff4d00;
+    --brand-600: #ce3d00;
+    --brand-700: #a63300;
 
     /* === SUCCESS === */
     --success-50: #eafff3;
@@ -44,8 +44,8 @@
     --danger-500: #ff2d55;
     --danger-600: #ed1146;
 
-    /* === WARNING === */
-    --warning-500: #ff9f0a;
+    /* === WARNING (alias of brand orange — single accent) === */
+    --warning-500: var(--brand-500);
 
     /* === NEUTRAL SCALE (Apple-style grays) === */
     --white: #ffffff;
@@ -69,6 +69,7 @@
     --foreground: #000000;
     --foreground-muted: #6e6e73;
     --foreground-inverse: #ffffff;
+    --primary-foreground: #000000;
 
     --border-subtle: #e5e5ea;
     --border-default: #d1d1d6;
@@ -100,7 +101,7 @@
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
     --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.12);
-    --shadow-glow: 0 0 80px -20px rgba(43, 127, 255, 0.25);
+    --shadow-glow: 0 0 80px -20px rgba(255, 77, 0, 0.25);
 
     /* === MOTION === */
     --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -119,6 +120,7 @@
     --foreground: #ffffff;
     --foreground-muted: #8e8e93;
     --foreground-inverse: #000000;
+    --primary-foreground: #000000;
 
     --border-subtle: #3a3a3c;
     --border-default: #48484a;
@@ -172,6 +174,8 @@
   --color-brand-500: var(--brand-500);
   --color-brand-600: var(--brand-600);
   --color-brand-700: var(--brand-700);
+  --color-brand: var(--brand-500);
+  --color-brand-foreground: var(--primary-foreground);
 
   --color-success-50: var(--success-50);
   --color-success-100: var(--success-100);
@@ -233,13 +237,13 @@
   --color-popover: var(--background-elevated);
   --color-popover-foreground: var(--foreground);
   --color-primary: var(--brand-500);
-  --color-primary-foreground: var(--foreground-inverse);
+  --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--background-soft);
   --color-secondary-foreground: var(--foreground);
   --color-muted: var(--background-soft);
   --color-muted-foreground: var(--foreground-muted);
   --color-accent: var(--brand-500);
-  --color-accent-foreground: var(--foreground-inverse);
+  --color-accent-foreground: var(--primary-foreground);
   --color-destructive: var(--danger-500);
   --color-destructive-foreground: var(--foreground-inverse);
   --color-border: var(--border-subtle);
@@ -298,7 +302,7 @@
     @apply inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40;
   }
   .btn-link {
-    @apply inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 text-primary underline-offset-4 hover:underline;
+    @apply inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 text-brand-600 dark:text-brand-400 underline-offset-4 hover:underline;
   }
 
   /* Cards & Surfaces */
@@ -376,7 +380,7 @@
       ),
       radial-gradient(
         50% 40% at 10% 90%,
-        color-mix(in oklab, var(--warning-500) 16%, transparent),
+        color-mix(in oklab, var(--danger-400) 16%, transparent),
         transparent 70%
       );
   }
@@ -442,7 +446,7 @@
     background-image:
       radial-gradient(
         60% 50% at 10% 15%,
-        color-mix(in oklab, var(--warning-500) 26%, transparent),
+        color-mix(in oklab, var(--brand-400) 26%, transparent),
         transparent 70%
       ),
       radial-gradient(
@@ -457,7 +461,7 @@
       ),
       radial-gradient(
         50% 40% at 15% 90%,
-        color-mix(in oklab, var(--warning-500) 18%, transparent),
+        color-mix(in oklab, var(--danger-500) 18%, transparent),
         transparent 70%
       );
   }
@@ -476,7 +480,7 @@
       ),
       radial-gradient(
         60% 50% at 75% 15%,
-        color-mix(in oklab, var(--warning-500) 18%, transparent),
+        color-mix(in oklab, var(--danger-400) 18%, transparent),
         transparent 70%
       ),
       radial-gradient(
@@ -520,7 +524,7 @@
 
   /* Interactive */
   .link {
-    @apply text-primary underline-offset-4 hover:underline transition-colors;
+    @apply text-brand-600 dark:text-brand-400 underline-offset-4 hover:underline transition-colors;
   }
   .input {
     @apply flex w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50;

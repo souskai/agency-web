@@ -24,7 +24,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ featured = false, eyebrow, pr
   return (
     <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-widest text-primary">{eyebrow}</p>
+        <p className="text-sm font-semibold uppercase tracking-widest text-brand-600 dark:text-brand-400">{eyebrow}</p>
         <h2
           className={`mt-2 font-semibold tracking-tight ${featured ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}
         >

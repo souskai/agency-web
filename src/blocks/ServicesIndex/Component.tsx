@@ -61,7 +61,7 @@ export const ServicesIndexBlock: React.FC<Props> = ({
                 {service.summary && (
                   <p className="mt-2 flex-1 text-sm text-muted-foreground">{service.summary}</p>
                 )}
-                <span className="mt-4 text-sm font-medium text-primary">
+                <span className="mt-4 text-sm font-medium text-brand-600 dark:text-brand-400">
                   {t.common.readMore} →
                 </span>
               </Link>

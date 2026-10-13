@@ -42,27 +42,27 @@
   --color-base-950: #0e0e0f;
   --color-base-1000: #000000;
 
-  // ── Primary accent — brand blue ──
+  // ── Primary accent — brand orange ──
   //    (Payload names its primary scale "success")
-  --color-success-50: #eef5ff;
-  --color-success-100: #d9e8ff;
-  --color-success-150: #cbe0ff;
-  --color-success-200: #bcd7ff;
-  --color-success-250: #a5cbff;
-  --color-success-300: #8ebeff;
-  --color-success-350: #74acff;
-  --color-success-400: #599aff;
-  --color-success-450: #428cff;
-  --color-success-500: #2b7fff;
-  --color-success-550: #236bf7;
-  --color-success-600: #1b5af5;
-  --color-success-650: #1750eb;
-  --color-success-700: #1447e1;
-  --color-success-750: #123dcb;
-  --color-success-800: #1034b5;
-  --color-success-850: #0e2b9f;
-  --color-success-900: #0c2389;
-  --color-success-950: #0a1a6e;
+  --color-success-50: #fff4ef;
+  --color-success-100: #ffe6da;
+  --color-success-150: #ffdccb;
+  --color-success-200: #ffcbb3;
+  --color-success-250: #ffb894;
+  --color-success-300: #ffa57f;
+  --color-success-350: #ff8f63;
+  --color-success-400: #ff7a47;
+  --color-success-450: #ff6326;
+  --color-success-500: #ff4d00;
+  --color-success-550: #e54400;
+  --color-success-600: #ce3d00;
+  --color-success-650: #be3800;
+  --color-success-700: #a63300;
+  --color-success-750: #932d00;
+  --color-success-800: #7d2600;
+  --color-success-850: #671f00;
+  --color-success-900: #521900;
+  --color-success-950: #361000;
 
   // ── Destructive — brand danger red ──
   --color-error-50: #fff1f3;
@@ -85,26 +85,26 @@
   --color-error-900: #4c041a;
   --color-error-950: #2f0210;
 
-  // ── Warning — brand amber ──
-  --color-warning-50: #fff8ec;
-  --color-warning-100: #ffefd1;
-  --color-warning-150: #ffe7ba;
-  --color-warning-200: #ffdea3;
-  --color-warning-250: #ffd28b;
-  --color-warning-300: #ffc472;
-  --color-warning-350: #ffb659;
-  --color-warning-400: #ffab3f;
-  --color-warning-450: #ffa525;
-  --color-warning-500: #ff9f0a;
-  --color-warning-550: #e58e09;
-  --color-warning-600: #cc7d08;
-  --color-warning-650: #b26d07;
-  --color-warning-700: #995d06;
-  --color-warning-750: #804d05;
-  --color-warning-800: #663d04;
-  --color-warning-850: #4d2e03;
-  --color-warning-900: #331f02;
-  --color-warning-950: #1a0f01;
+  // ── Warning — brand orange (aliased to brand-500) ──
+  --color-warning-50: #fff4ef;
+  --color-warning-100: #ffe6da;
+  --color-warning-150: #ffdccb;
+  --color-warning-200: #ffcbb3;
+  --color-warning-250: #ffb894;
+  --color-warning-300: #ffa57f;
+  --color-warning-350: #ff8f63;
+  --color-warning-400: #ff7a47;
+  --color-warning-450: #ff6326;
+  --color-warning-500: #ff4d00;
+  --color-warning-550: #e54400;
+  --color-warning-600: #ce3d00;
+  --color-warning-650: #be3800;
+  --color-warning-700: #a63300;
+  --color-warning-750: #932d00;
+  --color-warning-800: #7d2600;
+  --color-warning-850: #671f00;
+  --color-warning-900: #521900;
+  --color-warning-950: #361000;
 }
 
 // ── Brand-colored primary actions ──
