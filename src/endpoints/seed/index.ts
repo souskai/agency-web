@@ -3,6 +3,7 @@ import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from '
 import type { Service } from '@/payload-types'
 
 import { contactForm as contactFormData } from './contact-form'
+import { careers } from './careers'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
 import { image1 } from './image-1'
@@ -1299,7 +1300,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [homePage, contactPage] = await Promise.all([
+  const [homePage, contactPage, careersPage] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -1309,6 +1310,11 @@ export const seed = async ({
       collection: 'pages',
       depth: 0,
       data: contactPageData({ contactForm: contactForm }),
+    }),
+    payload.create({
+      collection: 'pages',
+      depth: 0,
+      data: careers(),
     }),
   ])
 
@@ -1353,7 +1359,6 @@ export const seed = async ({
           {
             heading: 'Agency',
             links: [
-              { link: { type: 'custom', label: 'About', url: '/about' } },
               { link: { type: 'custom', label: 'Insights', url: '/posts' } },
               { link: { type: 'custom', label: 'Careers', url: '/careers' } },
             ],
@@ -1367,28 +1372,6 @@ export const seed = async ({
                 reference: { relationTo: 'services' as const, value: s.id },
               },
             })),
-          },
-          {
-            heading: 'Legal',
-            links: [
-              {
-                link: {
-                  type: 'custom',
-                  label: 'Privacy Policy',
-                  url: '/legal-pages/privacy-policy',
-                },
-              },
-              {
-                link: {
-                  type: 'custom',
-                  label: 'Terms of Service',
-                  url: '/legal-pages/terms-of-service',
-                },
-              },
-              {
-                link: { type: 'custom', label: 'Cookie Policy', url: '/legal-pages/cookie-policy' },
-              },
-            ],
           },
           {
             heading: 'Connect',
@@ -1540,7 +1523,7 @@ export const seed = async ({
 
   payload.logger.info(`— Publishing pages...`)
 
-  for (const page of [homePage, contactPage]) {
+  for (const page of [homePage, contactPage, careersPage]) {
     await payload.update({
       collection: 'pages',
       id: page.id,
