@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Suspense fallback={null}>
             <AdminBarWrapper />
           </Suspense>
-          <div className="pt-20">{children}</div>
+          <div className="pt-[var(--header-height)]">{children}</div>
         </Providers>
       </body>
     </html>

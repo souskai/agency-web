@@ -96,7 +96,7 @@ export const seed = async ({
   })
   await payload.updateGlobal({
     slug: 'footer',
-    data: { columns: [], socialLinks: [] },
+    data: { columns: [] },
     depth: 0,
     context: { disableRevalidate: true },
   })
@@ -1343,11 +1343,7 @@ export const seed = async ({
             },
           },
         ],
-        ctaButtons: [
-          {
-            link: { type: 'custom', appearance: 'default', label: 'Get a Quote', url: '/contact' },
-          },
-        ],
+        ctaButtons: [],
       },
     }),
     payload.updateGlobal({
@@ -1409,11 +1405,6 @@ export const seed = async ({
           },
         ],
         legalLine: `© ${new Date().getFullYear()} Souskai. All rights reserved.`,
-        socialLinks: [
-          { platform: 'twitter', url: 'https://x.com' },
-          { platform: 'linkedin', url: 'https://linkedin.com' },
-          { platform: 'github', url: 'https://github.com' },
-        ],
       },
     }),
     payload.updateGlobal({
