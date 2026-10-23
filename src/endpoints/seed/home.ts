@@ -67,7 +67,7 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
       description:
         'You keep the schema, the database, and the code. The incumbents keep you on theirs.',
       plans: [
-        { name: 'Payload CMS + Next.js', badge: 'Souskai standard', highlighted: true },
+        { name: 'Payload CMS + Next.js', badge: 'Souskai', highlighted: true },
         { name: 'Legacy monolith (WordPress)' },
         { name: 'SaaS headless (Contentful / Sanity)' },
       ],

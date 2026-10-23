@@ -6,7 +6,6 @@ import type { ComparatorGridBlock as ComparatorGridBlockData } from '@/payload-t
 
 import { CMSLink } from '@/components/Link'
 import { SectionShell } from '@/components/SectionShell'
-import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
@@ -65,14 +64,7 @@ export const ComparatorGridBlock: React.FC<Props> = ({
                         'bg-primary/5': plan.highlighted,
                       })}
                     >
-                      {plan.badge ? (
-                        <Badge
-                          variant="outline"
-                          className="mx-auto rounded-full px-2 py-0.5 text-xs uppercase tracking-eyebrow"
-                        >
-                          {plan.badge}
-                        </Badge>
-                      ) : null}
+                      {plan.badge ? <span className="label mx-auto">{plan.badge}</span> : null}
 
                       <span className="text-base font-medium text-foreground">{plan.name}</span>
 
