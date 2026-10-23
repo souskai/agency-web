@@ -56,7 +56,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className={`fixed left-0 right-0 z-40 h-20 bg-background border-b border-border text-foreground transition-transform duration-300 top-[var(--admin-bar-height,0px)] ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
+      className={`fixed left-0 right-0 z-40 h-[var(--header-height)] bg-background border-b border-border text-foreground transition-transform duration-300 top-[var(--admin-bar-height,0px)] ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <HeaderDecor />
@@ -70,9 +70,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
             {data.ctaButtons?.map(({ link }, i) => (
               <CMSLink key={i} {...link} size="sm" className="hidden md:inline-flex" />
             ))}
-            <div className="hidden md:flex">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
             <MobileNav data={data} />
           </div>
         </div>

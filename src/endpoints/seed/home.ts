@@ -37,13 +37,26 @@ function richRoot(children: LexicalNode[]) {
 export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
   const layout: PageBlock[] = [
     {
-      blockName: 'Why we build',
+      blockName: 'What we do',
       blockType: 'contentColumns',
-      eyebrow: 'Why we build',
-      title: 'Infrastructure for the unarchived',
+      eyebrow: 'What we do',
+      title: 'One senior team, from first sketch to shipped product.',
       paragraphs: [
         {
-          text: "Archives get deleted. Answers get manipulated. Institutions lose their own history to platforms they don't control. We build for people who've learned — often the hard way — that if you don't own the record, you don't own the memory. Our response is technical: verifiable systems, open source, and data you can walk away with.",
+          text: 'Strategy, brand, design, and engineering in one small team of full-stack developers. The people who shape how your story looks are the same people who design the database behind it — no handoffs, no translation layer, no juniors learning on your budget.',
+        },
+        {
+          text: 'You get the polish of a design studio and the discipline of a product team: a site that looks the part, reads clearly, and still holds up when real traffic finds it.',
+        },
+      ],
+      links: [
+        {
+          link: {
+            type: 'custom',
+            appearance: 'outline',
+            label: 'See how we work',
+            url: '/services',
+          },
         },
       ],
     },
@@ -54,7 +67,7 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
       description:
         'You keep the schema, the database, and the code. The incumbents keep you on theirs.',
       plans: [
-        { name: 'Payload CMS + Next.js', badge: 'Souskai standard', highlighted: true },
+        { name: 'Payload CMS + Next.js', badge: 'Souskai', highlighted: true },
         { name: 'Legacy monolith (WordPress)' },
         { name: 'SaaS headless (Contentful / Sanity)' },
       ],
@@ -149,20 +162,12 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
     _status: 'published',
     hero: {
       type: 'heroGrid',
-      richText: richRoot([heading('Build the record. Own the record.', 'h1')]),
+      richText: richRoot([heading('Websites you own, not rent.', 'h1')]),
       links: [
         {
           link: {
             type: 'custom',
             appearance: 'default',
-            label: 'See the proof',
-            url: '/work',
-          },
-        },
-        {
-          link: {
-            type: 'custom',
-            appearance: 'outline',
             label: 'Start a project',
             url: '/contact',
           },
@@ -170,7 +175,7 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
       ],
       eyebrow: 'Engineering-led web studio',
       description:
-        "We engineer type-safe web platforms on Payload CMS + Next.js for organizations that can't afford to lose their history to a black box. You keep the schema, the database, and the code — and we open-sourced this site to prove our standards.",
+        'We design and build custom websites on Payload CMS — fast, considered, and built to last. You keep your content, your data, and your code.',
     },
     layout,
     meta: {

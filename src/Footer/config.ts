@@ -3,15 +3,6 @@ import type { GlobalConfig } from 'payload'
 import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
 
-const socialPlatformOptions = [
-  { label: 'LinkedIn', value: 'linkedin' },
-  { label: 'Twitter / X', value: 'twitter' },
-  { label: 'GitHub', value: 'github' },
-  { label: 'YouTube', value: 'youtube' },
-  { label: 'Instagram', value: 'instagram' },
-  { label: 'Facebook', value: 'facebook' },
-] as const
-
 export const Footer: GlobalConfig = {
   slug: 'footer',
   access: {
@@ -60,27 +51,6 @@ export const Footer: GlobalConfig = {
       admin: {
         description: 'e.g. © 2026 Souskai. All rights reserved.',
       },
-    },
-    {
-      name: 'socialLinks',
-      type: 'array',
-      admin: {
-        description: 'Social links (or leave empty to use Site Settings)',
-        initCollapsed: true,
-      },
-      fields: [
-        {
-          name: 'platform',
-          type: 'select',
-          required: true,
-          options: [...socialPlatformOptions],
-        },
-        {
-          name: 'url',
-          type: 'text',
-          required: true,
-        },
-      ],
     },
   ],
   hooks: {

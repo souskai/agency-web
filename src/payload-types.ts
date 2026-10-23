@@ -240,7 +240,7 @@ export interface Page {
      */
     eyebrow?: string | null;
     /**
-     * Short paragraph in the right column (Hero Grid only).
+     * Short paragraph below the headline (Hero Grid only).
      */
     description?: string | null;
     media?: (number | null) | Media;
@@ -571,7 +571,7 @@ export interface Service {
      */
     eyebrow?: string | null;
     /**
-     * Short paragraph in the right column (Hero Grid only).
+     * Short paragraph below the headline (Hero Grid only).
      */
     description?: string | null;
     media?: (number | null) | Media;
@@ -3588,16 +3588,6 @@ export interface Footer {
    * e.g. © 2026 Souskai. All rights reserved.
    */
   legalLine?: string | null;
-  /**
-   * Social links (or leave empty to use Site Settings)
-   */
-  socialLinks?:
-    | {
-        platform: 'linkedin' | 'twitter' | 'github' | 'youtube' | 'instagram' | 'facebook';
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -3706,7 +3696,7 @@ export interface ServicesPage {
      */
     eyebrow?: string | null;
     /**
-     * Short paragraph in the right column (Hero Grid only).
+     * Short paragraph below the headline (Hero Grid only).
      */
     description?: string | null;
     media?: (number | null) | Media;
@@ -3825,13 +3815,6 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   legalLine?: T;
-  socialLinks?:
-    | T
-    | {
-        platform?: T;
-        url?: T;
-        id?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

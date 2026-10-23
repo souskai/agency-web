@@ -2,7 +2,6 @@ import React from 'react'
 
 import type { Page } from '@/payload-types'
 
-import { AnimatedFlame } from '@/components/AnimatedFlame'
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 
@@ -23,17 +22,14 @@ export const HeroGridHero: React.FC<Page['hero']> = ({ description, eyebrow, lin
   }
 
   return (
-    <section className="container mt-2 pt-12 flex min-h-[75vh] flex-col">
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-12 xl:pt-4">
+    <section className="container flex min-h-[calc(100svh-var(--header-height))] flex-col justify-center py-16">
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
         <div className="xl:col-span-8 xl:col-start-1 xl:col-end-9">
           <div className="flex flex-col gap-6 lg:gap-10">
             {eyebrow && (
-              <div className="flex flex-row items-center gap-4">
-                <AnimatedFlame className="size-6 text-brand-500 lg:size-7 dark:text-brand-400" />
-                <p className="font-mono text-base leading-normal text-foreground lg:text-2xl">
-                  {eyebrow}
-                </p>
-              </div>
+              <p className="font-mono text-base leading-normal text-foreground lg:text-2xl">
+                {eyebrow}
+              </p>
             )}
 
             {richText && (

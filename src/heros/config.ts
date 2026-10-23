@@ -76,7 +76,7 @@ export const hero: Field = {
       type: 'textarea',
       admin: {
         condition: (_, { type } = {}) => type === 'heroGrid',
-        description: 'Short paragraph in the right column (Hero Grid only).',
+        description: 'Short paragraph below the headline (Hero Grid only).',
       },
       label: 'Description',
     },

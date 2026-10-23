@@ -4,7 +4,6 @@ import React from 'react'
 
 import type { Footer } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 import { FooterDecor } from './Decor'
@@ -16,7 +15,6 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
 
   const columns = footerData?.columns || []
   const legalLine = footerData?.legalLine
-  const socialLinks = footerData?.socialLinks || []
 
   const homeHref = getLocalizedPath(locale, '/')
 
@@ -45,27 +43,6 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
               ))}
             </nav>
           )}
-
-          <div className="flex flex-col gap-4 md:items-end">
-            <ThemeSelector />
-            {socialLinks.length > 0 && (
-              <ul className="flex gap-4">
-                {socialLinks.map((item, i) => (
-                  <li key={i}>
-                    <a
-                      href={item.url ?? '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                      aria-label={item.platform ?? 'Social link'}
-                    >
-                      {item.platform}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
         </div>
 
         {legalLine && (
