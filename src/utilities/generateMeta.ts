@@ -6,10 +6,19 @@ import { mergeOpenGraph } from './mergeOpenGraph'
 import { getCachedGlobal } from './getGlobals'
 import { getServerSideURL } from './getURL'
 
-const DEFAULT_OG_IMAGE = '/website-template-OG.webp'
+const DEFAULT_OG_IMAGE = '/og-default.jpg'
 const FALLBACK_SITE_NAME = 'Souskai'
 
 type MetaDoc = Partial<Page> | Partial<Post> | Partial<Service> | null
+type MetaCollection = 'pages' | 'posts' | 'services'
+
+const pathForDoc = (doc: MetaDoc, collection?: MetaCollection): string => {
+  const slug = typeof doc?.slug === 'string' ? doc.slug : ''
+  if (collection === 'posts') return `/posts/${slug}`
+  if (collection === 'services') return `/services/${slug}`
+  if (!slug || slug === 'home') return '/'
+  return `/${slug}`
+}
 
 const resolveImageUrl = (
   image: Media | SiteSetting['ogImage'] | number | null | undefined,
@@ -22,8 +31,11 @@ const resolveImageUrl = (
   return undefined
 }
 
-export const generateMeta = async (args: { doc: MetaDoc }): Promise<Metadata> => {
-  const { doc } = args
+export const generateMeta = async (args: {
+  doc: MetaDoc
+  collection?: MetaCollection
+}): Promise<Metadata> => {
+  const { doc, collection } = args
 
   const serverUrl = getServerSideURL()
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
@@ -38,18 +50,25 @@ export const generateMeta = async (args: { doc: MetaDoc }): Promise<Metadata> =>
 
   const ogImage = docImage ? serverUrl + docImage : serverUrl + defaultImage
 
-  const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
+  const metaTitle = doc?.meta?.title?.trim()
+  const title = !metaTitle
+    ? siteName
+    : metaTitle.toLowerCase().includes(siteName.toLowerCase())
+      ? metaTitle
+      : `${metaTitle} | ${siteName}`
 
   const description = doc?.meta?.description || siteDescription
+  const url = `${serverUrl}${pathForDoc(doc, collection)}`
 
   return {
     description,
+    alternates: { canonical: url },
     openGraph: await mergeOpenGraph({
       description,
       images: [{ url: ogImage }],
       siteName,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url,
     }),
     title,
   }

@@ -42,6 +42,7 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
       { loc: `${SITE_URL}${getLocalizedPath(locale, '/search')}`, lastmod: dateFallback },
       { loc: `${SITE_URL}${getLocalizedPath(locale, '/posts')}`, lastmod: dateFallback },
       { loc: `${SITE_URL}${getLocalizedPath(locale, '/work')}`, lastmod: dateFallback },
+      { loc: `${SITE_URL}${getLocalizedPath(locale, '/services')}`, lastmod: dateFallback },
     )
 
     if (results.docs) {
@@ -51,6 +52,30 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
         entries.push({
           loc: `${SITE_URL}${getLocalizedPath(locale, path)}`,
           lastmod: page.updatedAt || dateFallback,
+        })
+      }
+    }
+
+    const services = await payload.find({
+      collection: 'services',
+      locale,
+      overrideAccess: false,
+      draft: false,
+      depth: 0,
+      limit: 1000,
+      pagination: false,
+      where: {
+        _status: { equals: 'published' },
+      },
+      select: { slug: true, updatedAt: true },
+    })
+
+    if (services.docs) {
+      for (const service of services.docs) {
+        if (!service?.slug) continue
+        entries.push({
+          loc: `${SITE_URL}${getLocalizedPath(locale, `/services/${service.slug}`)}`,
+          lastmod: service.updatedAt || dateFallback,
         })
       }
     }

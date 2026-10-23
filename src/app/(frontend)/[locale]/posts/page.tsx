@@ -7,6 +7,7 @@ import { getCachedPosts, POSTS_PER_PAGE } from '@/utilities/getCachedPosts'
 import { getTranslations } from '@/i18n/translations'
 import { isValidLocale, type Locale } from '@/i18n/config'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { pageMeta } from '@/utilities/pageMeta'
 import type { SiteSetting } from '@/payload-types'
 import React from 'react'
 
@@ -54,7 +55,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
-  return {
+  return pageMeta({
     title: `Posts | ${siteSettings?.siteName || 'Souskai'}`,
-  }
+    path: '/posts',
+  })
 }
