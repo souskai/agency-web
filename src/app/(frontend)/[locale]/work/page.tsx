@@ -5,6 +5,7 @@ import { WorkProjects } from '@/components/WorkProjects'
 import { getTranslations } from '@/i18n/translations'
 import { isValidLocale, type Locale } from '@/i18n/config'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { pageMeta } from '@/utilities/pageMeta'
 import { getCachedProjects } from '@/utilities/getCachedProjects'
 import type { SiteSetting } from '@/payload-types'
 
@@ -37,7 +38,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
-  return {
+  return pageMeta({
     title: `Work | ${siteSettings?.siteName || 'Souskai'}`,
-  }
+    path: '/work',
+  })
 }

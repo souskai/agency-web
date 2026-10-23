@@ -8,6 +8,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { isValidLocale, type Locale } from '@/i18n/config'
 import { getTranslations } from '@/i18n/translations'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { pageMeta } from '@/utilities/pageMeta'
 import { getCachedServices } from '@/utilities/getCachedServices'
 
 import PageClient from './page.client'
@@ -38,8 +39,9 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const t = getTranslations(locale)
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
 
-  return {
+  return pageMeta({
     title: `${t.services.title} | ${siteSettings?.siteName || 'Souskai'}`,
     description: t.services.intro,
-  }
+    path: '/services',
+  })
 }

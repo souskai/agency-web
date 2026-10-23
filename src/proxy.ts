@@ -20,7 +20,9 @@ export function proxy(request: NextRequest) {
     pathname.includes('/api/') ||
     pathname.startsWith('/favicon') ||
     pathname.startsWith('/next/') ||
-    /\.(ico|png|jpg|jpeg|gif|svg|webp|woff2?)$/.test(pathname)
+    pathname.startsWith('/manifest') ||
+    pathname === '/robots.txt' ||
+    /\.(ico|png|jpg|jpeg|gif|svg|webp|woff2?|xml|txt)$/.test(pathname)
   ) {
     return NextResponse.next()
   }

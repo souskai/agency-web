@@ -15,48 +15,28 @@ export const Logo = (props: Props) => {
     <div className={cn('flex items-center gap-2 max-w-56.25 w-full h-10', className)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 80 80"
+        viewBox="-71.83 -71.29 720 720"
         fill="none"
         role="img"
         aria-label="SousKai web development agency logo"
-        className="h-full w-auto shrink-0"
+        className="h-full w-auto shrink-0 text-brand-600 dark:text-brand-400"
       >
-        {/* Hexagonal badge */}
+        {/* Bolt / slash */}
         <path
-          d="M40 12 L66 27 L66 53 L40 68 L14 53 L14 27 Z"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-          fill="none"
+          d="M386.44 0.2 C376.25 48.98 320.54 243.21 324.27 264.99 C324.92 268.75 334.11 283.5 336.3 288.71 C338.14 293.05 322.07 316.77 320.04 320.76 L189.91 577.21 C197.32 548.01 264.39 285.53 264.11 284.75 C260.8 275.59 255.15 266.21 252.08 257.09 C251.09 254.17 313.26 136.51 318.59 126 C326.06 111.29 378.74 0.2 386.44 0.2 Z"
+          fill="currentColor"
         />
 
-        {/* Left code bracket */}
+        {/* Right bracket */}
         <path
-          d="M32 34 L26 40 L32 46"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
+          d="M386.42 152.58 L575.14 260.99 L575.14 333.26 L386.42 441.67 L388.43 369.39 L510.89 293.11 L386.42 224.85 Z"
+          fill="currentColor"
         />
 
-        {/* Right code bracket */}
+        {/* Left bracket */}
         <path
-          d="M48 34 L54 40 L48 46"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-        />
-
-        {/* Forward slash */}
-        <path
-          d="M44 34 L36 46"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          fill="none"
+          d="M189.91 441.67 L1.2 333.26 L1.2 260.99 L189.91 152.58 L187.9 224.85 L65.44 301.14 L189.91 369.39 Z"
+          fill="currentColor"
         />
       </svg>
 
