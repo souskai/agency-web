@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { fontDisplay, fontMono, fontSans } from '@/config/fonts'
 import { cn } from '@/utilities/ui'
@@ -15,8 +15,64 @@ import type { SiteSetting } from '@/payload-types'
 
 import './globals.css'
 
+const FALLBACK_SITE_NAME = 'Souskai'
+
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
+}
+
+/**
+ * Real profile URLs only. A bare domain (`https://x.com`) shipped as `sameAs`
+ * in structured data is worse than shipping none.
+ */
+const collectSameAs = (links: SiteSetting['socialLinks']): string[] =>
+  (links ?? [])
+    .map((link) => link?.url)
+    .filter((url): url is string => {
+      if (!url) return false
+      try {
+        const { hostname, pathname } = new URL(url)
+        return hostname.includes('.') && pathname.replace(/\/+$/, '').length > 0
+      } catch {
+        return false
+      }
+    })
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
+  const siteName = siteSettings?.siteName || FALLBACK_SITE_NAME
+  const serverUrl = getServerSideURL()
+  const sameAs = collectSameAs(siteSettings?.socialLinks)
+
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: siteName,
+      url: serverUrl,
+      logo: `${serverUrl}/icon-512.png`,
+      ...(sameAs.length ? { sameAs } : {}),
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: siteName,
+      url: serverUrl,
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${serverUrl}/search?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ]
+
   const favicon =
     siteSettings?.favicon &&
     typeof siteSettings.favicon === 'object' &&
@@ -32,6 +88,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head>
         <InitTheme />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, '\\u003c'),
+          }}
+        />
         {favicon ? (
           <link href={favicon} rel="icon" />
         ) : (
@@ -65,6 +127,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: await mergeOpenGraph(),
     twitter: {
       card: 'summary_large_image',
+      site: twitterCreator,
       creator: twitterCreator,
     },
   }

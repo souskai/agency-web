@@ -1503,16 +1503,12 @@ export const seed = async ({
     data: {
       siteName: 'Souskai',
       siteDescription:
-        'We engineer modern, type-safe web platforms using Payload CMS and Next.js. We open-sourced the code running this exact site to prove our standards.',
+        'We build type-safe Payload CMS + Next.js platforms you own outright — schema, database, code. Engineering-led, open source, built to last.',
       contactEmail: 'info@souskai.com',
       contactPhone: '+1 (758) 721-3630',
       address: 'Saint Lucia\nAtlanta, USA\nToronto, Canada',
-      socialLinks: [
-        { platform: 'twitter', url: 'https://x.com' },
-        { platform: 'linkedin', url: 'https://linkedin.com' },
-        { platform: 'github', url: 'https://github.com' },
-        { platform: 'instagram', url: 'https://instagram.com' },
-      ],
+      socialLinks: [{ platform: 'github', url: 'https://github.com/souskai/agency-web' }],
+      twitterHandle: 'tenderiot',
     },
   })
 
