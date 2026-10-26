@@ -37,6 +37,7 @@ export const mergeOpenGraph = async (
 
   return {
     type: 'website',
+    locale: 'en_US',
     description,
     siteName,
     title: siteName,

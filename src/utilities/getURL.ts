@@ -1,11 +1,13 @@
 import canUseDOM from './canUseDOM'
 
+const normalize = (url: string) => url.trim().replace(/\/+$/, '')
+
 export const getServerSideURL = () => {
-  return (
+  return normalize(
     process.env.NEXT_PUBLIC_SERVER_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : 'http://localhost:3000')
+      (process.env.VERCEL_PROJECT_PRODUCTION_URL
+        ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+        : 'http://localhost:3000'),
   )
 }
 
@@ -19,8 +21,8 @@ export const getClientSideURL = () => {
   }
 
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    return normalize(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
   }
 
-  return process.env.NEXT_PUBLIC_SERVER_URL || ''
+  return normalize(process.env.NEXT_PUBLIC_SERVER_URL || '')
 }
