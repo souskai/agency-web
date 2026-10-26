@@ -11,7 +11,7 @@ interface Props {
   url: string
 }
 
-/** Extract locale from URL path like /about (en) or /bg/posts/slug (bg) */
+/** Extract locale from URL path (e.g. /about); falls back to the default locale */
 function getLocaleFromUrl(url: string): Locale {
   const segments = url.replace(/^\//, '').split('/').filter(Boolean)
   const first = segments[0]

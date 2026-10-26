@@ -24,7 +24,7 @@ type Args = {
 export async function generateStaticParams() {
   try {
     const payload = await getPayload({ config: configPromise })
-    const locales: Locale[] = ['en', 'bg']
+    const locales: Locale[] = ['en']
     const allParams: { locale: string; slug: string }[] = []
 
     for (const locale of locales) {

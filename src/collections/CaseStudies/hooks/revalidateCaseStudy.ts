@@ -17,7 +17,6 @@ export const revalidateCaseStudy: CollectionAfterChangeHook<CaseStudy> = ({
 
       revalidatePath(path)
       revalidatePath('/work')
-      revalidatePath('/bg/work')
       revalidateTag('case-studies-sitemap', 'max')
       revalidateTag('case-studies-list', 'max')
       revalidateTag(`case-studies_${doc.slug}`, 'max')
@@ -31,7 +30,6 @@ export const revalidateCaseStudy: CollectionAfterChangeHook<CaseStudy> = ({
 
       revalidatePath(oldPath)
       revalidatePath('/work')
-      revalidatePath('/bg/work')
       revalidateTag('case-studies-sitemap', 'max')
       revalidateTag('case-studies-list', 'max')
       revalidateTag(`case-studies_${previousDoc.slug}`, 'max')
@@ -54,7 +52,6 @@ export const revalidateDelete: CollectionAfterDeleteHook<CaseStudy> = ({
 
     revalidatePath(path)
     revalidatePath('/work')
-    revalidatePath('/bg/work')
     revalidateTag('case-studies-sitemap', 'max')
     revalidateTag('case-studies-list', 'max')
     if (doc?.slug) revalidateTag(`case-studies_${doc.slug}`, 'max')

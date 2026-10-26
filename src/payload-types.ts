@@ -128,7 +128,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('en' | 'bg') | ('en' | 'bg')[];
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | 'en' | 'en'[];
   globals: {
     header: Header;
     footer: Footer;
@@ -141,7 +141,7 @@ export interface Config {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
     'services-page': ServicesPageSelect<false> | ServicesPageSelect<true>;
   };
-  locale: 'en' | 'bg';
+  locale: 'en';
   widgets: {
     collections: CollectionsWidget;
   };

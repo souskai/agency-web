@@ -19,11 +19,6 @@ const redirects = async () => {
       destination: '/services/ux-ui-design',
       permanent: true,
     },
-    {
-      source: '/bg/design-system',
-      destination: '/bg/services/ux-ui-design',
-      permanent: true,
-    },
   ]
 
   return redirects
