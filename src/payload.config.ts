@@ -5,7 +5,6 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 import { en } from '@payloadcms/translations/languages/en'
-// import { bg } from '@payloadcms/translations/languages/bg' // Uncomment for admin UI in Bulgarian
 
 import { Awards } from './collections/Awards'
 import { CaseStudies } from './collections/CaseStudies'
@@ -42,7 +41,6 @@ export default buildConfig({
   localization: {
     locales: [
       { label: 'English', code: 'en' },
-      { label: 'Bulgarian', code: 'bg' },
     ],
     defaultLocale: 'en',
     fallback: true,

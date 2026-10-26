@@ -55,56 +55,6 @@ export const translations = {
       minRead: 'min read',
     },
   },
-  bg: {
-    nav: {
-      posts: 'Публикации',
-      search: 'Търсене',
-      home: 'Начало',
-    },
-    posts: {
-      title: 'Прозрения',
-      pageTitle: 'Страница',
-      pagination: 'Страница {current} от {total}',
-      noResults: 'Няма намерени публикации.',
-    },
-    search: {
-      title: 'Търсене',
-      placeholder: 'Търсене...',
-      noResults: 'Няма намерени резултати.',
-    },
-    services: {
-      related: 'Свързани услуги',
-      title: 'Услуги',
-      intro: 'От стратегия до стартиране — разгледайте какво създаваме и как го изграждаме.',
-      noResults: 'Няма намерени услуги.',
-    },
-    work: {
-      title: 'Работа',
-      intro: 'Предишни, настоящи и бъдещи проекти — записът на това, което изграждаме.',
-      featured: 'Избрано',
-      previous: 'Предишен',
-      current: 'Настоящ',
-      future: 'Бъдещ',
-    },
-    designSystem: {
-      title: 'Дизайн система',
-      intro:
-        'Живите дизайн токени, които оформят този сайт — цвят, типография, радиус, сянка и движение. Всяка стойност се чете от работещия CSS, така че тази страница не може да се размине с реалната тема.',
-      liveNote: 'Превключете светла/тъмна тема в хедъра — всяка стойност по-долу се преизчислява от живите токени.',
-      colorsTitle: 'Цветове',
-      colorsSemantic: 'Семантични роли (shadcn/ui)',
-      typographyTitle: 'Типография',
-      typeScaleTitle: 'Мащаб на типографията',
-      radiusTitle: 'Радиус',
-      shadowsTitle: 'Сенки',
-      motionTitle: 'Движение',
-      componentsTitle: 'Компоненти',
-    },
-    common: {
-      readMore: 'Прочети още',
-      minRead: 'мин четене',
-    },
-  },
 } satisfies Record<Locale, Record<string, Record<string, string>>>
 
 export type TranslationKey = keyof (typeof translations)['en']

@@ -75,7 +75,7 @@ export async function generateStaticParams() {
     })
 
     const totalPages = Math.ceil(totalDocs / POSTS_PER_PAGE)
-    const locales: Locale[] = ['en', 'bg']
+    const locales: Locale[] = ['en']
     const pages: { locale: string; pageNumber: string }[] = []
 
     for (const locale of locales) {

@@ -6,8 +6,8 @@ import { defaultLocale, locales } from '@/i18n/config'
 /**
  * Proxy for locale-aware routing:
  * - Default locale (en) has no URL prefix: /, /about, /posts
- * - Secondary locales use prefix: /bg, /bg/za-nas
  * - Redirects /en and /en/* to /* so users never see /en in the URL
+ * - Redirects legacy /bg and /bg/* to /* (Bulgarian locale removed)
  * - Rewrites / and /* (without locale) to /en/* so [locale] routes receive the request
  */
 export function proxy(request: NextRequest) {
@@ -34,6 +34,12 @@ export function proxy(request: NextRequest) {
   // Redirect /en and /en/* to /* (hide default locale from URL)
   if (firstSegment === defaultLocale) {
     const pathWithoutLocale = pathname === `/${defaultLocale}` ? '/' : pathname.slice(`/${defaultLocale}`.length) || '/'
+    return NextResponse.redirect(new URL(pathWithoutLocale, request.url), 308)
+  }
+
+  // Redirect legacy /bg and /bg/* to /* (Bulgarian locale removed)
+  if (firstSegment === 'bg') {
+    const pathWithoutLocale = pathname === '/bg' ? '/' : pathname.slice('/bg'.length) || '/'
     return NextResponse.redirect(new URL(pathWithoutLocale, request.url), 308)
   }
 
