@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
+import { hasRole } from '@/access/hasRole'
 import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
 
 const socialPlatformOptions = [
@@ -15,6 +16,7 @@ export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   access: {
     read: () => true,
+    update: hasRole(['admin', 'editor']),
   },
   fields: [
     {

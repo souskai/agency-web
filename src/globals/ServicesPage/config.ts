@@ -25,10 +25,13 @@ import { hero } from '@/heros/config'
 
 import { revalidateServicesPage } from './hooks/revalidateServicesPage'
 
+import { hasRole } from '@/access/hasRole'
+
 export const ServicesPage: GlobalConfig = {
   slug: 'services-page',
   access: {
     read: () => true,
+    update: hasRole(['admin', 'editor']),
   },
   fields: [
     {

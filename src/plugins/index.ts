@@ -14,6 +14,10 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
+import { hasRole } from '@/access/hasRole'
+import { formSpamGuard } from '@/hooks/formSpamGuard'
+import { beforeEmail } from './formHooks/beforeEmail'
+
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Souskai` : 'Souskai'
 }
@@ -69,6 +73,11 @@ export const plugins: Plugin[] = [
     fields: {
       payment: false,
     },
+    // Fallback recipient when a form's `emails` array is empty. The contact
+    // form's outbound email is built in code (see `beforeEmail`) so the
+    // envelope stays pinned to env instead of DB rows that drift.
+    defaultToEmail: process.env.CONTACT_NOTIFICATION_EMAIL,
+    beforeEmail,
     formOverrides: {
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -88,6 +97,24 @@ export const plugins: Plugin[] = [
           }
           return field
         })
+      },
+    },
+    formSubmissionOverrides: {
+      access: {
+        // Public create (spam-guarded in beforeValidate), but leads are PII:
+        // only staff read them; nobody updates them; only admins delete.
+        create: () => true,
+        read: hasRole(['admin', 'editor']),
+        update: () => false,
+        delete: hasRole(['admin']),
+      },
+      hooks: {
+        beforeValidate: [formSpamGuard],
+      },
+      admin: {
+        group: 'Leads',
+        useAsTitle: 'form',
+        defaultColumns: ['form', 'createdAt'],
       },
     },
   }),

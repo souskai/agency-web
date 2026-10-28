@@ -31,6 +31,9 @@ export const Textarea: React.FC<
         defaultValue={defaultValue}
         id={name}
         rows={rows}
+        className="min-h-[10rem]"
+        aria-invalid={Boolean(errors[name])}
+        aria-describedby={errors[name] ? `${name}-error` : undefined}
         {...register(name, { required: required })}
       />
 
