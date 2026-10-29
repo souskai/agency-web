@@ -4,8 +4,11 @@ const BeforeLogin: React.FC = () => {
   return (
     <div>
       <p>
-        <b>Welcome to your dashboard!</b>
-        {' This is where site admins will log in to manage your website.'}
+        <b>Souskai — CMS dashboard.</b>
+      </p>
+      <p>
+        Client accounts are read-only: browse collections and preview pages freely. Publishing is
+        reserved for the team.
       </p>
     </div>
   )
