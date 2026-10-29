@@ -6,6 +6,16 @@ import { headers } from 'next/headers'
 export const maxDuration = 60 // This function can run for a maximum of 60 seconds
 
 export async function POST(): Promise<Response> {
+  // Destructive gate: seed() deletes 17 collections and re-creates every doc with
+  // a new ID (see .clinerules Rule #17). Opt-in required; never against prod by default.
+  if (process.env.SEED_ALLOW_DESTRUCTIVE !== 'true') {
+    return new Response('Seeding is disabled. Set SEED_ALLOW_DESTRUCTIVE=true to enable.', { status: 403 })
+  }
+
+  if (process.env.VERCEL_ENV === 'production' && process.env.ALLOW_PROD_SEED !== 'true') {
+    return new Response('Seeding production is disabled.', { status: 403 })
+  }
+
   const payload = await getPayload({ config })
   const requestHeaders = await headers()
 
