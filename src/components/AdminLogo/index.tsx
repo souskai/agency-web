@@ -4,7 +4,7 @@ import React from 'react'
  * Custom logo for the Payload admin login screen.
  *
  * Colors are driven by the brand tokens in `src/app/(payload)/custom.scss`
- * (`--color-success-600` for the mark, `--color-warning-*` for the wordmark
+ * (`--color-success-600` for the mark, `--color-brand-*` for the wordmark
  * and tagline), keeping the admin in sync with the design system. Replaces
  * Payload's default logo via `admin.components.graphics.Logo`.
  */
@@ -30,12 +30,12 @@ const AdminLogo: React.FC = () => {
             fontSize: '3rem',
             fontWeight: 600,
             letterSpacing: '-0.02em',
-            color: 'var(--color-warning-500)',
+            color: 'var(--color-brand-500)',
           }}
         >
           Souskai
         </span>
-        <span style={{ fontSize: '1.5rem', color: 'var(--color-warning-350)' }}>
+        <span style={{ fontSize: '1.5rem', color: 'var(--color-brand-400)' }}>
           {'Custom Web & Mobile Development'}
         </span>
       </div>
