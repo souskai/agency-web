@@ -40,8 +40,8 @@ export const Select: React.FC<
 
           return (
             <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
-              <SelectTrigger className="w-full" id={name}>
-                <SelectValue placeholder={label} />
+              <SelectTrigger className="min-h-12 w-full" id={name}>
+                <SelectValue placeholder="Select an option" />
               </SelectTrigger>
               <SelectContent>
                 {options.map(({ label, value }) => {

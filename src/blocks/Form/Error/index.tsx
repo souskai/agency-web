@@ -11,7 +11,7 @@ export const Error = ({ name }: { name: string }) => {
     <div
         id={`${name}-error`}
         role="alert"
-        className="mt-2 text-red-500 text-sm"
+        className="text-sm text-destructive"
       >
         {(errors[name]?.message as string) || 'This field is required'}
       </div>

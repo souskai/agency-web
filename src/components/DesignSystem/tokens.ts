@@ -75,7 +75,13 @@ export const colorRamps: { name: string; swatches: Swatch[] }[] = [
   {
     name: 'Warning',
     swatches: [
+      { label: 'warning-50', className: 'bg-warning-50', token: '--warning-50' },
+      { label: 'warning-100', className: 'bg-warning-100', token: '--warning-100' },
+      { label: 'warning-200', className: 'bg-warning-200', token: '--warning-200' },
+      { label: 'warning-300', className: 'bg-warning-300', token: '--warning-300' },
+      { label: 'warning-400', className: 'bg-warning-400', token: '--warning-400' },
       { label: 'warning-500', className: 'bg-warning-500', token: '--warning-500' },
+      { label: 'warning-600', className: 'bg-warning-600', token: '--warning-600' },
     ],
   },
 ]
