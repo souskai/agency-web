@@ -54,6 +54,24 @@ export const Footer: GlobalConfig = {
         description: 'e.g. © 2026 Souskai. All rights reserved.',
       },
     },
+    {
+      name: 'legalLinks',
+      type: 'array',
+      localized: true,
+      maxRows: 4,
+      admin: {
+        description: 'Legal links shown at the right of the copyright line.',
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/Footer/RowLabel#RowLabel',
+        },
+      },
+      fields: [
+        link({
+          appearances: false,
+        }),
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateFooter],

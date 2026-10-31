@@ -175,7 +175,7 @@ export const home: () => RequiredDataFromCollectionSlug<'pages'> = () => {
       ],
       eyebrow: 'Engineering-led web studio',
       description:
-        'We design and build custom websites on Payload CMS — fast, considered, and built to last. You keep your content, your data, and your code.',
+        'We design and build custom websites on Payload CMS — fast, tailored for your needs, and built to last. You keep your content, your data, and your code.',
     },
     layout,
     meta: {
