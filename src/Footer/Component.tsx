@@ -15,6 +15,7 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
 
   const columns = footerData?.columns || []
   const legalLine = footerData?.legalLine
+  const legalLinks = footerData?.legalLinks || []
 
   const homeHref = getLocalizedPath(locale, '/')
 
@@ -45,8 +46,19 @@ export async function Footer({ locale = 'en' }: { locale?: Locale }) {
           )}
         </div>
 
-        {legalLine && (
-          <p className="text-sm text-muted-foreground border-t border-border pt-6">{legalLine}</p>
+        {(legalLine || legalLinks.length > 0) && (
+          <div className="flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+            {legalLine && <p className="text-sm text-muted-foreground">{legalLine}</p>}
+            {legalLinks.length > 0 && (
+              <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+                {legalLinks.map((item, i) => (
+                  <li key={i}>
+                    <CMSLink className="hover:underline" {...item.link} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         )}
       </div>
     </footer>

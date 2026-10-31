@@ -6,6 +6,7 @@ import * as migration_20261006_123740_deconflict_kit_block_tables from './202610
 import * as migration_20261007_083431_add_services_page_layout from './20261007_083431_add_services_page_layout';
 import * as migration_20261011_073755 from './20261011_073755';
 import * as migration_20261011_101624_add_case_study_project_link from './20261011_101624_add_case_study_project_link';
+import * as migration_20261031_143000_add_footer_legal_links from './20261031_143000_add_footer_legal_links';
 
 export const migrations = [
   {
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20261011_101624_add_case_study_project_link.up,
     down: migration_20261011_101624_add_case_study_project_link.down,
     name: '20261011_101624_add_case_study_project_link'
+  },
+  {
+    up: migration_20261031_143000_add_footer_legal_links.up,
+    down: migration_20261031_143000_add_footer_legal_links.down,
+    name: '20261031_143000_add_footer_legal_links'
   },
 ];

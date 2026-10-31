@@ -79,6 +79,27 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
         })
       }
     }
+
+    const legalPages = await payload.find({
+      collection: 'legal-pages',
+      locale,
+      overrideAccess: false,
+      draft: false,
+      depth: 0,
+      limit: 1000,
+      pagination: false,
+      select: { slug: true, updatedAt: true },
+    })
+
+    if (legalPages.docs) {
+      for (const lp of legalPages.docs) {
+        if (!lp?.slug) continue
+        entries.push({
+          loc: `${SITE_URL}${getLocalizedPath(locale, `/legal-pages/${lp.slug}`)}`,
+          lastmod: lp.updatedAt || dateFallback,
+        })
+      }
+    }
   }
 
   return entries

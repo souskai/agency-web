@@ -1069,41 +1069,70 @@ export const seed = async ({
       title: 'Privacy Policy',
       slug: 'privacy-policy',
       content: lexRichText([
-        lexHeading('Privacy Policy'),
         lexParagraph(
-          'This is a placeholder privacy policy. Replace this content with your actual privacy policy before going live.',
+          'This is a temporary placeholder. Souskai is in the process of redomiciling — we plan to be organised under the laws of the State of Wyoming, with headquarters in Atlanta, Georgia. This policy will be finalised once the transition completes.',
         ),
         lexHeading('Data We Collect', 'h3'),
         lexParagraph(
-          'We collect only the data necessary to provide our services, including contact information submitted through forms.',
+          'We collect only the data you provide through our contact form, such as your name, work email, company, phone number, project type and budget range, plus the content of your message.',
         ),
         lexHeading('How We Use Your Data', 'h3'),
         lexParagraph(
-          'Your data is used solely for the purpose for which it was collected and is never sold to third parties.',
+          'Your data is used solely to respond to your enquiry and provide our services. We do not sell or rent your personal information to third parties.',
         ),
+        lexHeading('Cookies', 'h3'),
+        lexParagraph(
+          'This site uses only strictly necessary cookies for admin authentication. No tracking or analytics cookies are set for public visitors.',
+        ),
+        lexHeading('Service Providers', 'h3'),
+        lexParagraph(
+          'We rely on a small number of processors: Resend for transactional email, and Vercel with Neon for website hosting and data storage.',
+        ),
+        lexHeading('Your Rights', 'h3'),
+        lexParagraph(
+          'You may request access to, correction of, or deletion of your personal data at any time by emailing info@souskai.com.',
+        ),
+        lexHeading('Contact', 'h3'),
+        lexParagraph('Questions about this policy: email info@souskai.com.'),
       ]),
     },
     {
       title: 'Terms of Service',
       slug: 'terms-of-service',
       content: lexRichText([
-        lexHeading('Terms of Service'),
         lexParagraph(
-          'This is a placeholder terms of service. Replace this content with your actual terms before going live.',
+          'This is a temporary placeholder. Souskai is in the process of redomiciling — we plan to be organised under the laws of the State of Wyoming, with headquarters in Atlanta, Georgia. These terms will be finalised once the transition completes.',
         ),
         lexHeading('Acceptable Use', 'h3'),
         lexParagraph(
           'By using this website, you agree to use it in a lawful manner and in accordance with these terms.',
         ),
+        lexHeading('Engagements', 'h3'),
+        lexParagraph(
+          'Client work is governed by a separate written agreement covering scope, fees and timelines. These terms cover use of this website only.',
+        ),
+        lexHeading('Intellectual Property', 'h3'),
+        lexParagraph(
+          'Content on this site belongs to Souskai or its licensors. You retain ownership of your own content and data.',
+        ),
+        lexHeading('Liability', 'h3'),
+        lexParagraph(
+          "The site is provided 'as is' and 'as available'. To the maximum extent permitted by law, Souskai is not liable for indirect or consequential damages arising from use of the site.",
+        ),
+        lexHeading('Governing Law', 'h3'),
+        lexParagraph(
+          'These terms are governed by the laws of the State of Wyoming, United States (pending completion of our redomiciling), without regard to conflict-of-law principles.',
+        ),
+        lexHeading('Contact', 'h3'),
+        lexParagraph('Questions about these terms: email info@souskai.com.'),
       ]),
     },
     {
       title: 'Cookie Policy',
       slug: 'cookie-policy',
       content: lexRichText([
-        lexHeading('Cookie Policy'),
         lexParagraph(
-          'This site uses only strictly necessary cookies for admin authentication. No tracking or analytics cookies are set for public visitors.',
+          'This site uses only strictly necessary cookies for admin authentication. No tracking or analytics cookies are set for public visitors. Souskai is in the process of redomiciling to Wyoming with headquarters in Atlanta, Georgia; this policy will be finalised once the transition completes.',
         ),
       ]),
     },
@@ -1359,6 +1388,7 @@ export const seed = async ({
           {
             heading: 'Agency',
             links: [
+              { link: { type: 'custom', label: 'Work', url: '/work' } },
               { link: { type: 'custom', label: 'Insights', url: '/posts' } },
               { link: { type: 'custom', label: 'Careers', url: '/careers' } },
             ],
@@ -1388,6 +1418,17 @@ export const seed = async ({
           },
         ],
         legalLine: `© ${new Date().getFullYear()} Souskai. All rights reserved.`,
+        legalLinks: [
+          {
+            link: { type: 'custom', label: 'Terms of Service', url: '/legal-pages/terms-of-service' },
+          },
+          {
+            link: { type: 'custom', label: 'Privacy Policy', url: '/legal-pages/privacy-policy' },
+          },
+          {
+            link: { type: 'custom', label: 'Cookie Policy', url: '/legal-pages/cookie-policy' },
+          },
+        ],
       },
     }),
     payload.updateGlobal({

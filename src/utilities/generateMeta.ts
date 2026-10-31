@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import type { Media, Page, Post, Service, SiteSetting } from '../payload-types'
+import type { LegalPage, Media, Page, Post, Service, SiteSetting } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getCachedGlobal } from './getGlobals'
@@ -9,13 +9,19 @@ import { getServerSideURL } from './getURL'
 const DEFAULT_OG_IMAGE = '/og-default.jpg'
 const FALLBACK_SITE_NAME = 'Souskai'
 
-type MetaDoc = Partial<Page> | Partial<Post> | Partial<Service> | null
-type MetaCollection = 'pages' | 'posts' | 'services'
+type MetaDoc =
+  | Partial<Page>
+  | Partial<Post>
+  | Partial<Service>
+  | Partial<LegalPage>
+  | null
+type MetaCollection = 'pages' | 'posts' | 'services' | 'legal-pages'
 
 const pathForDoc = (doc: MetaDoc, collection?: MetaCollection): string => {
   const slug = typeof doc?.slug === 'string' ? doc.slug : ''
   if (collection === 'posts') return `/posts/${slug}`
   if (collection === 'services') return `/services/${slug}`
+  if (collection === 'legal-pages') return `/legal-pages/${slug}`
   if (!slug || slug === 'home') return '/'
   return `/${slug}`
 }
@@ -45,19 +51,20 @@ export const generateMeta = async (args: {
     siteSettings?.siteDescription ||
     'We engineer modern, type-safe web platforms using Payload CMS and Next.js.'
 
-  const docImage = resolveImageUrl(doc?.meta?.image)
+  const meta = (doc as Partial<Page>)?.meta
+  const docImage = resolveImageUrl(meta?.image)
   const defaultImage = resolveImageUrl(siteSettings?.ogImage) ?? DEFAULT_OG_IMAGE
 
   const ogImage = docImage ? serverUrl + docImage : serverUrl + defaultImage
 
-  const metaTitle = doc?.meta?.title?.trim()
+  const metaTitle = meta?.title?.trim()
   const title = !metaTitle
     ? siteName
     : metaTitle.toLowerCase().includes(siteName.toLowerCase())
       ? metaTitle
       : `${metaTitle} | ${siteName}`
 
-  const description = doc?.meta?.description || siteDescription
+  const description = meta?.description || siteDescription
   const url = `${serverUrl}${pathForDoc(doc, collection)}`
 
   return {
