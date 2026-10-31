@@ -137,49 +137,37 @@ export const FormBlock: React.FC<
   )
 
   return (
-    <SectionShell className="lg:max-w-[48rem]">
-      {enableIntro && introContent && !hasSubmitted && (
-        <RichText className="mb-8 lg:mb-12" data={introContent} enableGutter={false} />
-      )}
-      <div className="p-4 lg:p-6 border border-border rounded-[0.8rem]">
+    <SectionShell>
+      <div className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-border/70 bg-card/35 px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
         <FormProvider {...formMethods}>
-          {!isLoading && hasSubmitted && confirmationType === 'message' && (
-            <div role="status" aria-live="polite" tabIndex={-1}>
-              <RichText data={confirmationMessage} />
-            </div>
-          )}
-          {isLoading && !hasSubmitted && (
-            <p aria-live="polite" className="text-sm text-muted-foreground">
-              Sending, please wait…
-            </p>
-          )}
-          {error && (
-            <div
-              aria-live="polite"
-              className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-            >
-              {error.status === '429'
-                ? 'Too many submissions — please wait a minute and try again.'
-                : 'Something went wrong sending your message. Please try again or email us directly.'}
-            </div>
-          )}
-          {!hasSubmitted && (
-            <form id={formID} onSubmit={handleSubmit(onSubmit)}>
-              <div
-                aria-hidden="true"
-                className="absolute h-px w-px overflow-hidden whitespace-nowrap -left-[9999px]"
-              >
-                <label htmlFor="__honeypot">Leave this field empty</label>
-                <input
-                  id="__honeypot"
-                  name="__honeypot"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  type="text"
-                />
+          {!hasSubmitted ? (
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div className="space-y-5">
+                <p className="label w-fit">Get in touch</p>
+                {enableIntro && introContent && (
+                  <RichText
+                    className="[&_h2]:text-4xl [&_h2]:font-medium [&_h2]:tracking-tight [&_p]:max-w-md [&_p]:text-muted-foreground sm:[&_h2]:text-5xl"
+                    data={introContent}
+                    enableGutter={false}
+                  />
+                )}
+                <p className="text-sm text-muted-foreground">Fields marked * are required.</p>
               </div>
-              <input ref={startedAtInputRef} type="hidden" name="__started_at" />
-              <div className="mb-4 last:mb-0">
+              <form id={formID} onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                <div
+                  aria-hidden="true"
+                  className="absolute h-px w-px overflow-hidden whitespace-nowrap -left-[9999px]"
+                >
+                  <label htmlFor="__honeypot">Leave this field empty</label>
+                  <input
+                    id="__honeypot"
+                    name="__honeypot"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    type="text"
+                  />
+                </div>
+                <input ref={startedAtInputRef} type="hidden" name="__started_at" />
                 {formFromProps &&
                   formFromProps.fields &&
                   formFromProps.fields?.map((field, index) => {
@@ -187,27 +175,44 @@ export const FormBlock: React.FC<
                     const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
                     if (Field) {
                       return (
-                        <div className="mb-6 last:mb-0" key={index}>
-                          <Field
-                            form={formFromProps}
-                            {...field}
-                            {...formMethods}
-                            control={control}
-                            errors={errors}
-                            register={register}
-                          />
-                        </div>
+                        <Field
+                          key={index}
+                          form={formFromProps}
+                          {...field}
+                          {...formMethods}
+                          control={control}
+                          errors={errors}
+                          register={register}
+                        />
                       )
                     }
                     return null
                   })}
-              </div>
-
-              <Button form={formID} type="submit" variant="default">
-                {submitButtonLabel}
-              </Button>
-            </form>
-          )}
+                {error && (
+                  <div
+                    aria-live="polite"
+                    className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                  >
+                    {error.status === '429'
+                      ? 'Too many submissions — please wait a minute and try again.'
+                      : 'Something went wrong sending your message. Please try again or email us directly.'}
+                  </div>
+                )}
+                <Button className="h-12 w-full" form={formID} type="submit" variant="default">
+                  {submitButtonLabel}
+                </Button>
+                {isLoading && (
+                  <p aria-live="polite" className="text-sm text-muted-foreground">
+                    Sending, please wait…
+                  </p>
+                )}
+              </form>
+            </div>
+          ) : confirmationType === 'message' ? (
+            <div role="status" aria-live="polite" tabIndex={-1}>
+              <RichText data={confirmationMessage} />
+            </div>
+          ) : null}
         </FormProvider>
       </div>
     </SectionShell>
