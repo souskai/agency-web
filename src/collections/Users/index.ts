@@ -7,6 +7,7 @@ import { hasRole } from '../../access/hasRole'
 import { readOwnOrAdmin } from '../../access/readOwnOrAdmin'
 
 import { sendInvitation } from './hooks/sendInvitation'
+import { inviteUserEndpoint } from './endpoints/invite'
 
 /**
  * Roles available to authenticated admin users.
@@ -67,6 +68,13 @@ export const Users: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'email', 'roles'],
     useAsTitle: 'name',
+    components: {
+      views: {
+        list: {
+          actions: ['@/collections/Users/components/InviteUserButton#InviteUserButton'],
+        },
+      },
+    },
   },
   auth: {
     tokenExpiration: 60 * 60 * 24 * 3, // 3 days
@@ -82,8 +90,8 @@ export const Users: CollectionConfig = {
       generateEmailHTML: (args) => {
         const { token, user } = args as { token: string; user: User }
         const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-        // Payload exposes the reset-password UI at /admin/reset-password?token=<token>
-        const resetPasswordURL = `${serverUrl}/admin/reset-password?token=${token}`
+        // Payload's reset route is /admin/reset/<token> (token is a path segment).
+        const resetPasswordURL = `${serverUrl}/admin/reset/${token}`
 
         const brand = 'Agency Admin'
         const supportEmail = process.env.RESEND_FROM_ADDRESS || 'onboarding@resend.dev'
@@ -182,6 +190,7 @@ export const Users: CollectionConfig = {
       },
     },
   ],
+  endpoints: [inviteUserEndpoint],
   hooks: {
     afterChange: [sendInvitation],
   },
