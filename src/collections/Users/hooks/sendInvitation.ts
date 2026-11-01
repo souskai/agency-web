@@ -29,12 +29,27 @@ export const sendInvitation: CollectionAfterChangeHook<User> = async ({
   const brand = 'Souskai'
   const serverUrl = getServerSideURL()
 
-  // Generate a reset token WITHOUT sending Payload's default email.
-  const token = await payload.forgotPassword({
-    collection: 'users',
-    data: { email },
-    disableEmail: true,
-  })
+  // Generate a reset token WITHOUT sending Payload's default email. Pass `req`
+  // so `forgotPassword` reuses the create transaction — otherwise it opens a
+  // second transaction that can't see the not-yet-committed user row.
+  let token: string | null = null
+  try {
+    token = await payload.forgotPassword({
+      collection: 'users',
+      data: { email },
+      disableEmail: true,
+      req,
+    })
+  } catch (err) {
+    // A failed token must not roll back the user that was just created; the
+    // admin can resend the link via /admin/forgot.
+    payload.logger.error(`[invite] token generation failed for ${email}: ${String(err)}`)
+  }
+
+  if (!token) {
+    payload.logger.error(`[invite] no reset token generated for ${email}; invitation email skipped`)
+    return doc
+  }
 
   const setPasswordURL = `${serverUrl}/admin/reset/${token}`
 
