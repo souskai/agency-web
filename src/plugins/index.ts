@@ -42,6 +42,14 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts', 'services', 'case-studies'],
     overrides: {
+      access: {
+        // Redirects are live routing: only staff can write them. Read stays
+        // public because getRedirects() resolves them server-side on every visit.
+        read: () => true,
+        create: hasRole(['admin', 'editor']),
+        update: hasRole(['admin', 'editor']),
+        delete: hasRole(['admin']),
+      },
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -122,6 +130,13 @@ export const plugins: Plugin[] = [
     collections: ['posts', 'case-studies'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      access: {
+        // The search index is derived data; nobody writes it directly.
+        create: () => false,
+        read: () => true,
+        update: hasRole(['admin', 'editor']),
+        delete: hasRole(['admin']),
+      },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },

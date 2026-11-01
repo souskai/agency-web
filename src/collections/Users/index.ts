@@ -69,12 +69,14 @@ export const Users: CollectionConfig = {
     useAsTitle: 'name',
   },
   auth: {
-    tokenExpiration: 60 * 60 * 24 * 7, // 7 days
+    tokenExpiration: 60 * 60 * 24 * 3, // 3 days
     cookies: {
       sameSite: 'Lax',
       secure: process.env.NODE_ENV === 'production',
     },
     forgotPassword: {
+      // Invite/password-reset links are valid for 3 days (Payload's default is 1 hour).
+      expiration: 1000 * 60 * 60 * 24 * 3,
       // Branded HTML for the password-reset email. The default Payload
       // template works but is unbranded; we override with the agency look.
       generateEmailHTML: (args) => {
