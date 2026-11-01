@@ -36,7 +36,7 @@ export const sendInvitation: CollectionAfterChangeHook<User> = async ({
     disableEmail: true,
   })
 
-  const setPasswordURL = `${serverUrl}/admin/reset-password?token=${token}`
+  const setPasswordURL = `${serverUrl}/admin/reset/${token}`
 
   // Read-only accounts get an orientation email (what Payload is, how blocks
   // work, that the link expires); content roles get the contributor playbook.
