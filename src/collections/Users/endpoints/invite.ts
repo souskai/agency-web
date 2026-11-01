@@ -1,4 +1,5 @@
 import type { Endpoint, PayloadRequest } from 'payload'
+import { randomBytes } from 'node:crypto'
 
 const INVITABLE_ROLES = ['viewer', 'editor', 'publisher'] as const
 type InvitableRole = (typeof INVITABLE_ROLES)[number]
@@ -64,10 +65,13 @@ export const inviteUserEndpoint: Endpoint = {
         return Response.json({ error: 'A user with that email already exists' }, { status: 409 })
       }
 
-      // No `password` → Payload stores no hash/salt; only the invite link activates the account.
+      // Payload requires a password on create for auth collections, so mint a
+      // throwaway one. Nobody knows it; the invitee replaces it via the reset link.
+      const tempPassword = randomBytes(32).toString('hex')
+
       const doc = (await payload.create({
         collection: 'users',
-        data: { email: rawEmail, name, roles },
+        data: { email: rawEmail, name, roles, password: tempPassword },
         req,
         depth: 0,
       })) as { id: number; email: string; roles?: string[] | null }
