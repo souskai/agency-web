@@ -83,8 +83,33 @@ export const InviteUserButton: React.FC = () => {
       </Button>
 
       {isModalOpen(MODAL_SLUG) && (
-        <Modal closeOnBlur={false} slug={MODAL_SLUG}>
-          <div style={{ padding: 24, width: '100%', maxWidth: 400 }}>
+        <Modal
+          closeOnBlur={false}
+          htmlElement="div"
+          slug={MODAL_SLUG}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(0, 0, 0, 0.65)',
+            padding: 16,
+            zIndex: 9999,
+          }}
+        >
+          <div
+            style={{
+              width: '100%',
+              maxWidth: 420,
+              padding: 24,
+              background: 'var(--theme-elevation-50)',
+              color: 'var(--theme-text)',
+              border: '1px solid var(--theme-elevation-150)',
+              borderRadius: 12,
+              boxShadow: '0 12px 40px rgba(0, 0, 0, 0.35)',
+            }}
+          >
             <h2 style={{ margin: '0 0 16px', fontSize: 20, fontWeight: 600 }}>
               Invite a user
             </h2>
@@ -124,7 +149,7 @@ export const InviteUserButton: React.FC = () => {
               </select>
             </div>
 
-            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 24 }}>
               <Button
                 buttonStyle="secondary"
                 disabled={submitting}
