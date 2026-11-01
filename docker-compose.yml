@@ -1,31 +1,54 @@
-version: '3'
+# Local self-host stack: the Souskai web platform + a matching PostgreSQL 17
+# (Neon-compatible) you can point DATABASE_URL at if you want a bundled DB.
+#
+#   cp .env.example .env   # fill in real values
+#   docker compose up --build
+#
+# The app runs against whatever DATABASE_URL is in `.env` (Neon, or the bundled
+# `db` service via `postgres://postgres:postgres@db:5432/souskai`). Because
+# `next build` prerenders static params against a *live* database, DATABASE_URL
+# + PAYLOAD_SECRET are handed to the image build as BuildKit *secrets* (see the
+# `secrets:` block and the Dockerfile header) — never baked into the image or
+# logged. Secrets stay local: `.dockerignore` keeps `.env`, node_modules,
+# `.next`, and agent/docs state out of the build context.
 
 services:
-  payload:
-    image: node:18-alpine
+  web:
+    build:
+      context: .
+      secrets:
+        - source: DATABASE_URL
+          target: DATABASE_URL
+        - source: PAYLOAD_SECRET
+          target: PAYLOAD_SECRET
     ports:
       - '3000:3000'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
     env_file:
       - .env
+    environment:
+      NEXT_PUBLIC_SERVER_URL: http://localhost:3000
 
-  mongo:
-    image: mongo:latest
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: souskai
     ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
+      - '5432:5432'
     volumes:
-      - data:/data/db
-    logging:
-      driver: none
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d souskai']
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
-  data:
-  node_modules:
+  pgdata:
+
+secrets:
+  DATABASE_URL:
+    environment: DATABASE_URL
+  PAYLOAD_SECRET:
+    environment: PAYLOAD_SECRET

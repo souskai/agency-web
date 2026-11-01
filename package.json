@@ -1,9 +1,17 @@
 {
-  "name": "agency-website-template",
+  "name": "souskai-agency-web",
   "version": "1.0.0",
-  "description": "Website template for Payload",
+  "description": "Souskai — the production web platform behind souskai.com (Next.js 16, Payload CMS 3, PostgreSQL, Tailwind CSS 4).",
   "license": "MIT",
+  "private": true,
   "type": "module",
+  "author": "Souskai",
+  "homepage": "https://souskai.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/souskai/agency-web.git"
+  },
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "build": "pnpm generate:importmap && pnpm payload migrate && cross-env NODE_OPTIONS=--no-deprecation next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",

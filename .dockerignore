@@ -1,0 +1,49 @@
+# Never bake credentials, agent state, or build artifacts into an image layer.
+# `.env` contains production secrets (DATABASE_URL, PAYLOAD_SECRET, RESEND_API_KEY,
+# BLOB_READ_WRITE_TOKEN); it MUST NOT reach `COPY . .` in the Dockerfile.
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+# Build output & dependencies (rebuilt inside the image)
+node_modules
+.next
+.tsbuildinfo
+
+# Agentic tooling & local memory (repo-internal)
+.clinerules
+memory-bank
+memory
+docs
+AGENTS.md
+.cline
+.cursor
+.prompt-logs
+
+# Deploy / tooling state
+.vercel
+.payload-components
+.playwright-mcp
+playwright-report
+test-results
+
+# Tests (not needed to build or serve the image)
+tests
+playwright.config.ts
+vitest.config.mts
+vitest.setup.ts
+
+# Repomix / logs / scratch
+repomix-output.xml
+repomix.config.json
+.repomixignore
+.devserver.log
+*.log
+*.scratch.md
+
+# Editor / OS
+.vscode
+.idea
+.DS_Store

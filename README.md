@@ -123,6 +123,9 @@ Open `http://localhost:3000`. Create your first admin user on the onboarding scr
 | `DATABASE_URL_UNPOOLED` | PostgreSQL connection string (direct — used for migrations) |
 | `BLOB_READ_WRITE_TOKEN` / `BLOB_STORE_ID` | Object storage for media uploads |
 | `RESEND_API_KEY` / `RESEND_FROM_ADDRESS` / `RESEND_FROM_NAME` | Email delivery (password reset, invitations) |
+| `CONTACT_NOTIFICATION_EMAIL` | Destination for contact-form leads and auto-replies |
+| `PREVIEW_SECRET` | Guards the `/next/preview` draft endpoint |
+| `CRON_SECRET` | Authorizes Vercel Cron-triggered jobs |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` / `ADMIN_NAME` | For the admin bootstrap script (`pnpm tsx scripts/create-admin.ts`) |
 
 ### Seed content
@@ -158,7 +161,7 @@ The fast path. The `build` script runs database migrations automatically, so a p
 
 The codebase has no proprietary lock-in — it's standard Next.js + PostgreSQL + object storage:
 
-1. **Containerize it** — a multi-stage `Dockerfile` ships in this repo; it needs one line (`output: 'standalone'` in `next.config.js`) to produce the standalone server bundle.
+1. **Containerize it** — a multi-stage `Dockerfile` builds a standalone server bundle (`output: 'standalone'` is already set in `next.config.js`), and `docker-compose.yml` runs it against a bundled PostgreSQL 17.
 2. **Point `DATABASE_URL` at any PostgreSQL** — Neon, Amazon RDS, or a Postgres container on your own VPS (Hetzner, DigitalOcean, Coolify).
 3. **Point media at object storage** — Vercel Blob today; swap the storage adapter for S3-compatible stores (R2, S3, MinIO) when you move off it.
 
@@ -189,9 +192,19 @@ New hero styles live in `src/heros/`; section backgrounds and dividers are a dev
 
 ---
 
+## Security & data
+
+- **Leads are behind auth.** Contact-form submissions are PII: only `admin`/`editor` can read them, the public endpoint is spam-guarded, and nothing personal is ever committed.
+- **Secrets stay server-side.** `DATABASE_URL`, `PAYLOAD_SECRET`, `RESEND_API_KEY`, and friends are environment variables — no `NEXT_PUBLIC_*` carries a token, `.env` is gitignored, and a `.dockerignore` keeps it out of container images.
+- **Report vulnerabilities** via `SECURITY.md` rather than a public issue.
+
+---
+
 ## License & attribution
 
 The code in this repository is MIT-licensed (see `LICENSE`). It is built on the [Payload Website Template](https://github.com/payloadcms/payload/tree/main/templates/website); third-party dependencies and demo assets remain the property of their respective owners under their own licenses. See `THIRD_PARTY_NOTICES.md`.
+
+The "Souskai" name, logo, and brand assets are trademarks of Souskai and are not licensed under the MIT License.
 
 ---
 
