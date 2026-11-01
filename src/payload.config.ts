@@ -132,8 +132,10 @@ export default buildConfig({
   jobs: {
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
-        // Allow logged in users to execute this endpoint (default)
-        if (req.user) return true
+        // Only staff (admin/editor) may trigger jobs from the dashboard/API.
+        if (req.user?.roles?.some((role) => role === 'admin' || role === 'editor')) {
+          return true
+        }
 
         const secret = process.env.CRON_SECRET
         if (!secret) return false
