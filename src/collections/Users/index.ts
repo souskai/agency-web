@@ -7,6 +7,7 @@ import { hasRole } from '../../access/hasRole'
 import { readOwnOrAdmin } from '../../access/readOwnOrAdmin'
 
 import { sendInvitation } from './hooks/sendInvitation'
+import { notifyLogin } from './hooks/notifyLogin'
 import { inviteUserEndpoint } from './endpoints/invite'
 
 /**
@@ -193,6 +194,7 @@ export const Users: CollectionConfig = {
   endpoints: [inviteUserEndpoint],
   hooks: {
     afterChange: [sendInvitation],
+    afterLogin: [notifyLogin],
   },
   timestamps: true,
 }
