@@ -63,19 +63,35 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: '— Souskai Admin',
-      description: 'Souskai content dashboard — manage pages, posts, media and leads.',
+      description:
+        'Souskai content dashboard for managing pages, posts, services, media and incoming leads. Secure, admin-only access to the live website.',
       defaultOGImageType: 'off',
+      alternates: { canonical: '/admin' },
+      icons: {
+        icon: [
+          { url: '/favicon.svg', type: 'image/svg+xml' },
+          { url: '/favicon-48.png', sizes: '48x48', type: 'image/png' },
+        ],
+        shortcut: ['/favicon.ico'],
+        apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
+      },
       openGraph: {
-        description: 'Souskai content dashboard — manage pages, posts, media and leads.',
+        url: '/admin',
+        locale: 'en_US',
+        description:
+          'Souskai content dashboard for managing pages, posts, services, media and incoming leads. Secure, admin-only access to the live website.',
         images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: 'Souskai Admin' }],
         siteName: 'Souskai',
         type: 'website',
       },
       twitter: {
         card: 'summary_large_image',
+        site: '@tenderiot',
+        creator: '@tenderiot',
         images: ['/og-default.jpg'],
       },
       robots: { index: false, follow: false },
+      other: { 'theme-color': '#ff4d00' },
     },
     user: Users.slug,
     livePreview: {
