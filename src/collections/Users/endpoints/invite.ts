@@ -24,53 +24,61 @@ export const inviteUserEndpoint: Endpoint = {
       return Response.json({ error: 'Unauthorized' }, { status: 403 })
     }
 
-    let body: unknown
     try {
-      body = await (req as unknown as Request).json()
-    } catch {
-      return Response.json({ error: 'Invalid JSON body' }, { status: 400 })
-    }
-
-    const data = (body ?? {}) as Record<string, unknown>
-
-    const rawEmail = typeof data.email === 'string' ? data.email.trim().toLowerCase() : ''
-    if (!rawEmail || !EMAIL_RE.test(rawEmail)) {
-      return Response.json({ error: 'A valid email is required' }, { status: 400 })
-    }
-
-    const name = typeof data.name === 'string' ? data.name.trim() : ''
-
-    const rawRoles = Array.isArray(data.roles) ? data.roles : ['viewer']
-    const roles: InvitableRole[] = []
-    for (const role of rawRoles) {
-      if (isInvitableRole(role) && !roles.includes(role)) {
-        roles.push(role)
+      let body: unknown
+      try {
+        body = await (req as unknown as Request).json()
+      } catch {
+        return Response.json({ error: 'Invalid JSON body' }, { status: 400 })
       }
+
+      const data = (body ?? {}) as Record<string, unknown>
+
+      const rawEmail = typeof data.email === 'string' ? data.email.trim().toLowerCase() : ''
+      if (!rawEmail || !EMAIL_RE.test(rawEmail)) {
+        return Response.json({ error: 'A valid email is required' }, { status: 400 })
+      }
+
+      const name = typeof data.name === 'string' ? data.name.trim() : ''
+
+      const rawRoles = Array.isArray(data.roles) ? data.roles : ['viewer']
+      const roles: InvitableRole[] = []
+      for (const role of rawRoles) {
+        if (isInvitableRole(role) && !roles.includes(role)) {
+          roles.push(role)
+        }
+      }
+      if (roles.length === 0) {
+        return Response.json({ error: 'A valid role is required' }, { status: 400 })
+      }
+
+      const existing = await payload.find({
+        collection: 'users',
+        where: { email: { equals: rawEmail } },
+        limit: 1,
+        depth: 0,
+        overrideAccess: true,
+      })
+
+      if (existing.totalDocs > 0) {
+        return Response.json({ error: 'A user with that email already exists' }, { status: 409 })
+      }
+
+      // No `password` → Payload stores no hash/salt; only the invite link activates the account.
+      const doc = (await payload.create({
+        collection: 'users',
+        data: { email: rawEmail, name, roles },
+        req,
+        depth: 0,
+      })) as { id: number; email: string; roles?: string[] | null }
+
+      return Response.json({ id: doc.id, email: doc.email, roles: doc.roles }, { status: 201 })
+    } catch (err) {
+      payload.logger.error(`[invite] ${err instanceof Error ? err.message : String(err)}`)
+      return Response.json(
+        { error: err instanceof Error ? err.message : 'Invitation failed' },
+        { status: 500 },
+      )
     }
-    if (roles.length === 0) {
-      return Response.json({ error: 'A valid role is required' }, { status: 400 })
-    }
-
-    const existing = await payload.find({
-      collection: 'users',
-      where: { email: { equals: rawEmail } },
-      limit: 1,
-      depth: 0,
-      overrideAccess: true,
-    })
-
-    if (existing.totalDocs > 0) {
-      return Response.json({ error: 'A user with that email already exists' }, { status: 409 })
-    }
-
-    // No `password` → Payload stores no hash/salt; only the invite link activates the account.
-    const doc = (await payload.create({
-      collection: 'users',
-      data: { email: rawEmail, name, roles },
-      req,
-      depth: 0,
-    })) as { id: number; email: string; roles?: string[] | null }
-
-    return Response.json({ id: doc.id, email: doc.email, roles: doc.roles }, { status: 201 })
   },
 }

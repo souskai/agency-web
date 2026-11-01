@@ -56,10 +56,11 @@ export const InviteUserButton: React.FC = () => {
       const data = (await res.json().catch(() => ({}))) as {
         email?: string
         error?: string
+        errors?: Array<{ message?: string }>
       }
 
       if (!res.ok) {
-        toast.error(data.error || 'Failed to send invitation')
+        toast.error(data.error ?? data.errors?.[0]?.message ?? 'Failed to send invitation')
         return
       }
 
