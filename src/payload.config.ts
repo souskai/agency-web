@@ -51,11 +51,28 @@ export default buildConfig({
       // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
       graphics: {
+        Icon: '@/components/AdminLogo/Icon',
         Logo: '@/components/AdminLogo',
       },
     },
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    meta: {
+      titleSuffix: '— Souskai Admin',
+      description: 'Souskai content dashboard — manage pages, posts, media and leads.',
+      defaultOGImageType: 'off',
+      openGraph: {
+        description: 'Souskai content dashboard — manage pages, posts, media and leads.',
+        images: [{ url: '/og-default.jpg', width: 1200, height: 630, alt: 'Souskai Admin' }],
+        siteName: 'Souskai',
+        type: 'website',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        images: ['/og-default.jpg'],
+      },
+      robots: { index: false, follow: false },
     },
     user: Users.slug,
     livePreview: {
@@ -124,6 +141,9 @@ export default buildConfig({
   globals: [Header, Footer, SiteSettings, ServicesPage],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
+  // Used by Payload to build absolute admin metadata (metadataBase, og:image)
+  // and to seed the CSRF origin allow-list. Defaults to '' like Payload's own default.
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
   telemetry: false,
   sharp,
   typescript: {
