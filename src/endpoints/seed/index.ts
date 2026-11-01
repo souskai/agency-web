@@ -209,7 +209,6 @@ export const seed = async ({
         data: {
           name,
           logo: image1Doc.id,
-          website: `https://example.com/${name.toLowerCase().replace(/\s+/g, '-')}`,
           featured: true,
           sortOrder: i + 1,
         },
