@@ -54,6 +54,9 @@ export default buildConfig({
         Icon: '@/components/AdminLogo/Icon',
         Logo: '@/components/AdminLogo',
       },
+      logout: {
+        Button: '@/components/AdminLogout',
+      },
     },
     importMap: {
       baseDir: path.resolve(dirname),

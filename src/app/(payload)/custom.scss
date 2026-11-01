@@ -123,3 +123,31 @@
   }
 }
 
+// ── Brand-filled logout button (replaces the icon-only control) ──
+//    Fills the remaining space next to the settings gear at the bottom of
+//    the nav, brand orange (success-300) with dark text. Unlayered, so it
+//    wins over Payload's defaults.
+.admin-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-left: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 6px;
+  background: var(--theme-success-300);
+  color: #1c1c1e;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--theme-success-400);
+    color: #1c1c1e;
+  }
+}
+
