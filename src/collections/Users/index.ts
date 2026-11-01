@@ -9,6 +9,7 @@ import { readOwnOrAdmin } from '../../access/readOwnOrAdmin'
 import { sendInvitation } from './hooks/sendInvitation'
 import { notifyLogin } from './hooks/notifyLogin'
 import { inviteUserEndpoint } from './endpoints/invite'
+import { hiddenForNonAdmin } from '@/admin/visibility'
 
 /**
  * Roles available to authenticated admin users.
@@ -69,6 +70,7 @@ export const Users: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'email', 'roles'],
     useAsTitle: 'name',
+    hidden: hiddenForNonAdmin,
     components: {
       views: {
         list: {

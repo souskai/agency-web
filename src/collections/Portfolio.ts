@@ -23,6 +23,7 @@ export const Portfolio: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'mediaType', 'featured', 'publishedAt'],
     useAsTitle: 'title',
+    group: false,
   },
   fields: [
     {

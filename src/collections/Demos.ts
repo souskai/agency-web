@@ -37,6 +37,7 @@ export const Demos: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'demoType', 'status', 'sortOrder'],
     useAsTitle: 'title',
+    hidden: true,
   },
   fields: [
     {

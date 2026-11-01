@@ -15,6 +15,7 @@ import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 import { hasRole } from '@/access/hasRole'
+import { hiddenForNonStaff } from '@/admin/visibility'
 import { formSpamGuard } from '@/hooks/formSpamGuard'
 import { beforeEmail } from './formHooks/beforeEmail'
 
@@ -49,6 +50,10 @@ export const plugins: Plugin[] = [
         create: hasRole(['admin', 'editor']),
         update: hasRole(['admin', 'editor']),
         delete: hasRole(['admin']),
+      },
+      admin: {
+        // Routing infra, not content — out of the client-facing sidebar.
+        group: false,
       },
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
@@ -123,6 +128,8 @@ export const plugins: Plugin[] = [
         group: 'Leads',
         useAsTitle: 'form',
         defaultColumns: ['form', 'createdAt'],
+        // Leads are PII — only admin/editor see the group at all.
+        hidden: hiddenForNonStaff,
       },
     },
   }),
@@ -136,6 +143,10 @@ export const plugins: Plugin[] = [
         read: () => true,
         update: hasRole(['admin', 'editor']),
         delete: hasRole(['admin']),
+      },
+      admin: {
+        // Derived index; editable only via the source collections.
+        group: false,
       },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
