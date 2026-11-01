@@ -16,6 +16,7 @@ export const Customers: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'featured', 'sortOrder'],
     useAsTitle: 'name',
+    group: false,
   },
   fields: [
     {

@@ -16,6 +16,7 @@ export const Awards: CollectionConfig = {
   admin: {
     defaultColumns: ['awardName', 'year', 'projectName'],
     useAsTitle: 'awardName',
+    group: false,
   },
   fields: [
     {

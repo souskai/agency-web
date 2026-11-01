@@ -24,6 +24,7 @@ export const TeamMembers: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'role', 'sortOrder'],
     useAsTitle: 'name',
+    hidden: true,
   },
   fields: [
     {

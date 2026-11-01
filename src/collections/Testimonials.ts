@@ -16,6 +16,7 @@ export const Testimonials: CollectionConfig = {
   admin: {
     defaultColumns: ['authorName', 'company', 'featured'],
     useAsTitle: 'authorName',
+    group: false,
   },
   fields: [
     {

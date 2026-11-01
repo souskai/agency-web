@@ -16,6 +16,7 @@ export const Technologies: CollectionConfig = {
   admin: {
     defaultColumns: ['name', 'category', 'sortOrder'],
     useAsTitle: 'name',
+    group: false,
   },
   fields: [
     {

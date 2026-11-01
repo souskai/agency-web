@@ -151,3 +151,15 @@
   }
 }
 
+// ── Logout placement ──────────────────────────────────────────
+// Payload pins `nav__controls` to the sidebar bottom via `margin-top: auto`
+// (it is the last child of the flex-column `nav__wrap`, which has
+// flex-grow: 1). Dropping the auto margin moves the logout button into the
+// normal flow, directly under the last nav group. `.nav__scroll` still owns
+// scrolling, and Payload's own `.nav__controls > :first-child { margin-top:
+// 20px }` supplies the gap (SettingsMenuButton renders null when no settings
+// menu is configured, so the logout link is the first child).
+.nav__controls {
+  margin-top: 0;
+}
+
