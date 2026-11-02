@@ -69,9 +69,13 @@ export const sendInvitation: CollectionAfterChangeHook<User> = async ({
       html: invite.html,
     })
   } catch (err) {
-    // Fall back to logging the URL so the flow stays testable without Resend.
+    // Never log the reset URL in production: it embeds a live password-reset
+    // token — a leaked token is account takeover inside the 3-day window.
     payload.logger.error(`Failed to send invitation to ${email}: ${String(err)}`)
-    payload.logger.info(`Invitation URL for ${email}: ${setPasswordURL}`)
+    if (process.env.NODE_ENV !== 'production') {
+      // Local-only fallback so the flow stays testable without Resend.
+      payload.logger.info(`Invitation URL for ${email}: ${setPasswordURL}`)
+    }
   }
 
   return doc
