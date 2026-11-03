@@ -57,20 +57,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       logo: `${serverUrl}/icon-512.png`,
       ...(sameAs.length ? { sameAs } : {}),
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: siteName,
-      url: serverUrl,
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${serverUrl}/search?q={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
-      },
-    },
   ]
 
   const favicon =
@@ -124,6 +110,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: new URL(getServerSideURL()),
+    verification: {
+      // Optional second Search Console verification method (HTML tag). Emits
+      // nothing until NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION is set. Token is public
+      // by design (it also lives in a DNS TXT record).
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    },
     openGraph: await mergeOpenGraph(),
     twitter: {
       card: 'summary_large_image',

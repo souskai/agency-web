@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import React, { cache } from 'react'
 
@@ -12,8 +13,12 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { getLocalizedPath, isValidLocale, type Locale } from '@/i18n/config'
 import { getTranslations } from '@/i18n/translations'
+import { JsonLd } from '@/components/JsonLd'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getServerSideURL } from '@/utilities/getURL'
 import { generateMeta } from '@/utilities/generateMeta'
-import type { Service } from '@/payload-types'
+import { serviceSchema } from '@/utilities/structuredData'
+import type { Service, SiteSetting } from '@/payload-types'
 
 import PageClient from './page.client'
 
@@ -61,6 +66,8 @@ export default async function Service({ params: paramsPromise }: Args) {
 
   if (!service) return <PayloadRedirects url={url} />
 
+  const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
+  const siteName = siteSettings?.siteName || 'Souskai'
   const t = getTranslations(locale)
   const relatedServices = (service.relatedServices ?? []).filter(
     (related): related is Service => typeof related === 'object',
@@ -68,6 +75,7 @@ export default async function Service({ params: paramsPromise }: Args) {
 
   return (
     <article className="pb-16">
+      <JsonLd data={serviceSchema(service, getServerSideURL(), siteName)} />
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
@@ -104,6 +112,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const locale = isValidLocale(localeParam) ? localeParam : 'en'
   const decodedSlug = decodeURIComponent(slug)
   const service = await queryServiceBySlug({ slug: decodedSlug, locale })
+
+  if (!service) {
+    notFound()
+  }
 
   return generateMeta({ doc: service, collection: 'services' })
 }

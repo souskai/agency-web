@@ -95,6 +95,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const page = await getCachedLegalPage(decodedSlug, locale)
 
+  if (!page) {
+    notFound()
+  }
+
   const meta = await generateMeta({ doc: page, collection: 'legal-pages' })
   if (page?.title) {
     const siteName = meta.openGraph?.siteName || 'Souskai'

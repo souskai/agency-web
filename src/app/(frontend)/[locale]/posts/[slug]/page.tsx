@@ -5,13 +5,18 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
-import type { Post } from '@/payload-types'
+import type { Post, SiteSetting } from '@/payload-types'
 
 import { PostHero } from '@/heros/PostHero'
+import { JsonLd } from '@/components/JsonLd'
+import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getServerSideURL } from '@/utilities/getURL'
 import { generateMeta } from '@/utilities/generateMeta'
+import { articleSchema } from '@/utilities/structuredData'
 import { getLocalizedPath, isValidLocale, type Locale } from '@/i18n/config'
 
 import PageClient from './page.client'
@@ -61,8 +66,12 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
+  const siteName = siteSettings?.siteName || 'Souskai'
+
   return (
     <article className="pt-16 pb-16">
+      <JsonLd data={articleSchema(post, getServerSideURL(), siteName)} />
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
       {draft && <LivePreviewListener />}
@@ -87,6 +96,10 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const locale = isValidLocale(localeParam) ? localeParam : 'en'
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug, locale })
+
+  if (!post) {
+    notFound()
+  }
 
   return generateMeta({ doc: post, collection: 'posts' })
 }
