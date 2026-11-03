@@ -52,7 +52,11 @@ export const generateMeta = async (args: {
     'We engineer modern, type-safe web platforms using Payload CMS and Next.js.'
 
   const meta = (doc as Partial<Page>)?.meta
-  const docImage = resolveImageUrl(meta?.image)
+  const docImage =
+    resolveImageUrl(meta?.image) ||
+    // Layer 2 (deferred OG auto-populate): fall back to the post's hero image
+    // when no explicit meta.image is set.
+    (collection === 'posts' ? resolveImageUrl((doc as Partial<Post>).heroImage) : undefined)
   const defaultImage = resolveImageUrl(siteSettings?.ogImage) ?? DEFAULT_OG_IMAGE
 
   const ogImage = docImage ? serverUrl + docImage : serverUrl + defaultImage

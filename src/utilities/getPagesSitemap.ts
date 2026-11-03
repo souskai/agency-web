@@ -6,7 +6,7 @@ import { getLocalizedPath, locales } from '@/i18n/config'
 
 export type SitemapEntry = {
   loc: string
-  lastmod: string
+  lastmod?: string
 }
 
 /**
@@ -19,7 +19,6 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
 
   const payload = await getPayload({ config })
   const SITE_URL = getServerSideURL()
-  const dateFallback = new Date().toISOString()
 
   const entries: SitemapEntry[] = []
 
@@ -38,11 +37,13 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
       select: { slug: true, updatedAt: true },
     })
 
+    // List routes omit `lastmod` entirely — a `new Date()` stamp changes on every
+    // render, which teaches Google to distrust the real per-document values too.
+    // `/search` is intentionally excluded (noindex, thin query page).
     entries.push(
-      { loc: `${SITE_URL}${getLocalizedPath(locale, '/search')}`, lastmod: dateFallback },
-      { loc: `${SITE_URL}${getLocalizedPath(locale, '/posts')}`, lastmod: dateFallback },
-      { loc: `${SITE_URL}${getLocalizedPath(locale, '/work')}`, lastmod: dateFallback },
-      { loc: `${SITE_URL}${getLocalizedPath(locale, '/services')}`, lastmod: dateFallback },
+      { loc: `${SITE_URL}${getLocalizedPath(locale, '/posts')}` },
+      { loc: `${SITE_URL}${getLocalizedPath(locale, '/work')}` },
+      { loc: `${SITE_URL}${getLocalizedPath(locale, '/services')}` },
     )
 
     if (results.docs) {
@@ -51,7 +52,7 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
         const path = page.slug === 'home' ? '/' : `/${page.slug}`
         entries.push({
           loc: `${SITE_URL}${getLocalizedPath(locale, path)}`,
-          lastmod: page.updatedAt || dateFallback,
+          lastmod: page.updatedAt || undefined,
         })
       }
     }
@@ -75,7 +76,7 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
         if (!service?.slug) continue
         entries.push({
           loc: `${SITE_URL}${getLocalizedPath(locale, `/services/${service.slug}`)}`,
-          lastmod: service.updatedAt || dateFallback,
+          lastmod: service.updatedAt || undefined,
         })
       }
     }
@@ -96,7 +97,7 @@ export async function getPagesSitemap(): Promise<SitemapEntry[]> {
         if (!lp?.slug) continue
         entries.push({
           loc: `${SITE_URL}${getLocalizedPath(locale, `/legal-pages/${lp.slug}`)}`,
-          lastmod: lp.updatedAt || dateFallback,
+          lastmod: lp.updatedAt || undefined,
         })
       }
     }

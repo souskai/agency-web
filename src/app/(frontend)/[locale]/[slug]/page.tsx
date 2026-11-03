@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import React, { cache } from 'react'
 import { homeStatic } from '@/endpoints/seed/home-static'
 
@@ -95,6 +96,12 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     slug: decodedSlug,
     locale,
   })
+
+  // `home` legitimately falls back to the static home content; any other unknown
+  // slug must 404 before the streamed shell commits (fixes soft-404 / HTTP 200).
+  if (!page && decodedSlug !== 'home') {
+    notFound()
+  }
 
   return generateMeta({ doc: page, collection: 'pages' })
 }

@@ -80,8 +80,11 @@ export default async function Page({
 
 export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = (await getCachedGlobal('site-settings', 1)) as SiteSetting
-  return pageMeta({
+  const meta = await pageMeta({
     title: `Search | ${siteSettings?.siteName || 'Souskai'}`,
     path: '/search',
   })
+  // Thin, query-driven page: keep it crawlable (so Google reads the tag) but out
+  // of the index. It is also removed from getPagesSitemap.
+  return { ...meta, robots: { index: false, follow: true } }
 }
